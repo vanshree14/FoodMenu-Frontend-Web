@@ -1,130 +1,140 @@
-@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
+  // @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-// $font-prime: "Playwrite CL", cursive;
+  // @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+  // @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+  // font-family: 'Jost', sans-serif;
+  // font-family: 'Plus Jakarta Sans', sans-serif;
 
-$font-prime: "Sora", sans-serif;
-// font-family: Verdana, Arial, Helvetica, sans-serif;
-// $font-prime: "Ubuntu", sans-serif;
-$font-second: "DM Sans", sans-serif;
+  // $font-prime : 'Public Sans',
+  // sans-serif;
+  // $font-second : 'Jost',
+  // sans-serif;
+  @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
 
-// color
-$prime: #EF7F1A;
-$second: #DC2428;
-$third: rgb(187, 146, 146);
-$fourth: #F2F5FA;
-$body: #F8F8F8;
-$dark: #000000;
-$darkGray: #898b97;
-$light: #ffffff;
-$gray: #b1b1b1;
-$gray2: #dfdfdf;
-$lightGray: #f3f3f3;
-$lightBlue: #F3F6F9;
-$transparent: transparent;
-$button: #845adf;
 
-// new
-$mainBodyBg: rgb(240, 241, 247);
-$darkGraySecond: #111c43;
-$grayScroll: #8f8f8f;
-$blueActiveBg: #141e60;
-$textColorSidebar: #a3aed1;
-$paginationActive: #42b883;
-$textColorHeader: #333335;
-$textTitle: #8c9097;
+  $font-prime: "Sora", sans-serif;
+  // font-family: Verdana, Arial, Helvetica, sans-serif;
+  // $font-prime: "Ubuntu", sans-serif;
+  $font-second: "DM Sans", sans-serif;
 
-//success
-$success: #198754;
-$success-light: #D1E7DD;
 
-//blue
-$blue: #0D6EFD;
-$blue-light: #CFE2FF;
+  $prime: #EF7F1A;
+  $second: #DC2428;
+  $third: rgb(187, 146, 146);
+  $fourth: #F2F5FA;
+  $body: #F8F8F8;
+  $dark: #000000;
+  $darkGray: #898b97;
+  $light: #ffffff;
+  $gray: #b1b1b1;
+  $gray2: #dfdfdf;
+  $lightGray: #f3f3f3;
+  $lightBlue: #F3F6F9;
+  $transparent: transparent;
+  $button: #845adf;
 
-//red
-$danger: #DC3545;
-$danger-light: #F8D7DA;
-
-//yellow
-$warning: #FFC107;
-$warning-light: #FFF3CD;
-
-$themeAll : ("prime":$prime,
-  "second":$second,
-  "third":$third,
-  "fourth":$fourth,
-  "body":$body,
-  "dark":$dark,
-  "darkGray":$darkGray,
-  "light":$light,
-  "gray":$gray,
-  "gray2":$gray2,
-  "lightGray":$lightGray,
-  "transparent":$transparent,
-  "success":$success,
-  "success-light":$success-light,
-  "blue":$blue,
-  "blue-light":$blue-light,
-  "danger":$danger,
-  "danger-light":$danger-light,
-  "warning":$warning,
-  "warning-light":$warning-light,
   // new
-  "mainBodyBg":$mainBodyBg,
-  "darkGraySecond":$darkGraySecond,
-  "grayScroll":$grayScroll,
-  "blueActiveBg":$blueActiveBg,
-  "textColorSidebar":$textColorSidebar,
-  "paginationActive":$paginationActive,
-  "textTitle":$textTitle,
-  "button":$button,
-);
+  $mainBodyBg: rgb(240, 241, 247);
+  $darkGraySecond: #111c43;
+  $grayScroll: #8f8f8f;
+  $blueActiveBg: #141e60;
+  $textColorSidebar: #a3aed1;
+  $paginationActive: #42b883;
+  $textColorHeader: #333335;
+  $textTitle: #8c9097;
 
-$angles : ("top",
-  "right",
-  "bottom",
-  "left",
-);
+  //success
+  $success: #198754;
+  $success-light: #D1E7DD;
 
-$responsive : ("xsm":400,
-  "smm":450,
-  "sm":576,
-  "md":768,
-  "lg":992,
-  "xl":1200,
-  "xxl":1400,
-);
+  //blue
+  $blue: #0D6EFD;
+  $blue-light: #CFE2FF;
 
-$xsm: 400px;
-$smm: 450px;
-$sm: 576px;
-$md: 768px;
-$lg: 992px;
-$xl: 1200px;
-$xxl: 1400px;
-$suns-font: 'Source Sans 3', sans-serif;
+  //red
+  $danger: #DC3545;
+  $danger-light: #F8D7DA;
 
-$transition-3 : .3s;
-$transition-2 : .2s;
-$transition-4 : .4s;
-$transition-5 : .5s;
+  //yellow
+  $warning: #FFC107;
+  $warning-light: #FFF3CD;
 
-$prime-shadow : 0 0 12px #0f223a1f;
+  $themeAll : ("prime":$prime,
+    "second":$second,
+    "third":$third,
+    "fourth":$fourth,
+    "body":$body,
+    "dark":$dark,
+    "darkGray":$darkGray,
+    "light":$light,
+    "gray":$gray,
+    "gray2":$gray2,
+    "lightGray":$lightGray,
+    "transparent":$transparent,
+    "success":$success,
+    "success-light":$success-light,
+    "blue":$blue,
+    "blue-light":$blue-light,
+    "danger":$danger,
+    "danger-light":$danger-light,
+    "warning":$warning,
+    "warning-light":$warning-light,
+    // new
+    "mainBodyBg":$mainBodyBg,
+    "darkGraySecond":$darkGraySecond,
+    "grayScroll":$grayScroll,
+    "blueActiveBg":$blueActiveBg,
+    "textColorSidebar":$textColorSidebar,
+    "paginationActive":$paginationActive,
+    "textTitle":$textTitle,
+    "button":$button,
+  );
 
-@mixin midels($display, $jContent, $align) {
-  display: $display;
-  justify-content: $jContent;
-  align-items: $align;
-}
+  $angles : ("top",
+    "right",
+    "bottom",
+    "left",
+  );
 
-@mixin maxMediaQuery($breakpoint) {
-  @media screen and (max-width: $breakpoint) {
-    @content;
+  $responsive : ("xsm":400,
+    "smm":450,
+    "sm":576,
+    "md":768,
+    "lg":992,
+    "xl":1200,
+    "xxl":1400,
+  );
+
+  $xsm: 400px;
+  $smm: 450px;
+  $sm: 576px;
+  $md: 768px;
+  $lg: 992px;
+  $xl: 1200px;
+  $xxl: 1400px;
+  $suns-font: 'Source Sans 3', sans-serif;
+
+  $transition-3 : .3s;
+  $transition-2 : .2s;
+  $transition-4 : .4s;
+  $transition-5 : .5s;
+
+  $prime-shadow : 0 0 12px #0f223a1f;
+
+  @mixin midels($display, $jContent, $align) {
+    display: $display;
+    justify-content: $jContent;
+    align-items: $align;
   }
-}
 
-@mixin minMediaQuery($breakpoint) {
-  @media screen and (min-width: $breakpoint) {
-    @content;
+  @mixin maxMediaQuery($breakpoint) {
+    @media screen and (max-width: $breakpoint) {
+      @content;
+    }
   }
-}
+
+  @mixin minMediaQuery($breakpoint) {
+    @media screen and (min-width: $breakpoint) {
+      @content;
+    }
+  }
