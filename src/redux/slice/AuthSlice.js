@@ -1,0 +1,92 @@
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { BaseURL } from "../../utils/Config";
+import axios from "axios";
+
+const initialState = {
+    user: [],
+    otp: [],
+    userTotal: 0,
+    isLoading: false,
+    isSkeleton: false,
+};
+
+export const Register = createAsyncThunk('auth/register', async (payload) => {
+    try {
+        const response = await axios.post(`${BaseURL}auth/register`, payload);
+        return response.data;
+    } catch (error) {
+        throw (error)
+    }
+}
+);
+export const OTP = createAsyncThunk('auth/verify/otp', async (payload) => {
+    try {
+        const response = await axios.post(`${BaseURL}auth/verify/otp`, payload);
+        return response.data;
+    } catch (error) {
+        throw (error)
+    }
+}
+);
+export const login = createAsyncThunk('auth/login/email', async (payload) => {
+    try {
+        const response = await axios.post(`${BaseURL}auth/login/email`, payload);
+        return response.data;
+    } catch (error) {
+        throw (error)
+    }
+}
+);
+
+
+const authslice = createSlice({
+    name: "authslice",
+    initialState,
+    reducers: {
+
+    },
+    extraReducers: (builder) => {
+        // Register
+        builder.addCase(Register.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(Register.fulfilled, (state, action) => {
+            state.user.unshift(action.payload.user);
+            state.isLoading = false;
+        });
+        builder.addCase(Register.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // otp
+
+        builder.addCase(OTP.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(OTP.fulfilled, (state, action) => {
+            state.user.unshift(action.payload.user);
+            state.isLoading = false;
+        });
+        builder.addCase(OTP.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+        // login
+
+        builder.addCase(login.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(login.fulfilled, (state, action) => {
+            state.user.unshift(action.payload.user);
+            state.isLoading = false;
+        });
+        builder.addCase(login.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+    },
+})
+
+export default authslice.reducer
+
+
+
+

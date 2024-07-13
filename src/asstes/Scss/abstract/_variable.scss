@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
+
+// $font-prime: "Playwrite CL", cursive;
+
+$font-prime: "Sora", sans-serif;
+// font-family: Verdana, Arial, Helvetica, sans-serif;
+// $font-prime: "Ubuntu", sans-serif;
+$font-second: "DM Sans", sans-serif;
+
+// color
+$prime: #EF7F1A;
+$second: #DC2428;
+$third: rgb(187, 146, 146);
+$fourth: #F2F5FA;
+$body: #F8F8F8;
+$dark: #000000;
+$darkGray: #898b97;
+$light: #ffffff;
+$gray: #b1b1b1;
+$gray2: #dfdfdf;
+$lightGray: #f3f3f3;
+$lightBlue: #F3F6F9;
+$transparent: transparent;
+$button: #845adf;
+
+// new
+$mainBodyBg: rgb(240, 241, 247);
+$darkGraySecond: #111c43;
+$grayScroll: #8f8f8f;
+$blueActiveBg: #141e60;
+$textColorSidebar: #a3aed1;
+$paginationActive: #42b883;
+$textColorHeader: #333335;
+$textTitle: #8c9097;
+
+//success
+$success: #198754;
+$success-light: #D1E7DD;
+
+//blue
+$blue: #0D6EFD;
+$blue-light: #CFE2FF;
+
+//red
+$danger: #DC3545;
+$danger-light: #F8D7DA;
+
+//yellow
+$warning: #FFC107;
+$warning-light: #FFF3CD;
+
+$themeAll : ("prime":$prime,
+  "second":$second,
+  "third":$third,
+  "fourth":$fourth,
+  "body":$body,
+  "dark":$dark,
+  "darkGray":$darkGray,
+  "light":$light,
+  "gray":$gray,
+  "gray2":$gray2,
+  "lightGray":$lightGray,
+  "transparent":$transparent,
+  "success":$success,
+  "success-light":$success-light,
+  "blue":$blue,
+  "blue-light":$blue-light,
+  "danger":$danger,
+  "danger-light":$danger-light,
+  "warning":$warning,
+  "warning-light":$warning-light,
+  // new
+  "mainBodyBg":$mainBodyBg,
+  "darkGraySecond":$darkGraySecond,
+  "grayScroll":$grayScroll,
+  "blueActiveBg":$blueActiveBg,
+  "textColorSidebar":$textColorSidebar,
+  "paginationActive":$paginationActive,
+  "textTitle":$textTitle,
+  "button":$button,
+);
+
+$angles : ("top",
+  "right",
+  "bottom",
+  "left",
+);
+
+$responsive : ("xsm":400,
+  "smm":450,
+  "sm":576,
+  "md":768,
+  "lg":992,
+  "xl":1200,
+  "xxl":1400,
+);
+
+$xsm: 400px;
+$smm: 450px;
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+$xxl: 1400px;
+$suns-font: 'Source Sans 3', sans-serif;
+
+$transition-3 : .3s;
+$transition-2 : .2s;
+$transition-4 : .4s;
+$transition-5 : .5s;
+
+$prime-shadow : 0 0 12px #0f223a1f;
+
+@mixin midels($display, $jContent, $align) {
+  display: $display;
+  justify-content: $jContent;
+  align-items: $align;
+}
+
+@mixin maxMediaQuery($breakpoint) {
+  @media screen and (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin minMediaQuery($breakpoint) {
+  @media screen and (min-width: $breakpoint) {
+    @content;
+  }
+}
