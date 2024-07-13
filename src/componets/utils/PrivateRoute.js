@@ -6,7 +6,7 @@ const PrivateRoute = () => {
 
   const isAuth = sessionStorage.getItem("isAuth");
 
-  return isAuth ? <Outlet /> : <Navigate to="/signup" />;
+  return isAuth ? <Outlet /> : <Navigate to="/signin" />;
 };
 
 export default PrivateRoute;

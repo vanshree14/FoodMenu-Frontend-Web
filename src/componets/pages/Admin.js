@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import MenuList from './MenuList'
 import Navbar from './Navbar'
-import CategoryList from './CategoryList'
+
 
 const Admin = () => {
   return (

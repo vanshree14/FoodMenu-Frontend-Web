@@ -1,12 +1,9 @@
-
-
 import React, { useEffect, useState } from 'react';
 import mobileImg from '../../asstes/Images/Mobile-login-rafiki.png'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Register } from '../../redux/slice/AuthSlice';
-// import { BaseURL } from '../../utils/Config';
-// import { useGoogleLogin } from '@react-oauth/google';
+
 
 const Signup = () => {
     const [fullName, setFullName] = useState("");
@@ -18,12 +15,9 @@ const Signup = () => {
         password: "",
         email: "",
     });
-    const isAuth = useSelector((state) => state.user.isAuth);
     const dispatch = useDispatch();
-    useEffect(() => {
-        isAuth && navigate("/otp");
-      }, [isAuth]);
-    
+  
+
     // const googleAuth = () => {
     //     window.open( `http://192.168.1.5:5000/auth/google/callback`,"_self");
     //     // window.location.href = 'http://192.168.1.5:5000/auth/google';
@@ -58,9 +52,9 @@ const Signup = () => {
     //         console.error('Login failed:', error);
     //     },
     // });
-  
-   
-  
+
+
+
     const handleLogin = async (e) => {
         e.preventDefault();
         if (!fullName || !email || !password) {
@@ -79,8 +73,8 @@ const Signup = () => {
                 const response = await dispatch(Register(payload)).unwrap();
                 sessionStorage.setItem('user', JSON.stringify(response.user));
                 sessionStorage.setItem('otp', response.otp);
-                navigate("/otp") 
-                 alert("Otp Sent Your Email successfully")
+                navigate("/otp")
+                alert("Otp Sent Your Email successfully")
             } catch (error) {
                 alert("someThing is Missing");
             }

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import mobileImg from '../../asstes/Images/Mobile-login-rafiki.png';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/slice/AuthSlice';
 
 const SignIn = () => {
@@ -10,6 +10,11 @@ const SignIn = () => {
     const [error, setError] = useState({ email: "", password: "" });
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const isAuth = useSelector((state) => state.user.isAuth);
+    useEffect(() => {
+        isAuth && navigate("/admin");
+    }, [isAuth,navigate]);
 
     const handleLogin = async (e) => {
         e.preventDefault();

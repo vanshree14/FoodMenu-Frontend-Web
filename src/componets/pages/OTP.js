@@ -60,7 +60,7 @@ const OTP = () => {
         console.error('OTP verification error:', error);
       }
     }
-  };
+  };  
 
   return (
     <div className="MainLoginForm">
