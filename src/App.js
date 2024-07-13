@@ -10,6 +10,7 @@ import CategoryList from './componets/pages/CategoryList';
 import Otp from './componets/pages/OTP';
 
 function App() {
+  
   return (
     <div>
       <Routes>
