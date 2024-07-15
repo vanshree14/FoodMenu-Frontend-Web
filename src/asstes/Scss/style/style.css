@@ -505,7 +505,7 @@
   border-radius: 5px;
 }
 .categoryMain .MenuCategory .cardMain .card-body {
-  padding: 5px;
+  padding: 5px 10px;
   display: flex;
   gap: 5px;
   justify-content: space-between;

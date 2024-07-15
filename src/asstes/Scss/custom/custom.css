@@ -55,4 +55,564 @@ body {
     height: 35px;
     font-size: 0.7rem;
   }
+}
+
+/* ============= Dialog CSS ============= */
+.dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4196078431);
+  z-index: 99;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+}
+.dialog .mainDiaogBox {
+  background-color: #fff;
+  padding: 20px;
+  max-height: 70vh;
+  overflow: auto;
+  border-radius: 20px;
+  box-shadow: none;
+}
+.dialog .mainDiaogBox .formBody {
+  max-height: 600px;
+  overflow: auto;
+}
+.dialog .mainDiaogBox .formBody > div {
+  margin-bottom: 10px;
+}
+.dialog .mainDiaogBox .closeButton {
+  font-size: 20px;
+  background-color: #DC3545;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  color: #fff;
+  margin-left: auto;
+  cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+  .dialog .mainDiaogBox h2 {
+    font-size: 20px;
+  }
+  .dialog .mainDiaogBox .closeButton {
+    font-size: 20px;
+    height: 25px;
+    width: 25px;
+  }
+}
+.dialog .cancle_btn {
+  padding: 9px 23px;
+  font-size: 15px;
+  background: #DC3545;
+  background: rgb(156, 156, 156);
+  border-radius: 10px;
+  border: none;
+  color: #ffffff;
+}
+.dialog .submit_btn {
+  padding: 9px 23px;
+  font-size: 15px;
+  background: #198754;
+  border-radius: 10px;
+  border: none;
+  color: #ffffff;
+}
+
+.inputData {
+  font-size: 20px;
+  position: relative;
+  text-align: start;
+  /*Tablate Device*/
+  /* Image Input */
+  /* Normal Select */
+  /* Input Select */
+  /*Text Area*/
+}
+.inputData .errorMessage {
+  margin-top: 0px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: red;
+}
+@media screen and (max-width: 768px) {
+  .inputData .errorMessage {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .inputData .errorMessage {
+    font-size: 12px;
+  }
+}
+.inputData input:invalid ~ .errorMessage {
+  color: red;
+  display: block;
+}
+.inputData label {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 18.15px;
+  font-family: "Sora", sans-serif;
+  font-weight: 500;
+  color: #7e7e7e;
+}
+@media screen and (max-width: 576px) {
+  .inputData label {
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 992px) {
+  .inputData {
+    font-size: 16px;
+  }
+}
+.inputData .multiImage {
+  max-height: 200px;
+  overflow: auto;
+}
+.inputData .multiImage > div[data-index=index] {
+  width: 100px;
+  height: 100px;
+  margin: 20px;
+  margin-left: 0;
+  position: relative;
+}
+.inputData .multiImage > div[data-index=index] > div[data-remove=remove] {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 20px;
+  height: 20px;
+  background-color: #000000;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.inputData .multiImage > div[data-index=index] img[data-class=showImage] {
+  margin-top: 0;
+}
+.inputData img[data-class=showImage] {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  margin-left: 0;
+  margin-top: 10px;
+}
+.inputData .selectMain {
+  position: relative;
+  display: inline;
+  width: 100%;
+}
+.inputData .selectMain .selectBox {
+  border: 1px solid #e5e5e5;
+  outline: 0;
+  box-shadow: none;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 500;
+  color: #6c6c6c;
+  height: 46px;
+  background-color: transparent;
+  font-family: "Sora", sans-serif;
+  padding: 10px 20px;
+  border-radius: 50px;
+  margin-top: 5px !important;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  text-align: start;
+}
+.inputData .selectMain .selectBox .showSelectValue p {
+  display: block;
+  margin-bottom: 0 !important;
+}
+.inputData .selectMain .selectBox .showSelectValue input {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .inputData .selectMain .selectBox {
+    font-size: 12px;
+    padding: 5px;
+  }
+}
+.inputData .selectMain .selectBox::after {
+  display: none;
+}
+.inputData .selectMain .selectBox:focus {
+  outline: none;
+}
+.inputData .selectMain ul {
+  width: 100%;
+  position: absolute;
+  top: calc(100% - 5px);
+  margin: 0px;
+  z-index: 1;
+  background-color: #ffffff;
+  box-shadow: 0 0 12px rgba(15, 34, 58, 0.1215686275);
+}
+.inputData .selectMain ul.topSide {
+  bottom: 100%;
+  top: auto;
+}
+.inputData .selectMain ul.bottomSide {
+  bottom: auto;
+  padding-left: 0px !important;
+}
+.inputData .selectMain ul li {
+  font-size: 16px;
+  padding: 3px 18px;
+  cursor: pointer;
+}
+.inputData .selectMain ul li:first-child {
+  display: none;
+}
+.inputData .selectMain ul li:hover {
+  background-color: #DC3545;
+  color: #ffffff;
+}
+@media screen and (max-width: 768px) {
+  .inputData .selectMain ul li {
+    font-size: 14px;
+  }
+}
+.inputData .multiSelectionDisplay {
+  padding: 4px 12px;
+  display: inline-flex;
+  align-items: center;
+  margin: 5px 5px;
+}
+.inputData.inputSelect .selectMain {
+  width: 100%;
+  margin-top: 10px;
+  display: block;
+}
+@media screen and (max-width: 576px) {
+  .inputData.inputSelect .selectMain {
+    margin-top: 3px;
+  }
+}
+.inputData.inputSelect .selectMain .selectBox {
+  border: none;
+  background-color: #f3f3f3;
+  padding: 7px 10px 7px 20px;
+}
+.inputData.inputSelect .selectMain .selectBox input:focus {
+  outline: none;
+}
+.inputData.inputSelect .selectMain .selectBox .showSelectValue p {
+  display: none;
+  margin-bottom: 0 !important;
+}
+.inputData.inputSelect .selectMain .selectBox .showSelectValue input {
+  display: block;
+}
+@media screen and (max-width: 992px) {
+  .inputData.inputSelect .selectMain .selectBox {
+    font-weight: 400;
+    padding: 10px 12px 10px 20px;
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .inputData.inputSelect .selectMain .selectBox {
+    padding: 10px 10px 10px 20px;
+    font-size: 12px;
+  }
+}
+.inputData.inputSelect .selectMain ul {
+  width: 100%;
+  z-index: 10;
+  max-height: 220px;
+  overflow: auto;
+}
+@media screen and (max-width: 992px) {
+  .inputData.inputSelect .selectMain ul {
+    max-height: 135px;
+  }
+}
+.inputData.inputSelect .selectMain ul li {
+  font-size: 18px;
+  padding: 5px 18px;
+}
+.inputData.inputSelect .selectMain ul li:first-child {
+  display: block;
+}
+@media screen and (max-width: 992px) {
+  .inputData.inputSelect .selectMain ul li {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .inputData.inputSelect .selectMain ul li {
+    font-size: 12px;
+  }
+}
+.inputData textarea {
+  border: 1px solid #e5e5e5;
+  outline: 0;
+  box-shadow: none;
+  width: 100%;
+  height: 150px;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 15px;
+  color: #6c6c6c;
+  font-weight: 500;
+  line-height: 15.73px;
+  font-family: "Sora", sans-serif;
+}
+.inputData textarea:focus {
+  outline: none;
+  outline-width: 1px;
+}
+@media screen and (max-width: 992px) {
+  .inputData textarea::-moz-placeholder {
+    font-size: 16px;
+  }
+  .inputData textarea::placeholder {
+    font-size: 16px;
+  }
+}
+.inputData .srhIcon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+  color: #cbcbcb;
+}
+.inputData input {
+  border: 1px solid #e5e5e5;
+  outline: 0;
+  box-shadow: none;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 500;
+  color: #6c6c6c;
+  height: 46px;
+  font-family: "Sora", sans-serif;
+  padding: 10px 20px;
+  border-radius: 50px;
+  /* For Input Type Search */
+  /* For Input Type Number */
+  /* Type Radio And Check Box */
+  /* For Input Type File */
+}
+.inputData input:focus {
+  outline: none;
+}
+.inputData input::-moz-placeholder {
+  color: #cbcbcb;
+  font-size: 14px;
+}
+.inputData input::placeholder {
+  color: #cbcbcb;
+  font-size: 14px;
+}
+@media screen and (max-width: 992px) {
+  .inputData input::-moz-placeholder {
+    font-size: 16px;
+  }
+  .inputData input::placeholder {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .inputData input {
+    padding: 0 15px;
+    height: 38px;
+    margin-top: 2px;
+    font-size: 12px;
+  }
+  .inputData input::-moz-placeholder {
+    font-size: 12px;
+  }
+  .inputData input::placeholder {
+    font-size: 12px;
+  }
+}
+.inputData input[type=search]::-webkit-search-results-decoration, .inputData input[type=search]::-webkit-search-decoration, .inputData input[type=search]::-webkit-search-cancel-button, .inputData input[type=search]::-webkit-search-results-button {
+  font-size: 16px;
+}
+@media screen and (max-width: 576px) {
+  .inputData input[type=search] {
+    height: 30px;
+    font-size: 12px;
+  }
+  .inputData input[type=search]::-moz-placeholder {
+    font-size: 12px;
+  }
+  .inputData input[type=search]::placeholder {
+    font-size: 12px;
+  }
+}
+.inputData input[type=search]:focus {
+  outline: none;
+}
+.inputData input::-webkit-outer-spin-button, .inputData input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.inputData input[type=radio], .inputData input[type=checkbox] {
+  height: 18px !important;
+  width: 18px !important;
+  accent-color: #000000;
+  margin: 0;
+  cursor: pointer;
+  position: relative;
+}
+@media screen and (max-width: 992px) {
+  .inputData input[type=radio], .inputData input[type=checkbox] {
+    height: 16px !important;
+    width: 16px !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .inputData input[type=radio], .inputData input[type=checkbox] {
+    height: 14px !important;
+    width: 14px !important;
+  }
+}
+.inputData input[type=radio].error-radio::before, .inputData input[type=checkbox].error-radio::before {
+  border: 1px solid red;
+  border-radius: 50%;
+}
+.inputData input[type=radio].error-checkbox::before, .inputData input[type=checkbox].error-checkbox::before {
+  border: 1px solid red;
+  border-radius: 2px;
+}
+.inputData input[type=radio]::before, .inputData input[type=checkbox]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+}
+@media screen and (max-width: 992px) {
+  .inputData input[type=radio]::before, .inputData input[type=checkbox]::before {
+    height: 16px !important;
+    width: 16px !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .inputData input[type=radio]::before, .inputData input[type=checkbox]::before {
+    height: 14px !important;
+    width: 14px !important;
+  }
+}
+.inputData input[type=file] {
+  padding: 0px;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+@media screen and (max-width: 768px) {
+  .inputData input[type=file] {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .inputData input[type=file] {
+    font-size: 10px;
+  }
+}
+.inputData input[type=file]::file-selector-button {
+  margin-right: 15px;
+  border: none;
+  background: #000000;
+  padding: 0px 10px 8px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+  height: 47px;
+}
+@media screen and (max-width: 768px) {
+  .inputData input[type=file]::file-selector-button {
+    width: 100px;
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .inputData input[type=file]::file-selector-button {
+    width: 80px;
+    padding: 8px;
+    height: 37px;
+    font-size: 12px;
+  }
+}
+.inputData .searchBar {
+  height: 47px;
+  display: flex;
+  border-radius: 40px;
+  padding: 10px;
+  border: 1px solid #000000;
+}
+.inputData .searchBar .search-btn {
+  color: #4097ff;
+  float: right;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  transition: 0.4s;
+}
+.inputData .searchBar .search-btn img {
+  margin: 0;
+}
+.inputData .searchBar .search-txt {
+  border: none;
+  background: none;
+  outline: none;
+  height: auto;
+  float: left;
+  padding: 0;
+  color: #000000;
+  font-size: 16px;
+  transition: 0.4s;
+  line-height: 40px;
+  width: 0px;
+  transform-origin: left;
+}
+.inputData .searchBar:hover > .search-txt {
+  width: 240px;
+  padding: 0 6px;
+}
+.inputData .searchBar:hover {
+  border: 1px solid #000000;
+}
+.inputData .passHideShow,
+.inputData .searching,
+.inputData .activeIcon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-30%);
+  right: 14px;
+  cursor: pointer;
+}
+.inputData.radio, .inputData.checkbox {
+  display: flex;
+  align-items: center;
+}
+.inputData.radio label, .inputData.checkbox label {
+  margin-bottom: 0;
+  margin-right: 10px;
+  cursor: pointer;
 }/*# sourceMappingURL=custom.css.map */

@@ -14,6 +14,9 @@ import Chezzy7Pizza from '../../asstes/Images/chezzy7Pizza.png'
 import Paneer65 from '../../asstes/Images/paneer65.png'
 import { useNavigate } from 'react-router-dom'
 import { Button, Modal } from 'react-bootstrap'
+import DialogAdd from './DialogAdd'
+import { useDispatch, useSelector } from 'react-redux'
+import { openDialog } from '../redux/slice/DialogueSlice'
 
 const CategoryList = () => {
     const navigate = useNavigate()
@@ -21,7 +24,8 @@ const CategoryList = () => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    const { dialogue, dialogueType } = useSelector((state) => state.dialogue);
+    const dispatch = useDispatch()
     return (
         <div>
             <Navbar />
@@ -47,10 +51,13 @@ const CategoryList = () => {
                                                 </div>
                                             </div>
                                             <div className='d-flex justify-content-center'>
-                                                <button className='AddBtn' variant="primary" onClick={handleShow}>
+                                                <button className='AddBtn' variant="primary" onClick={() => dispatch(openDialog({ type: "category" }))}>
                                                     + Add
                                                 </button>
                                             </div>
+                                            {dialogue && dialogueType === "category" && (
+                                                <DialogAdd />
+                                            )}
                                         </div>
                                         <div className="col-8 ps-0 py-2">
                                             <div className="card-body">
@@ -62,7 +69,6 @@ const CategoryList = () => {
                                                 <div className="cardMenuTitle">A classic cheesy Margherita. Cant go wrong. [Fat-14.3 per 100 g, Protein-12.6 per 100 g, Carbohydrate-39.2 per 100 g, Sugar-0 per 100 g, Calories-336 k.cal]Nutritional information per 100g</div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
 
@@ -200,12 +206,16 @@ const CategoryList = () => {
                         </div>
                     </div>
                 </div>
-
+                {/* {dialogue && dialogueType === "category" && (
+                    <DialogAdd />
+                )} */}
                 <Modal
                     show={show}
                     onHide={handleClose}
                     backdrop="static"
                     keyboard={false}
+                    size='lg'
+                    centered
                 >
                     <Modal.Header closeButton>
                         <Modal.Title>Modal title</Modal.Title>

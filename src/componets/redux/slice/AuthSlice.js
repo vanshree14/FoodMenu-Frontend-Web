@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {  BaseURL, Key } from "../../componets/utils/Config";
+import {  BaseURL, Key } from "../../utils/Config";
 // import axios from "axios";
-import { apiInstance } from "../../api/axiosApi";
-import { SetDevKey } from "../../componets/utils/SetAuth";
+import { apiInstance } from "../../../api/axiosApi";
+import { SetDevKey } from "../../utils/SetAuth";
 // import { setToast } from "../../component/extra/toast";
 import axios from "axios";
 
