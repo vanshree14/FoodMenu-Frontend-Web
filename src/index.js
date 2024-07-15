@@ -6,13 +6,17 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/Store';
+import axios from 'axios';
+import { Key } from './componets/utils/Config';
 // import { GoogleOAuthProvider } from '@react-oauth/google';
 
 // const clientId = '636182318567-bk2i2kf1soreko4a11lj0ciinmb88uuh.apps.googleusercontent.com';
+axios.defaults.headers.common["key"] = Key
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+
     <BrowserRouter>
       {/* <GoogleOAuthProvider clientId={clientId}> */}
         <Provider store={store}>

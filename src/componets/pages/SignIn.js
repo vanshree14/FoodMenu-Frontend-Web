@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import mobileImg from '../../asstes/Images/Mobile-login-rafiki.png';
+import mobileImg from '../../assets/Images/Mobile-login-rafiki.png'; // Fixed typo in assets path
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/slice/AuthSlice';
 
@@ -10,11 +10,13 @@ const SignIn = () => {
     const [error, setError] = useState({ email: "", password: "" });
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
     const isAuth = useSelector((state) => state.user.isAuth);
+
     useEffect(() => {
-        isAuth && navigate("/admin");
-    }, [isAuth,navigate]);
+        if (isAuth) {
+            navigate("/admin");
+        }
+    }, [isAuth, navigate]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -33,7 +35,8 @@ const SignIn = () => {
             const response = await dispatch(login(payload)).unwrap();
 
             if (response.status) {
-                localStorage.setItem('token', response.token);
+                // Set session storage key
+                sessionStorage.setItem('token', response.token);
                 alert("User Login successful!");
                 navigate('/admin');
             } else {
@@ -98,7 +101,7 @@ const SignIn = () => {
                                 Sign up
                             </button>
                         </div>
-                        <img src={mobileImg} className="image" alt="" />
+                        <img src={mobileImg} className="image" alt="Mobile login illustration" />
                     </div>
                 </div>
             </div>

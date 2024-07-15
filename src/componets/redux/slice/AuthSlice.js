@@ -23,37 +23,30 @@ export const Register = createAsyncThunk('auth/register', async (payload) => {
     } catch (error) {
         throw (error)
     }
+});
+
+export const OTP = createAsyncThunk('auth/verify/otp', async (payload) => {
+    try {
+        const response = await axios.post(`${BaseURL}auth/verify/otp`, payload);
+        return response.data;
+    } catch (error) {
+        throw (error)
+    }
 }
 );
-// export const Register = createAsyncThunk("auth/register", async (payload) => {
-//     return apiInstance.post("auth/register", payload);
+
+export const login = createAsyncThunk('auth/login/email', async (payload) => {
+    try {
+        const response = await axios.post(`${BaseURL}auth/login/email`, payload);
+        return response.data;
+    } catch (error) {
+        throw (error)
+    }
+}
+);
+// export const login = createAsyncThunk("auth/login/email", async (payload) => {
+//     return apiInstance.post("auth/login/email", payload);
 //   });
-
-// export const OTP = createAsyncThunk('auth/verify/otp', async (payload) => {
-//     try {
-//         const response = await axios.post(`${BaseURL}auth/verify/otp`, payload);
-//         return response.data;
-//     } catch (error) {
-//         throw (error)
-//     }
-// }
-// );
-export const OTP = createAsyncThunk("auth/verify/otp", async (payload) => {
-    return apiInstance.post("auth/verify/otp", payload);
-  });
-
-// export const login = createAsyncThunk('auth/login/email', async (payload) => {
-//     try {
-//         const response = await axios.post(`${BaseURL}auth/login/email`, payload);
-//         return response.data;
-//     } catch (error) {
-//         throw (error)
-//     }
-// }
-// );
-export const login = createAsyncThunk("auth/login/email", async (payload) => {
-    return apiInstance.post("auth/login/email", payload);
-  });
 
 
 const authslice = createSlice({

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import mobileImg from '../../asstes/Images/Mobile-login-rafiki.png'
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Register } from '../../redux/slice/AuthSlice';
 
 
