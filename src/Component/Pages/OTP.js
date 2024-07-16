@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import mobileImg from '../../asstes/Images/Mobile-login-rafiki.png';
+import mobileImg from '../../Asstes/Images/Mobile-login-rafiki.png';
 import { useDispatch } from 'react-redux';
-import { OTP as verifyOTP } from '../redux/slice/AuthSlice';
+import { OTP as verifyOTP } from '../Redux/Slice/AuthSlice';
 
 const OTP = () => {
   const [otp, setOtp] = useState(Array(6).fill(""));

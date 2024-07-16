@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import mobileImg from '../../asstes/Images/Mobile-login-rafiki.png'; // Fixed typo in assets path
+import mobileImg from '../../Asstes/Images/Mobile-login-rafiki.png'; // Fixed typo in assets path
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../redux/slice/AuthSlice';
+import { login } from '../Redux/Slice/AuthSlice';
 
 const SignIn = () => {
     const [email, setEmail] = useState("");

@@ -1,8 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { closeDialog } from "../redux/slice/DialogueSlice";
-import Input, { Select, Textarea } from "../extra/Input";
-import Title from '../extra/Title'
+import { closeDialog } from "../Redux/Slice/DialogueSlice";
+import Title from '../Extra/Title'
 
 const DialogAdd = () => {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { BaseURL, Key } from "../componets/utils/Config";
-import { setToast } from "../componets/extra/Toast";
+import { setToast } from "../Component/Extra/Toast";
+import { BaseURL, Key } from "../Component/Utils/Config";
 
 
 export const apiInstance = axios.create({

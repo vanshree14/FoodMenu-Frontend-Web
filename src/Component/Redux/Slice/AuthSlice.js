@@ -1,19 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {  BaseURL, Key } from "../../utils/Config";
 // import axios from "axios";
-import { apiInstance } from "../../../api/axiosApi";
-import { SetDevKey } from "../../utils/SetAuth";
+import {  setToken } from "../../../Api/AxiosApi";
+import { SetDevKey } from "../../Utils/SetAuth";
 // import { setToast } from "../../component/extra/toast";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import { BaseURL, Key } from "../../../Component/Utils/Config";
 
 
 
 const initialState = {
     user: [],
     otp: [],
-    userTotal: 0,
+    isAuth: false,
     isLoading: false,
-    isSkeleton: false,
 };
 
 export const Register = createAsyncThunk('auth/register', async (payload) => {
@@ -44,34 +44,57 @@ export const login = createAsyncThunk('auth/login/email', async (payload) => {
     }
 }
 );
-// export const login = createAsyncThunk("auth/login/email", async (payload) => {
-//     return apiInstance.post("auth/login/email", payload);
-//   });
 
+// export const login = createAsyncThunk(
+//     "auth/login/email",
+//     async (payload) => {
+     
+//       return apiInstance.post("auth/login/email", payload);
+//     }
+//   );
+  
 
 const authslice = createSlice({
     name: "authslice",
     initialState,
     reducers: {
         setOldAdmin(state, action) {
-            // debugger
-            let token_ = JSON.parse(action.payload);
-            state.admin = token_;
+            let token_;
+    
+            // Check if action.payload is a string
+            if (typeof action.payload === 'string') {
+                try {
+                    token_ = JSON.parse(action.payload);
+                } catch (e) {
+                    console.error("Error parsing JSON:", e);
+                    return;
+                }
+            } else if (typeof action.payload === 'object') {
+                token_ = action.payload;
+            } else {
+                console.error("Invalid payload type:", typeof action.payload);
+                return;
+            }
+    
+            state.user = token_;
             state.isAuth = true;
-            state.token = action.payload.token;
+            state.token = token_.token; // Assuming token is a property of token_
             SetDevKey(Key);
-          },
-          logout(state, action) {
+        },
+        logout(state, action) {
             sessionStorage.removeItem("token");
             sessionStorage.removeItem("key");
             sessionStorage.removeItem("isAuth");
-            state.admin = {};
+            sessionStorage.setItem('user');
+            sessionStorage.setItem('otp');
+            state.user = {};
             state.isAuth = false;
-          },
-          setAuthToken: (state, action) => {
-            state.authToken = action.payload
-          }
+        },
+        setAuthToken: (state, action) => {
+            state.authToken = action.payload;
+        }
     },
+    
     extraReducers: (builder) => {
         // Register
         builder.addCase(Register.pending, (state, action) => {
@@ -101,14 +124,24 @@ const authslice = createSlice({
 
         builder.addCase(login.pending, (state, action) => {
             state.isLoading = true;
-        });
-        builder.addCase(login.fulfilled, (state, action) => {
-            state.user.unshift(action.payload.user);
+          });
+          builder.addCase(login.fulfilled, (state, action) => {
+            let token_ = jwtDecode(action.payload.token);
+            state.user = token_;
+            state.isAuth = true;
+            state.token = action.payload.token;
             state.isLoading = false;
-        });
-        builder.addCase(login.rejected, (state, action) => {
+      
+            SetDevKey(Key);
+            setToken(action.payload.token);
+            sessionStorage.setItem("token",token_ ? JSON.stringify(token_) : undefined);
+            sessionStorage.setItem("tokenSil", action.payload.token ? action.payload.token : undefined);
+            sessionStorage.setItem("key", Key ? Key : undefined);
+            sessionStorage.setItem("isAuth", true);
+          });
+          builder.addCase(login.rejected, (state, action) => {
             state.isLoading = false;
-        });
+          });
     },
 })
 

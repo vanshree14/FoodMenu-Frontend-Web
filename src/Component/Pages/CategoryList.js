@@ -1,25 +1,23 @@
 import React, { useState } from 'react'
 import Navbar from './Navbar'
-import Burger from '../../asstes/Images/burger.jpg'
-import Pizza from '../../asstes/Images/pizaa.jpg'
-import AngaraPunjabBurger from '../../asstes/Images/Angara-Punjab-Burger.jpg'
-import BatataHarraBurger from '../../asstes/Images/Batata-Harra-Burger.jpg'
-import BhunaMediterraneanBurger from '../../asstes/Images/Bhuna-Mediterranean-Burger.jpg'
-import SpinachCornBomberBurger from '../../asstes/Images/Spinach-Corn-Bomber-Burger.jpg'
-import MargheritaPizza from '../../asstes/Images/MargheritaPizza.png'
-import OnionsPizza from '../../asstes/Images/OnionsPizza.png'
-import FarmVilla from '../../asstes/Images/farmVilla.png'
-import GardenSpecial from '../../asstes/Images/gardenSpecial.png'
-import Chezzy7Pizza from '../../asstes/Images/chezzy7Pizza.png'
-import Paneer65 from '../../asstes/Images/paneer65.png'
-import { useNavigate } from 'react-router-dom'
+// import Burger from '../../asstes/Images/burger.jpg'
+// import Pizza from '../../asstes/Images/pizaa.jpg'
+// import AngaraPunjabBurger from '../../Asstes/Images/Angara-Punjab-Burger.jpg'
+// import BatataHarraBurger from '../../Asstes/Images/Batata-Harra-Burger.jpg'
+// import BhunaMediterraneanBurger from '../../Asstes/Images/Bhuna-Mediterranean-Burger.jpg'
+// import SpinachCornBomberBurger from '../../Asstes/Images/Spinach-Corn-Bomber-Burger.jpg'
+import MargheritaPizza from '../../Asstes/Images/MargheritaPizza.png'
+import OnionsPizza from '../../Asstes/Images/OnionsPizza.png'
+import FarmVilla from '../../Asstes/Images/farmVilla.png'
+import GardenSpecial from '../../Asstes/Images/gardenSpecial.png'
+import Chezzy7Pizza from '../../Asstes/Images/chezzy7Pizza.png'
+import Paneer65 from '../../Asstes/Images/paneer65.png'
 import { Button, Modal } from 'react-bootstrap'
 import DialogAdd from './DialogAdd'
 import { useDispatch, useSelector } from 'react-redux'
-import { openDialog } from '../redux/slice/DialogueSlice'
+import { openDialog } from '../Redux/Slice/DialogueSlice'
 
 const CategoryList = () => {
-    const navigate = useNavigate()
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);

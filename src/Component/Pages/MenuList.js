@@ -1,27 +1,23 @@
 import React from 'react'
-import Burger from '../../asstes/Images/burger.jpg'
-import Pizza from '../../asstes/Images/pizaa.jpg'
-import BlueberryMocktails from '../../asstes/Images/blueberry-mojito-mocktail.jpg'
-import SoupMonchow from '../../asstes/Images/Vegetable_Manchow_Soup.jpg'
-import KajuKatali from '../../asstes/Images/KajuKatli.jpg'
-import FrenchFries from '../../asstes/Images/french-fries.jpg'
-import VadaPaw from '../../asstes/Images/vada-pav.jpg'
-import Dabeli from '../../asstes/Images/dabeli.jpg'
-import Khawsa from '../../asstes/Images/khawsa.jpg'
-import Khaman from '../../asstes/Images/khaman.jpg'
-import Cake from '../../asstes/Images/cake.jpeg'
-import Sandwich from '../../asstes/Images/sandwich.jpg'
+import Burger from '../../Asstes/Images/burger.jpg'
+import Pizza from '../../Asstes/Images/pizaa.jpg'
+import BlueberryMocktails from '../../Asstes/Images/blueberry-mojito-mocktail.jpg'
+import SoupMonchow from '../../Asstes/Images/Vegetable_Manchow_Soup.jpg'
+import KajuKatali from '../../Asstes/Images/KajuKatli.jpg'
+import FrenchFries from '../../Asstes/Images/french-fries.jpg'
+import VadaPaw from '../../Asstes/Images/vada-pav.jpg'
+import Dabeli from '../../Asstes/Images/dabeli.jpg'
+import Khawsa from '../../Asstes/Images/khawsa.jpg'
+import Khaman from '../../Asstes/Images/khaman.jpg'
+import Cake from '../../Asstes/Images/cake.jpeg'
+import Sandwich from '../../Asstes/Images/sandwich.jpg'
 import { useNavigate } from 'react-router-dom'
-import { logout } from '../redux/slice/AuthSlice'
-import { useDispatch } from 'react-redux'
 
 const MenuList = () => {
     const navigate = useNavigate()
-    const dispatch = useDispatch();
 
-    const handleLogout = async () => {
-        dispatch(logout())
-        navigate("/");
+    const handleLogout =  () => {
+        navigate("/signin");
     };
 
     return (

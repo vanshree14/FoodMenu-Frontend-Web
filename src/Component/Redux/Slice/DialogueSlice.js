@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { apiInstance } from "../../../api/axiosApi";
+import { apiInstance } from "../../../Api/AxiosApi";
 const initialState = {
   dialogue: false,
   dialogueType: "",

@@ -1,8 +1,8 @@
 import React, {  useState } from 'react';
-import mobileImg from '../../asstes/Images/Mobile-login-rafiki.png'
+import mobileImg from '../../Asstes/Images/Mobile-login-rafiki.png'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Register } from '../redux/slice/AuthSlice';
+import { Register } from '../Redux/Slice/AuthSlice';
 
 
 const Signup = () => {

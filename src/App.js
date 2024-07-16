@@ -1,40 +1,42 @@
 import './App.css';
-import './asstes/Scss/default/default.css'
-import './asstes/Scss/custom/custom.css'
-import './asstes/Scss/style/style.css';
+import './Asstes/Scss/Default/default.css'
+import './Asstes/Scss/Custom/custom.css'
+import './Asstes/Scss/Style/style.css';
 import { Route, Routes } from 'react-router-dom';
-import Admin from './componets/pages/Admin';
-import Signup from './componets/pages/Signup';
-import SignIn from './componets/pages/SignIn';
-import CategoryList from './componets/pages/CategoryList';
-import Otp from './componets/pages/OTP';
-// import PrivateRoute from './componets/utils/PrivateRoute';
-// import { useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { setToken } from './componets/utils/SetAuth';
-// import { setOldAdmin } from './redux/slice/AuthSlice';
+import Admin from './Component/Pages/Admin';
+import Signup from './Component/Pages/Signup';
+import SignIn from './Component/Pages/SignIn';
+import CategoryList from './Component/Pages/CategoryList';
+import Otp from './Component/Pages/OTP';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setToken } from './Component/Utils/SetAuth';
+import { setOldAdmin } from './Component/Redux/Slice/AuthSlice';
+import PrivateRoute from './Component/Utils/PrivateRoute';
 
 function App() {
-  // const dispatch = useDispatch();
-  // const key = sessionStorage.getItem("key");
-  // const token = sessionStorage.getItem("token");
-  // const tokenSil = sessionStorage.getItem("tokenSil");
+  const dispatch = useDispatch();
+  const key = sessionStorage.getItem("key");
+  const token = sessionStorage.getItem("token");
+  const tokenSil = sessionStorage.getItem("tokenSil");
 
-  // useEffect(() => {
-  //   if (!token && !key) return;
-  //   setToken(tokenSil)
-  //   dispatch(setOldAdmin({token}))
-  // }, [setToken, key]);
+  useEffect(() => {
+    if (!token && !key) return;
+    setToken(tokenSil)
+    dispatch(setOldAdmin({token}))
+  }, [setToken, key,]);
+
+
   return (
     <div>
       <Routes>
         <Route path='/' element={<Signup/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/otp' element={<Otp/>} />
+        <Route  element={<PrivateRoute/>}>      
         <Route path='/signin' element={<SignIn/>}/>
-        {/* <Route  element={<PrivateRoute/>}>      </Route> */}
-         <Route path='/admin' element={<Admin/>}/>
-    
+         <Route path='/admin/*' element={<Admin/>}/>
+         </Route>
        
         <Route path='/burger' element={<CategoryList />} />
         <Route path='/pizza' element={<CategoryList />} />

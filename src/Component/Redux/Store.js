@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import AuthSlice from "./slice/AuthSlice";
-import DialogueSlice from "./slice/DialogueSlice";
+import AuthSlice from "./Slice/AuthSlice";
+import DialogueSlice from "./Slice/DialogueSlice";
 
 const store = configureStore({
     reducer:{
