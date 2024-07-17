@@ -85,8 +85,8 @@ const authslice = createSlice({
             sessionStorage.removeItem("token");
             sessionStorage.removeItem("key");
             sessionStorage.removeItem("isAuth");
-            sessionStorage.setItem('user');
-            sessionStorage.setItem('otp');
+            sessionStorage.removeItem('user');
+            sessionStorage.removeItem('otp');
             state.user = {};
             state.isAuth = false;
         },
@@ -135,7 +135,7 @@ const authslice = createSlice({
             SetDevKey(Key);
             setToken(action.payload.token);
             sessionStorage.setItem("token",token_ ? JSON.stringify(token_) : undefined);
-            sessionStorage.setItem("tokenSil", action.payload.token ? action.payload.token : undefined);
+            // sessionStorage.setItem("tokenSil", action.payload.token ? action.payload.token : undefined);
             sessionStorage.setItem("key", Key ? Key : undefined);
             sessionStorage.setItem("isAuth", true);
           });

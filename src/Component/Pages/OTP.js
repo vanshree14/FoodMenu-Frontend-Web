@@ -4,7 +4,7 @@ import mobileImg from '../../Asstes/Images/Mobile-login-rafiki.png';
 import { useDispatch } from 'react-redux';
 import { OTP as verifyOTP } from '../Redux/Slice/AuthSlice';
 
-const OTP = () => {
+const Otp = () => {
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [error, setError] = useState("");
   const inputRefs = useRef([]);
@@ -120,4 +120,4 @@ const OTP = () => {
   );
 };
 
-export default OTP;
+export default Otp;

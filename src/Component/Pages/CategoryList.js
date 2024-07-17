@@ -16,6 +16,7 @@ import { Button, Modal } from 'react-bootstrap'
 import DialogAdd from './DialogAdd'
 import { useDispatch, useSelector } from 'react-redux'
 import { openDialog } from '../Redux/Slice/DialogueSlice'
+import { useNavigate } from 'react-router-dom'
 
 const CategoryList = () => {
     const [show, setShow] = useState(false);
@@ -24,6 +25,11 @@ const CategoryList = () => {
     const handleShow = () => setShow(true);
     const { dialogue, dialogueType } = useSelector((state) => state.dialogue);
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const handleLogout =  () => {
+        navigate("/admin");
+    };
     return (
         <div>
             <Navbar />
@@ -31,10 +37,11 @@ const CategoryList = () => {
             <div className='categoryMain'>
                 <div className="container">
                     <div className="row d-flex justify-content-center">
-                        <div className="col-8">
+                        <div className="col-8 d-flex justify-content-between align-items-center">
                             <div className='Menutitle'>
                                 <h1>Burger</h1>
                             </div>
+                            <input type="submit" value="Back" className="btn solid" onClick={handleLogout} />
                         </div>
                     </div>
                     <div className="row d-flex justify-content-center">

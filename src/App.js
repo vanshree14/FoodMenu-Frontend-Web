@@ -7,7 +7,7 @@ import Admin from './Component/Pages/Admin';
 import Signup from './Component/Pages/Signup';
 import SignIn from './Component/Pages/SignIn';
 import CategoryList from './Component/Pages/CategoryList';
-import Otp from './Component/Pages/OTP';
+import Otp from './Component/Pages/Otp';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setToken } from './Component/Utils/SetAuth';
@@ -18,13 +18,12 @@ function App() {
   const dispatch = useDispatch();
   const key = sessionStorage.getItem("key");
   const token = sessionStorage.getItem("token");
-  const tokenSil = sessionStorage.getItem("tokenSil");
 
   useEffect(() => {
     if (!token && !key) return;
-    setToken(tokenSil)
+    setToken(token)
     dispatch(setOldAdmin({token}))
-  }, [setToken, key,]);
+  }, [setToken, key]);
 
 
   return (
