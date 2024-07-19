@@ -1,4 +1,4 @@
-@import "../abstract/variable";
+@import "../Abstract/variable";
 
 /* ============= Login CSS ============= */
 body {
@@ -64,6 +64,44 @@ body {
     }
   }
 }
+/* ============= Button CSS ============= */
+
+button.themeButton {
+  width: 150px;
+  border: none;
+  outline: none;
+  height: 49px;
+  border-radius: 4px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 10px 0;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: 0.5s;
+  box-shadow:
+    inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1),
+    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+  background: $prime;
+  background: linear-gradient(0deg, rgb(239, 127, 26) 0%, rgba(239, 127, 26, 1) 100%);
+  border: none;
+
+  @include maxMediaQuery($sm) {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: .5;
+}
+
 
 /* ============= Dialog CSS ============= */
 .dialog {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import mobileImg from '../../Asstes/Images/Mobile-login-rafiki.png'; // Fixed typo in assets path
+import mobileImg from '../../Asstes/Images/Mobile-login-rafiki.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../Redux/Slice/AuthSlice';
 
@@ -13,10 +13,8 @@ const SignIn = () => {
     const isAuth = useSelector((state) => state.user.isAuth);
 
     useEffect(() => {
-        if (isAuth) {
-            navigate("/admin");
-        }
-    }, [isAuth, navigate]);
+        isAuth && navigate("/admin");
+      }, [isAuth]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
