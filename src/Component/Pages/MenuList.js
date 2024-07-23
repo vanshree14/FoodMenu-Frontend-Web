@@ -17,7 +17,7 @@ const MenuList = () => {
     const navigate = useNavigate()
 
     const handleLogout =  () => {
-        navigate("/signin");
+        navigate("/signup");
     };
 
     return (

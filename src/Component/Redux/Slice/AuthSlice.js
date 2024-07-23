@@ -17,6 +17,7 @@ const initialState = {
 };
 
 export const Register = createAsyncThunk('auth/register', async (payload) => {
+    
     try {
         const response = await axios.post(`${BaseURL}auth/register`, payload);
         return response.data;
@@ -98,13 +99,16 @@ const authslice = createSlice({
     extraReducers: (builder) => {
         // Register
         builder.addCase(Register.pending, (state, action) => {
+            
             state.isLoading = true;
         });
         builder.addCase(Register.fulfilled, (state, action) => {
+            
             state.user.unshift(action.payload.user);
             state.isLoading = false;
         });
         builder.addCase(Register.rejected, (state, action) => {
+            
             state.isLoading = false;
         });
 

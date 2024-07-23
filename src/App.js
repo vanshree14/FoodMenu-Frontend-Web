@@ -33,8 +33,8 @@ function App() {
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/otp' element={<Otp/>} />
         <Route path='/signin' element={<SignIn/>}/>
-         <Route path='/admin/*' element={<Admin/>}/>
         <Route  element={<PrivateRoute/>}>      
+         <Route path='/admin/*' element={<Admin/>}/>
          </Route>
        
         <Route path='/burger' element={<CategoryList />} />

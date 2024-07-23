@@ -23,6 +23,7 @@ const Signup = () => {
         } else {
             const payload = { fullName, email, password };
             try {
+                
                 const response = await dispatch(Register(payload)).unwrap();
                 sessionStorage.setItem('user', JSON.stringify(response.user));
                 sessionStorage.setItem('otp', response.otp);
@@ -30,6 +31,7 @@ const Signup = () => {
                 alert("Otp Sent Your Email successfully");
             } catch (error) {
                 alert("Something is Missing");
+                console.log('error :>> ', error);
             }
         }
     };
