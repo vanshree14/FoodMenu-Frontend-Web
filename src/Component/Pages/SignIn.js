@@ -1,105 +1,106 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import mobileImg from '../../Asstes/Images/Mobile-login-rafiki.png';
-import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../Redux/Slice/AuthSlice';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Register } from '../../Component/Redux/Slice/AuthSlice';
+import Input from "../Extra/Input";
+import Button from "../Extra/Button";
+import profileimg from "../../Asstes/Images/0d64989794b1a4c9d89bff571d3d5842.jpg"
+import BannerbackgroundImg from '../../Asstes/Images/fa3ea1263d103c3a22d1096792fafc70.png';
 
 const SignIn = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState({ email: "", password: "" });
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const isAuth = useSelector((state) => state.user.isAuth);
+    // const [email, setEmail] = useState("");
+    // const [password, setPassword] = useState("");
+    // const [error, setError] = useState({ email: "", password: "" });
+    // const navigate = useNavigate();
+    // const dispatch = useDispatch();
+    // const isAuth = useSelector((state) => state.user.isAuth);
 
-    useEffect(() => {
-        isAuth && navigate("/admin");
-      }, [isAuth]);
+    // useEffect(() => {
+    //     isAuth && navigate("/admin");
+    //   }, [isAuth]);
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
+    // const handleLogin = async (e) => {
+    //     e.preventDefault();
 
-        // Reset previous errors
-        setError({ email: "", password: "" });
+    //     // Reset previous errors
+    //     setError({ email: "", password: "" });
 
-        if (!email || !password) {
-            if (!email) setError((prev) => ({ ...prev, email: "Enter email" }));
-            if (!password) setError((prev) => ({ ...prev, password: "Enter password" }));
-            return;
-        }
+    //     if (!email || !password) {
+    //         if (!email) setError((prev) => ({ ...prev, email: "Enter email" }));
+    //         if (!password) setError((prev) => ({ ...prev, password: "Enter password" }));
+    //         return;
+    //     }
 
-        try {
-            const payload = { email, password };
-            const response = await dispatch(login(payload)).unwrap();
+    //     try {
+    //         const payload = { email, password };
+    //         const response = await dispatch(login(payload)).unwrap();
 
-            if (response.status) {
-                // Set session storage key
-                sessionStorage.setItem('token', response.token);
-                alert("User Login successful!");
-                navigate('/admin');
-            } else {
-                if (response.message.includes("Email")) {
-                    setError((prev) => ({ ...prev, email: response.message }));
-                } else if (response.message.includes("Password")) {
-                    setError((prev) => ({ ...prev, password: response.message }));
-                } else {
-                    alert(response.message || "Login failed");
-                }
-            }
-        } catch (error) {
-            console.error('Login failed:', error);
-            alert("Oops! Something went wrong.");
-        }
-    };
+    //         if (response.status) {
+    //             // Set session storage key
+    //             sessionStorage.setItem('token', response.token);
+    //             alert("User Login successful!");
+    //             navigate('/admin');
+    //         } else {
+    //             if (response.message.includes("Email")) {
+    //                 setError((prev) => ({ ...prev, email: response.message }));
+    //             } else if (response.message.includes("Password")) {
+    //                 setError((prev) => ({ ...prev, password: response.message }));
+    //             } else {
+    //                 alert(response.message || "Login failed");
+    //             }
+    //         }
+    //     } catch (error) {
+    //         console.error('Login failed:', error);
+    //         alert("Oops! Something went wrong.");
+    //     }
+    // };
 
     return (
-        <div className="MainLoginForm">
-            <div className="container">
-                <div className="forms-container">
-                    <div className="signin-signup">
-                        <form onSubmit={handleLogin} className="sign-in-form">
-                            <h2 className="title">Sign In</h2>
-                            <div className="input-field">
-                                <i className="fas fa-envelope"></i>
-                                <input
-                                    type="email"
-                                    placeholder="Email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                                {error.email && <p className='error'>{error.email}</p>}
-                            </div>
-                            <div className="input-field">
-                                <i className="fas fa-lock"></i>
-                                <input
-                                    type="password"
-                                    placeholder="Password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                                {error.password && <p className='error'>{error.password}</p>}
-                            </div>
-                            <input type="submit" value="Login" className="btn solid" />
-                            <p className="social-text">Or Sign in with social platforms</p>
-                            <div className="social-media">
-                                <button className="google-login mb-3">Sign With Google</button>
-                            </div>
-                        </form>
+        <div className="mainLoginPage" style={{ backgroundImage: `url(${BannerbackgroundImg})` }}>
+            <div className="loginDiv" >
+                <div className="loginPage pt-3 m-auto text-center" style={{ width: "499px" }}>
+                    <div className="loginTitle mb-5 mt-5">
+                        <h1 className="fw-bold m-0 ">FOOOD LOGO</h1>
+                        <p className='text-white'>Login with your details</p>
                     </div>
-                </div>
-                <div className="panels-container">
-                    <div className="panel left-panel">
-                        <div className="content">
-                            <h3>New to our community?</h3>
-                            <p>
-                                Discover a world of possibilities! Join us and explore a vibrant
-                                community where ideas flourish and connections thrive.
-                            </p>
-                            <button className="btn transparent" id="sign-in-btn">
-                                Sign up
-                            </button>
+                    <h2 className='text-white fw-700 mb-3'>LOGIN</h2>
+                    <form
+                        // onSubmit={handleSubmit}
+                        id="loginForm">
+                        <div className="loginInput ">
+                            <Input
+                                type={`text`}
+                                id={`email`}
+                                placeholder={`Enter Your Email`}
+                                name={`email`}
+                                errorMessage={`Enter Email`}
+                                icon="fa-solid fa-envelope"
+                            />
+                            <Input
+                                type={`password`}
+                                id={`password`}
+                                placeholder={`Enter Your Password`}
+                                name={`password`}
+                                errorMessage={`Enter Password`}
+                                icon="fa-solid fa-lock"
+                            />
                         </div>
-                        <img src={mobileImg} className="image" alt="Mobile login illustration" />
+                        <div className="loginButton">
+                            <Button
+                                type={`submit`}
+                                className={`text-light cursor-pointer m10-top`}
+                                text={`Login`}
+                            />
+                        </div>
+                    </form>
+                    <div className="d-flex justify-content-center" style={{ flexDirection: 'column' }}>
+                        <p className='text-light pt-3 pb-2 fw-700'>OR</p>
+                        <div className="social-media mb-2">
+                            <button className="google-login mb-3">Continue with google</button>
+                        </div>
+                        <span className='text-light fw-700 mb-4' style={{ fontSize: '15px' }}>Already have an account?<span className='fw-700' style={{ color: '#9B7A41' }}>Login </span> </span>
+                        <p className='text-light fw-700 mb-5' style={{fontSize:'16px',}}>I forgot my password</p>
                     </div>
                 </div>
             </div>
