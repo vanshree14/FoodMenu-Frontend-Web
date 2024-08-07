@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { json, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Input from '../Extra/Input';
 import Button from '../Extra/Button';
 import BannerbackgroundImg from '../../Asstes/Images/fa3ea1263d103c3a22d1096792fafc70.png';
@@ -12,7 +12,7 @@ const Otp = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isAuth = sessionStorage.getItem("isAuth");
+  const isAuth = useSelector((state) => state.user.isAuth);
 
   useEffect(() => {
     if (isAuth) {
@@ -21,34 +21,29 @@ const Otp = () => {
   }, [isAuth, navigate]);
 
   const handleSubmit = async (e) => {
-debugger
-    // Collect data from form using submitData
-    const loginData = submitData(e); 
-    console.log("loginData:", loginData);
-
-    const storedOtp = sessionStorage.getItem('otp');
-    console.log("Stored OTP:", storedOtp);
-    console.log("Entered OTP:", otp);
-
-    // Validate OTP
-    if (otp.length < 6) {
-      setError("Please enter the complete OTP");
+    const loginData = submitData(e);
+    console.log('loginData', loginData);
+    const token = sessionStorage.getItem("token")
+   const decodeToken = JSON.parse(token)
+    loginData.email = decodeToken.email
+    if (!loginData || !loginData.otp || !loginData.email) {
+      setError("Please provide both email and OTP");
+      
       return;
     }
-    if (otp !== storedOtp) {
-      setError("Invalid OTP");
-    } else {
-      try {
-        // const payload = { otp, email: JSON.parse(sessionStorage.getItem('user')).email };
-        await dispatch(OTP(loginData)).unwrap();
-        alert("Verification successful");
-        navigate("/signin");
-      } catch (error) {
-        setError("OTP verification failed");
-        console.error('OTP verification error:', error);
-      }
+
+    try {
+      await dispatch(OTP(loginData)).unwrap();
+      alert("Verification successful");
+      sessionStorage.removeItem('otp');
+      navigate("/signin");
+    } catch (error) {
+      setError("OTP verification failed");
+      console.error('OTP verification error:', error);
     }
   };
+
+
 
   return (
     <div className="mainLoginPage" style={{ backgroundImage: `url(${BannerbackgroundImg})` }}>
@@ -73,9 +68,9 @@ debugger
             </div>
             <div className="loginButton m-0">
               <Button
-                type="submit"
-                className="text-light cursor-pointer m10-top"
-                text="Verify"
+                type={"submit"}
+                className={"text-light cursor-pointer m10-top"}
+                text={"Verify"}
               />
             </div>
             <p className='text-light mt-4 fw-800' style={{ fontSize: '14px', marginBottom: '200px' }}>Resend OTP</p>

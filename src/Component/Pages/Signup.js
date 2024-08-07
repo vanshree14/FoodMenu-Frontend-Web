@@ -22,14 +22,11 @@ const Signup = () => {
   }, [isAuth, navigate]);
 
   const handleSubmit = async (e) => {
-    debugger
     const loginData = submitData(e);
     console.log("loginData", loginData);
-
     try {
       const response = await dispatch(Register(loginData)).unwrap();
       alert("OTP sent to your email successfully");
-      debugger
       navigate("/otp");
     } catch (error) {
       setError("Something is missing");
