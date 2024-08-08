@@ -1,14 +1,14 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import MenuList from './MenuList'
 import Navbar from './Navbar'
+import BookingTable from './BookingTable'
 
 
 const Admin = () => {
   return (
     <div>
-      <Navbar />
-      <MenuList />
+      {/* <Navbar /> */}
+      <BookingTable />
       {/* <Routes>
         <Route path='/admin/burger' element={<CategoryList />} />
       </Routes> */}
@@ -17,3 +17,5 @@ const Admin = () => {
 }
 
 export default Admin
+
+

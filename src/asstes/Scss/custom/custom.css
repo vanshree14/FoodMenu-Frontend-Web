@@ -3,6 +3,7 @@
 body {
   background-color: #f5f5f5;
   font-family: "Inter", sans-serif;
+  background: transparent;
 }
 
 .mainLoginPage {
@@ -18,17 +19,19 @@ body {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: black;
+  background-color: #000000;
   opacity: 0.9;
 }
 .mainLoginPage .loginDiv {
   display: flex;
   justify-content: center;
+  position: relative;
   align-items: center;
   height: 100%;
 }
 .mainLoginPage .loginDiv .loginPage {
   background: linear-gradient(216.77deg, rgba(153, 153, 153, 0.22) 17.25%, rgba(67, 46, 9, 0.22) 54.26%);
+  position: relative;
   box-shadow: 0px 0px 51.9px 0px rgba(0, 0, 0, 0.1882352941);
   box-shadow: 0px 0px 51.9px 0px rgba(0, 0, 0, 0.1882352941);
   backdrop-filter: blur(56px) saturate(180%);

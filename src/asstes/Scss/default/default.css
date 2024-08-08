@@ -90474,11 +90474,11 @@ ul {
 /*============== Container Props ==============*/
 .container {
   max-width: 1800px;
-  padding: 0 20px;
+  padding: 0 48px;
 }
 @media screen and (max-width: 1900px) and (min-width: 1000px) {
   .container {
-    padding: 0 20px;
+    padding: 0 90px;
   }
 }
 

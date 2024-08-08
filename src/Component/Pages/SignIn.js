@@ -12,11 +12,7 @@ const SignIn = () => {
     const dispatch = useDispatch();
     const isAuth = useSelector((state) => state.user.isAuth);
 
-    // useEffect(() => {
-    //   if (isAuth) {
-    //     navigate("/admin");
-    //   }
-    // }, [isAuth, navigate]);
+   
 
     useEffect(() => {
         isAuth && navigate("/admin");

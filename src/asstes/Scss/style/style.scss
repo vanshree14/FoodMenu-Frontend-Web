@@ -6,37 +6,35 @@
   position: relative;
 
   & .google-login {
-    padding: 12px 65px 12px 72px; 
+    padding: 12px 65px 12px 72px;
     font-size: 14px;
     width: 100%;
     border-radius: 16px;
-    background-color: $light; 
-    color: $dark; 
+    background-color: $light;
+    color: $dark;
     border: none;
     font-weight: 700;
     white-space: nowrap;
-    background-image: url('../../Images/google-178-svgrepo-com 1.png');
+    background-image: url("../../Images/google-178-svgrepo-com 1.png");
     background-repeat: no-repeat;
     background-position: 73px center;
     display: flex;
-    text-align: center; 
+    text-align: center;
     align-items: center;
     justify-content: center;
-   
+
     @include maxMediaQuery($sm) {
       font-size: 12px;
-      padding: 14px 63px 14px 95px !important; 
+      padding: 14px 63px 14px 95px !important;
       background-position: 73px center;
-    
     }
-     @include maxMediaQuery($sm) {
-    &.mb-3 {
-      margin-bottom: 16px; 
+    @include maxMediaQuery($sm) {
+      &.mb-3 {
+        margin-bottom: 16px;
+      }
     }
   }
 }
-
-  
 
 .error {
   color: red;
@@ -45,185 +43,108 @@
 
 // ================= login scss end =============================
 
-// ============== otp scss start =================================
-
-
-// ================ otp css end==============================
-
 // ========================= navbar csss==============================
-
-.navbarMain {
-  background-color: #EF7F1A;
-  padding: 10px;
-  height: 46px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .logo {
-      color: #ffffff;
-      display: flex;
-      justify-content: center;
-      img {
-          height: 22px;
-      }
-  }
-  .search {
-      display: flex;
-      justify-content: center;
-      i {
-          color: #ffffff;
-      }
-  }
-}
 
 // =============== menuList css========================
 
-.Menutitle {
-  h1 {
-    font-size: 25px;
-    font-weight: 600;
-  }
-}
-.menulistsection {
-  padding: 40px;
-  .MenuCategory {
-    padding: 20px 0;
-    .cardMain {
-      .card-header {
-        border-radius: 16px;
-        background-color: transparent;
-        .categoryImage {
-          height: 230px;
-          border-radius: 16px;
-          overflow: hidden;
-          img {
-            width: 100%;
-            height: 100%;
-          }
-        }
-        &:hover {
-          box-shadow: 0px 0px 27px -4px #7c7c7c;
-          border: none;
-        }
-      }
-      .card-body {
-        padding: 5px;
+.TableSection {
+  & .tableHeader {
+    & p {
+      font-weight: 900;
+      font-size: 50px;
+      line-height: 60.51px;
+      @include maxMediaQuery($smm) {
+        font-size: 40px;
         text-align: center;
-        .card-title {
-          font-size: 20px;
-          font-weight: 600;
-        }
+        padding-top: 20px;
+      }
+      @include maxMediaQuery($lg) {
+        font-size: 50px;
+        text-align: center;
+      }
+      @media screen and (min-width: 280px) and (max-width: 384px) {
+        font-size: 40px !important;
+        white-space: nowrap;
       }
     }
   }
-}
-.categoryMain {
-  padding: 40px;
-  .MenuCategory {
-    padding: 20px 0;
-    .cardMain {
-      background-color: #fff;
+  & .tableBox {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 50px;
+    @include maxMediaQuery($xxl) {
+      display: flex;
+      justify-content: center;
+    }
+    @include maxMediaQuery($sm) {
+      display: unset;
+      justify-content: unset;
+    }
+
+    & .table-login {
+      width: 409px;
+      height: 103px;
+      font-size: 32px;
       border-radius: 16px;
-      box-shadow: 0px 0px 15px #eaeaea;
-      .card-header {
-        display: flex;
-        justify-content: end;
-        border-radius: 16px;
-        background-color: transparent;
-        .categoryImage {
-          height: 150px;
-          width: 150px;
-          border-radius: 16px;
-          overflow: hidden;
-          position: relative;
-          & img{
-            width: 100%;
-            object-fit: cover;
-          }
-        }
+      text-transform: uppercase;
+      background-color: #323231;
+      color: $light;
+      border: none;
+      font-weight: 900;
+      white-space: nowrap;
+      background-image: url("../../Images/table.png");
+      background-repeat: no-repeat;
+      background-position: 49px center;
+      display: flex;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+
+      @include maxMediaQuery($xl) {
+        background-position: 23px center;
+        font-size: 25px;
       }
-      .AddBtn {
-        position: relative;
-        margin-top: -15px;
-        border: 1px solid rgb(203, 203, 203);
-        font-size: 14px;
-        font-weight: 600;
-        padding: 3px 10px;
-        border-radius: 5px;
+      @include maxMediaQuery($lg) {
+        width: 245px;
+        font-size: 22px;
+        background-position: 18px center;
+        height: 103px;
       }
-      .card-body {
-        padding: 5px 10px;
-        display: flex;
-        gap: 5px;
-        justify-content: space-between;
-        flex-direction: column;
-        .card-title {
-          font-size: 20px;
-          font-weight: 600;
-        }
-        .cardMenuTitle {
-          font-size: 15px;
-        }
-        .veg {
-          .nonveg {
-            position: relative;
-            top: 0px;
-            left: 0px;
-            width: 20px;
-            height: 20px;
-            z-index: 2;
-            border: 1px solid;
-            border-color: rgb(196, 0, 0);
-            .veg-nonveg {
-              border-color: red;
-              &::before {
-                background: red;
-              }
-            }
-            &::before {
-              position: absolute;
-              top: 3px;
-              left: 3px;
-              background: rgb(196, 0, 0);
-              content: "";
-              width: 12px;
-              height: 12px;
-              border-radius: 50%;
-            }
-          }
-          .veg-nonveg {
-            position: relative;
-            top: 0px;
-            left: 0px;
-            width: 20px;
-            height: 20px;
-            z-index: 2;
-            border: 1px solid;
-            border-color: rgb(19, 72, 19);
-            &::before {
-              position: absolute;
-              top: 3px;
-              left: 3px;
-              background: rgb(19, 72, 19);
-              content: "";
-              width: 12px;
-              height: 12px;
-              border-radius: 50%;
-            }
-          }
-          span {
-            height: 10px;
-            width: 10px;
-            border-radius: 10px;
-            background-color: rgb(19, 72, 19);
-          }
-        }
+      @include maxMediaQuery($md) {
+        width: 410px;
+        font-size: 22px;
+        background-position: 45px center;
+        height: 103px;
       }
-      &:hover {
-        box-shadow: 0px 0px 20px -4px #b8b8b8;
-        border: none;
+      @include maxMediaQuery($smm) {
+        width: 350px !important;
+        background-position: 30px center;
+        height: 97px;
+      }
+      @media screen and (min-width: 280px) and (max-width: 384px) {
+        width: 255px !important;
+      }
+      @include maxMediaQuery($sm) {
+        &.mb-3 {
+          margin-bottom: 16px;
+        }
       }
     }
   }
 }
+
+
+// ======================= category start =======================
+.MainCategory{
+  
 }
+
+
+
+
+
+
+
+
+
+// ======================= category code  =======================

@@ -29,15 +29,15 @@ function App() {
   return (
     <div>
       <Routes>
+         <Route  element={<PrivateRoute/>}>   </Route>
         <Route path='/' element={<Signup/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/otp' element={<Otp/>} />
         <Route path='/signin' element={<SignIn/>}/>
            
-         <Route path='/admin/*' element={<Admin/>}/>
-         <Route  element={<PrivateRoute/>}>   </Route>
+         <Route path='/table/*' element={<Admin/>}/>
        
-        <Route path='/burger' element={<CategoryList />} />
+        <Route path='/category' element={<CategoryList />} />
         <Route path='/pizza' element={<CategoryList />} />
       </Routes>
     </div>
