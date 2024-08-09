@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Register } from '../../Component/Redux/Slice/AuthSlice';
-import Input from "../Extra/Input";
-import Button from "../Extra/Button";
-import { submitData } from "../Utils/Fuction";
+import { Register } from '../../../Component/Redux/Slice/AuthSlice';
+import Input from "../../Extra/Input";
+import Button from "../../Extra/Button";
+import { submitData } from "../../Utils/Fuction";
 
-import BannerbackgroundImg from '../../Asstes/Images/fa3ea1263d103c3a22d1096792fafc70.png';
+import BannerbackgroundImg from '../../../Asstes/Images/fa3ea1263d103c3a22d1096792fafc70.png';
 
 
 const Signup = () => {

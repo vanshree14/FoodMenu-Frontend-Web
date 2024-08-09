@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Navbar from './Navbar'
-import BookingTable from './BookingTable'
+import BookingTable from './BookingTable/BookingTable'
 
 
 const Admin = () => {

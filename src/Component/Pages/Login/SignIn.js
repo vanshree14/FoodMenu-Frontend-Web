@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../Component/Redux/Slice/AuthSlice';
-import Input from "../Extra/Input";
-import Button from "../Extra/Button";
-import BannerbackgroundImg from '../../Asstes/Images/fa3ea1263d103c3a22d1096792fafc70.png';
-import { submitData } from '../Utils/Fuction';
+import { login } from '../../../Component/Redux/Slice/AuthSlice';
+import Input from "../../Extra/Input";
+import Button from "../../Extra/Button";
+import BannerbackgroundImg from '../../../Asstes/Images/fa3ea1263d103c3a22d1096792fafc70.png';
+import { submitData } from '../../Utils/Fuction';
 
 const SignIn = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const isAuth = useSelector((state) => state.user.isAuth);
 
-   
+
 
     useEffect(() => {
-        isAuth && navigate("/admin");
+        isAuth && navigate("/table");
     }, [isAuth, navigate]);
 
     const handleLogin = async (e) => {
@@ -24,15 +24,14 @@ const SignIn = () => {
         try {
             let response = await dispatch(login(loginData)).unwrap();
             alert("user login successfully");
-            response.status ? navigate("/admin") : alert("SomeThing IS missing");
+            response.status ? navigate("/table") : alert("SomeThing IS missing");
         } catch (error) {
             console.error('Login failed:', error);
             alert("Oops! Something went wrong.");
         }
     };
-
     return (
-        <div className="mainLoginPage" style={{ backgroundImage: `url(${BannerbackgroundImg})` }}>
+        <div className="mainLoginPage" style={{ backgroundImage: `url(${BannerbackgroundImg})`, height: '100vh' }}>
             <div className="loginDiv" >
                 <div className="loginPage pt-3 m-auto text-center" style={{ width: "499px" }}>
                     <div className="loginTitle mb-5 mt-5">

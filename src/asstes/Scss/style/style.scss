@@ -133,18 +133,59 @@
   }
 }
 
-
 // ======================= category start =======================
-.MainCategory{
-  
+.MainCategory {
+  & .logobar {
+    margin-left: 300px;
+  }
+  & .categoryHeader {
+    & p {
+      font-weight: 900;
+      font-size: 50px;
+      line-height: 60.51px;
+    }
+  }
+  & .retrun-icon {
+    border: 3px solid $prime;
+    width: 48px;
+    height: 48px;
+    border-radius: 11px;
+    background-color: #352e23;
+    text-align: center;
+    & i {
+      position: absolute;
+      top: 34%;
+      left: 50%;
+      transform: translate(-50%);
+    }
+  }
+  & .CategoryBox {
+    background-color: $third;
+    width: 199px;
+    height: 230px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+    position: relative;
+    @include maxMediaQuery($lg) {
+      width: 196px !important;
+    }
+    @include maxMediaQuery($smm) {
+      width: 150px !important;
+    }
+    @media screen and (min-width: 280px) and (max-width: 384px) {
+      width: 130px !important;
+    }
+    & .CategoryDetails {
+      position: absolute;
+      top: 22%;
+      left: 24%;
+    }
+    & p {
+      font-size: 20px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+  }
 }
-
-
-
-
-
-
-
-
 
 // ======================= category code  =======================

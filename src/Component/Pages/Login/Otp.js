@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { json, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Input from '../Extra/Input';
-import Button from '../Extra/Button';
-import BannerbackgroundImg from '../../Asstes/Images/fa3ea1263d103c3a22d1096792fafc70.png';
-import { OTP } from '../Redux/Slice/AuthSlice';
-import { submitData } from '../Utils/Fuction';
+import Input from '../../Extra/Input';
+import Button from '../../Extra/Button';
+import BannerbackgroundImg from '../../../Asstes/Images/fa3ea1263d103c3a22d1096792fafc70.png';
+import { OTP } from '../../Redux/Slice/AuthSlice';
+import { submitData } from '../../Utils/Fuction';
 
 const Otp = () => {
   const [otp, setOtp] = useState("");

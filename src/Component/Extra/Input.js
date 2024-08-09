@@ -65,7 +65,7 @@ const Input = (props) => {
                 </label>
             )}
 
-            {icon && <i className={`${icon} position-absolute`} style={{ left: '17px', top: '20%' }}></i>}
+            {icon && <i className={`${icon} position-absolute`} style={{ left: '17px', top: '24%',color:'#636363' }}></i>}
 
             <input
                 type={types}

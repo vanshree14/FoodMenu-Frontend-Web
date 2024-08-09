@@ -4,15 +4,15 @@ import './Asstes/Scss/Custom/custom.css'
 import './Asstes/Scss/Style/style.css';
 import { Route, Routes } from 'react-router-dom';
 import Admin from './Component/Pages/Admin';
-import Signup from './Component/Pages/Signup';
-import SignIn from './Component/Pages/SignIn';
-import CategoryList from './Component/Pages/CategoryList';
-import Otp from './Component/Pages/Otp';
+import CategoryList from './Component/Pages/Category/CategoryList';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setToken } from './Component/Utils/SetAuth';
 import { setOldAdmin } from './Component/Redux/Slice/AuthSlice';
 import PrivateRoute from './Component/Utils/PrivateRoute';
+import Signup from './Component/Pages/Login/Signup';
+import Otp from './Component/Pages/Login/Otp';
+import SignIn from './Component/Pages/Login/SignIn';
 
 function App() {
   const dispatch = useDispatch();
@@ -37,8 +37,8 @@ function App() {
            
          <Route path='/table/*' element={<Admin/>}/>
        
-        <Route path='/category' element={<CategoryList />} />
-        <Route path='/pizza' element={<CategoryList />} />
+        <Route path='/categories' element={<CategoryList />} />
+        {/* <Route path='/pizza' element={<CategoryList />} /> */}
       </Routes>
     </div>
   );

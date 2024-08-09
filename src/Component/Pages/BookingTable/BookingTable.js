@@ -1,15 +1,15 @@
 import React from 'react'
-import logobar from '../../Asstes/Images/loginLogo.png'
+import logobar from '../../../Asstes/Images/loginLogo.png'
 import { useNavigate } from 'react-router-dom';
 
-import BannerbackgroundImg from '../../Asstes/Images/fa3ea1263d103c3a22d1096792fafc70.png';
+import BannerbackgroundImg from '../../../Asstes/Images/fa3ea1263d103c3a22d1096792fafc70.png';
 
 const BookingTable = () => {
     const navigate = useNavigate();
 
     return (
         <div>
-            <div className='TableSection mainLoginPage' style={{ backgroundImage: `url(${BannerbackgroundImg})` }}>
+            <div className='TableSection custombackgroud' style={{ backgroundImage: `url(${BannerbackgroundImg})` }}>
                 <div className="container">
                     <div className="row d-flex justify-content-center mt-5 position-relative">
                         <div className="col-lg-7 col-md-12 order-2 order-lg-1  mb-3 mb-lg-0">
@@ -26,7 +26,7 @@ const BookingTable = () => {
 
                     <div className="row mt-5 position-relative d-flex justify-content-center">
                         <div className=" col d-flex justify-content-between align-items-center text-light">
-                            <div className="tableBox" onClick={() => navigate('/category')}>
+                            <div className="tableBox" onClick={() => navigate('/categories')}>
                                 <button className="table-login mb-3">table 1</button>
                             </div>
                         </div>
@@ -72,7 +72,7 @@ const BookingTable = () => {
                         </div>
                     </div>
                 </div>
-            </div>|
+            </div>
 
         </div>
     )
