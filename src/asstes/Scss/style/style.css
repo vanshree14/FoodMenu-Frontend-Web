@@ -141,10 +141,25 @@
 .MainCategory .logobar {
   margin-left: 300px;
 }
+@media screen and (max-width: 1200px) {
+  .MainCategory .logobar {
+    display: flex;
+    justify-content: start;
+    margin: 0px !important;
+  }
+}
 .MainCategory .categoryHeader p {
   font-weight: 900;
   font-size: 50px;
   line-height: 60.51px;
+}
+@media screen and (max-width: 992px) {
+  .MainCategory .categoryHeader p {
+    font-size: 25px;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+  }
 }
 .MainCategory .retrun-icon {
   border: 3px solid #9B7A41;
@@ -154,7 +169,32 @@
   background-color: #352e23;
   text-align: center;
 }
+@media screen and (max-width: 992px) {
+  .MainCategory .retrun-icon {
+    display: none;
+  }
+}
 .MainCategory .retrun-icon i {
+  position: absolute;
+  top: 34%;
+  left: 50%;
+  transform: translate(-50%);
+}
+.MainCategory .retrun-icon-2 {
+  border: 3px solid #9B7A41;
+  width: 48px;
+  height: 48px;
+  border-radius: 11px;
+  background-color: #352e23;
+  text-align: center;
+  display: none !important;
+}
+@media screen and (max-width: 992px) {
+  .MainCategory .retrun-icon-2 {
+    display: block !important;
+  }
+}
+.MainCategory .retrun-icon-2 i {
   position: absolute;
   top: 34%;
   left: 50%;
@@ -164,32 +204,156 @@
   background-color: #323231;
   width: 199px;
   height: 230px;
+  margin-top: 40px;
   border-radius: 16px;
   margin-bottom: 30px;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 @media screen and (max-width: 992px) {
   .MainCategory .CategoryBox {
-    width: 196px !important;
+    width: 186px !important;
+    margin: 0px !important;
   }
 }
 @media screen and (max-width: 450px) {
   .MainCategory .CategoryBox {
     width: 150px !important;
+    height: 185px !important;
   }
 }
 @media screen and (min-width: 280px) and (max-width: 384px) {
   .MainCategory .CategoryBox {
-    width: 130px !important;
+    width: 120px !important;
   }
-}
-.MainCategory .CategoryBox .CategoryDetails {
-  position: absolute;
-  top: 22%;
-  left: 24%;
 }
 .MainCategory .CategoryBox p {
   font-size: 20px;
   font-weight: 900;
   text-transform: uppercase;
+}
+@media screen and (min-width: 280px) and (max-width: 384px) {
+  .MainCategory .CategoryBox .CategoryImg img {
+    width: 60px !important;
+  }
+}
+.MainCategory .CategoryBox .CategoryImg img {
+  width: 80px !important;
+}
+
+.MainPizzaSection .pizza-media {
+  position: relative;
+}
+.MainPizzaSection .pizza-media .pizza-login {
+  width: 800px !important;
+  height: 59px;
+  font-size: 16px;
+  width: 100%;
+  background-color: #323231;
+  text-transform: uppercase;
+  color: #ffffff;
+  border: none;
+  font-weight: 700;
+  white-space: nowrap;
+  background-image: url("../../Images/pizza-icon.png");
+  background-repeat: no-repeat;
+  background-position: 350px center;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (max-width: 576px) {
+  .MainPizzaSection .pizza-media .pizza-login {
+    font-size: 12px;
+    padding: 14px 63px 14px 95px !important;
+    background-position: 73px center;
+  }
+}
+@media screen and (max-width: 576px) {
+  .MainPizzaSection .pizza-media .pizza-login.mb-3 {
+    margin-bottom: 16px;
+  }
+}
+.MainPizzaSection .combo-media {
+  position: relative;
+}
+.MainPizzaSection .combo-media .combo-login {
+  width: 800px;
+  height: 59px;
+  font-size: 16px;
+  width: 100%;
+  background-color: #9B7A41;
+  text-transform: uppercase;
+  color: #ffffff;
+  border: none;
+  font-weight: 700;
+  white-space: nowrap;
+  background-image: url("../../Images/pizza-icon.png");
+  background-repeat: no-repeat;
+  background-position: 350px center;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (max-width: 576px) {
+  .MainPizzaSection .combo-media .combo-login {
+    font-size: 12px;
+    padding: 14px 63px 14px 95px !important;
+    background-position: 73px center;
+  }
+}
+@media screen and (max-width: 576px) {
+  .MainPizzaSection .combo-media .combo-login.mb-3 {
+    margin-bottom: 16px;
+  }
+}
+.MainPizzaSection .MainPizzaBox {
+  background-color: #ffffff;
+  width: 352px;
+  height: 160px;
+  border-radius: 5px;
+}
+.MainPizzaSection .MainPizzaBox .PizzaImg {
+  display: inline-block;
+}
+.MainPizzaSection .MainPizzaBox .PizzaImg img {
+  width: 120px;
+  height: 150px;
+  margin: 6px;
+  border-radius: 5px;
+}
+.MainPizzaSection .MainPizzaBox .pizzadetails .title {
+  font-size: 16px;
+  color: #9B7A41;
+  font-weight: 900;
+}
+.MainPizzaSection .MainPizzaBox .pizzadetails .descripnation {
+  font-size: 12px;
+  color: #636363;
+  font-weight: 400;
+}
+.MainPizzaSection .MainPizzaBox .pizzadetails .add-show {
+  width: 60px;
+  height: 23px;
+  border-radius: 3px;
+  background-color: #9B7A41;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 12px;
+  border: 1px solid #9B7A41;
+  margin-right: 10px;
+}
+.MainPizzaSection .MainPizzaBox .pizzadetails .show-details {
+  width: 8 0px;
+  height: 23px;
+  border-radius: 3px;
+  background-color: #9B7A41;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 12px;
+  border: 1px solid #9B7A41;
 }/*# sourceMappingURL=style.css.map */

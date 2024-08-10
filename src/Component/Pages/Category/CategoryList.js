@@ -53,6 +53,9 @@ const CategoryList = () => {
     const handleclick = () => {
         navigate("/table")
     }
+    const handlenavclick = () => {
+        navigate('/categories/pizza')
+    }
 
 
     return (
@@ -60,22 +63,26 @@ const CategoryList = () => {
             <div className="MainCategory   custombackgroud" style={{ backgroundImage: `url(${BannerbackgroundImg})` }}>
                 <div className="container">
                     <div className="row d-flex align-items-center mt-5 position-relative">
-                        <div className="col-lg-7 col-md-12 order-2 order-lg-1  mb-3 mb-lg-0">
+                        <div className="col-xl-7 col-lg-12 d-flex align-items-center col-md-12 order-2 order-smm-1 order-lg-1  mb-3 mb-lg-0  col-sm-12 col-smm-12 justify-content-md-center justify-content-xl-start mt-lg-2">
+                            <div className="retrun-icon-2 me-5 d-block text-light position-relative " onClick={handleclick}>
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </div>
+
                             <div className="categoryHeader">
                                 <p className="text-light">Select Category</p>
                             </div>
                         </div>
-                        <div className="col-lg-5 col-md-12 order-1 ">
-                            <div className="logobar text-center">
+                        <div className="col-xl-5 col-md-12 order-xl-1 mb-lg-3 mb-md-3  d-md-flex justify-content-md-center">
+                            <div className="logobar text-center  ">
                                 <img src={logobar} alt="logo" className="img" />
                             </div>
                         </div>
-                        <div className=" mt-4  col-lg-9 col-md-12 order-2 order-lg-1  mb-3 mb-lg-0">
+                        <div className=" mt-4  col-xl-9 col-md-12 order-smm-1 order-2 order-lg-1  mb-3 mb-lg-0  col-sm-6">
                             <div className="retrun-icon text-light position-relative " onClick={handleclick}>
                                 <i class="fa-solid fa-arrow-left"></i>
                             </div>
                         </div>
-                        <div className="col-lg-3 col-md-12 order-1 mt-4 ">
+                        <div className="col-xl-3 col-md-12 order-xl-1 mb-md-3   mt-4 d-md-flex justify-content-md-center">
                             <div className="search-Bar">
                                 <Searching
                                     type={`server`}
@@ -88,6 +95,8 @@ const CategoryList = () => {
                             </div>
                         </div>
                     </div>
+
+
                     {/* <div className="row row d-flex align-items-center mt-5 position-relative">
                         {
                             data?.map((items,index) => {
@@ -109,10 +118,10 @@ const CategoryList = () => {
                         }
                     </div> */}
 
-                    
-                    <div className="row d-flex align-items-center mt-5 position-relative">
+
+                    <div className="row d-flex align-items-center  position-relative ">
                         <div className="col-lg-3 col-smm-6 col-6 col-sm-6 col-md-4 col-xl-3 col-xxl-2">
-                            <div className="CategoryBox">
+                            <div className="CategoryBox"  onClick={handlenavclick}>
                                 <div className="CategoryDetails">
                                     <div className="CategoryImg d-flex justify-content-center">
                                         <img src={pizza} alt="img" />
@@ -127,7 +136,7 @@ const CategoryList = () => {
                                     <div className="CategoryImg d-flex justify-content-center">
                                         <img src={burger} alt="img" />
                                     </div>
-                                    <p className="text-light d-flex justify-content-center pt-2">burger</p>
+                                    <p className="text-light d-flex justify-content-center pt-3">burger</p>
                                 </div>
                             </div>
                         </div>
@@ -137,7 +146,7 @@ const CategoryList = () => {
                                     <div className="CategoryImg d-flex justify-content-center">
                                         <img src={sadvich} alt="img" />
                                     </div>
-                                    <p className="text-light d-flex justify-content-center pt-2">sandvich</p>
+                                    <p className="text-light d-flex justify-content-center pt-3">sandvich</p>
                                 </div>
                             </div>
                         </div>
@@ -157,7 +166,7 @@ const CategoryList = () => {
                                     <div className="CategoryImg d-flex justify-content-center">
                                         <img src={fries} alt="img" />
                                     </div>
-                                    <p className="text-light d-flex justify-content-center pt-2">fries</p>
+                                    <p className="text-light d-flex justify-content-center pt-3">fries</p>
                                 </div>
                             </div>
                         </div>

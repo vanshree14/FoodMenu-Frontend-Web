@@ -13,6 +13,7 @@ import PrivateRoute from './Component/Utils/PrivateRoute';
 import Signup from './Component/Pages/Login/Signup';
 import Otp from './Component/Pages/Login/Otp';
 import SignIn from './Component/Pages/Login/SignIn';
+import PizzaArea from './Component/Pages/Category/Pizza/PizzaArea';
 
 function App() {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ function App() {
          <Route path='/table/*' element={<Admin/>}/>
        
         <Route path='/categories' element={<CategoryList />} />
-        {/* <Route path='/pizza' element={<CategoryList />} /> */}
+        <Route path='/categories/pizza' element={<PizzaArea />} />
       </Routes>
     </div>
   );
