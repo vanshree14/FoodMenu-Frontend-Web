@@ -1,356 +1,160 @@
-// import React, { useState } from 'react'
-// import Navbar from './Navbar'
-// import MargheritaPizza from '../../Asstes/Images/MargheritaPizza.png'
-// import OnionsPizza from '../../Asstes/Images/OnionsPizza.png'
-// import FarmVilla from '../../Asstes/Images/farmVilla.png'
-// import GardenSpecial from '../../Asstes/Images/gardenSpecial.png'
-// import Chezzy7Pizza from '../../Asstes/Images/chezzy7Pizza.png'
-// import Paneer65 from '../../Asstes/Images/paneer65.png'
-// import { Button, Modal } from 'react-bootstrap'
-// import DialogAdd from './DialogAdd'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { openDialog } from '../Redux/Slice/DialogueSlice'
-// import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import BannerbackgroundImg from '../../../../Asstes/Images/fa3ea1263d103c3a22d1096792fafc70.png';
+import Searching from '../../../Extra/Searching';
+import logobar from '../../../../Asstes/Images/loginLogo.png';
+import pizzaImg from '../../../../Asstes//Images/pizza-img.png';
+import Delete from '../../../../Asstes/Icon/delete.png';
+import Like from '../../../../Asstes/Images/LIKE.png';
 
-// const CategoryList = () => {
-//     const [show, setShow] = useState(false);
+const PizzaArea = () => {
+    const [data, setData] = useState([]);
+    const initialPizzas = [
+        { id: 1, count: 0, showCounter: false },
+        { id: 2, count: 0, showCounter: false },
+        { id: 3, count: 0, showCounter: false },
+        { id: 4, count: 0, showCounter: false },
+        { id: 5, count: 0, showCounter: false },
+        { id: 6, count: 0, showCounter: false },
+        { id: 7, count: 0, showCounter: false },
+        { id: 8, count: 0, showCounter: false },
+        { id: 9, count: 0, showCounter: false },
+        { id: 10, count: 0, showCounter: false },
+        { id: 11, count: 0, showCounter: false },
+        { id: 12, count: 0, showCounter: false },
+        { id: 13, count: 0, showCounter: false },
+        { id: 14, count: 0, showCounter: false },
+        { id: 15, count: 0, showCounter: false },
+        { id: 16, count: 0, showCounter: false },
+    ];
 
-//     const handleClose = () => setShow(false);
-//     const handleShow = () => setShow(true);
-//     const { dialogue, dialogueType } = useSelector((state) => state.dialogue);
-//     const dispatch = useDispatch()
-//     const navigate = useNavigate()
+    const [pizzas, setPizzas] = useState(initialPizzas);
 
-//     const handleLogout =  () => {
-//         navigate("/admin");
-//     };
-//     return (
-//         <div>
+    const handleAdd = (id) => {
+        setPizzas(pizzas.map(pizza =>
+            pizza.id === id ? { ...pizza, showCounter: true, count: 1 } : pizza
+        ));
+    };
 
-//             <div className='categoryMain'>
-//                 <div className="container">
-//                     <div className="row d-flex justify-content-center">
-//                         <div className="col-8 d-flex justify-content-between align-items-center">
-//                             <div className='Menutitle'>
-//                                 <h1>Burger</h1>
-//                             </div>
-//                             <input type="submit" value="Back" className="btn solid" onClick={handleLogout} />
-//                         </div>
-//                     </div>
-//                     <div className="row d-flex justify-content-center">
-//                         <div className="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 MenuCategory">
-//                             <div className='row'>
-//                                 <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
-//                                     <div className="cardMain d-flex">
-//                                         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 p-xl-3 p-lg-3 p-md-3 p-sm-3 p-0 m-0">
-//                                             <div className="card-header">
-//                                                 <div className="categoryImage">
-//                                                     <img src={MargheritaPizza} alt="" />
-//                                                 </div>
-//                                             </div>
-//                                             <div className='d-flex justify-content-center'>
-//                                                 <button className='AddBtn' variant="primary" onClick={() => dispatch(openDialog({ type: "category" }))}>
-//                                                     + Add
-//                                                 </button>
-//                                             </div>
-//                                             {dialogue && dialogueType === "category" && (
-//                                                 <DialogAdd />
-//                                             )}
-//                                         </div>
-//                                         <div className="col-8 ps-0 py-2">
-//                                             <div className="card-body">
-//                                                 <div className="veg">
-//                                                     <div className="veg-nonveg"></div>
-//                                                 </div>
-//                                                 <div className='card-title'>Margherita Pizza</div>
-//                                                 <div className="price">₹145</div>
-//                                                 <div className="cardMenuTitle">A classic cheesy Margherita. Cant go wrong. [Fat-14.3 per 100 g, Protein-12.6 per 100 g, Carbohydrate-39.2 per 100 g, Sugar-0 per 100 g, Calories-336 k.cal]Nutritional information per 100g</div>
-//                                             </div>
-//                                         </div>
-//                                     </div>
-//                                 </div>
+    const handleIncrement = (id) => {
+        setPizzas(pizzas.map(pizza =>
+            pizza.id === id ? { ...pizza, count: pizza.count + 1 } : pizza
+        ));
+    };
 
-//                                 <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
-//                                     <div className="cardMain d-flex">
-//                                         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 p-xl-3 p-lg-3 p-md-3 p-sm-3 p-0 m-0">
-//                                             <div className="card-header ">
-//                                                 <div className="categoryImage">
-//                                                     <img src={OnionsPizza} alt="" />
-//                                                 </div>
-//                                             </div>
-//                                             <div className='d-flex justify-content-center'>
-//                                                 <button className='AddBtn' variant="primary" onClick={handleShow}>
-//                                                     + Add
-//                                                 </button>
-//                                             </div>
-//                                         </div>
-//                                         <div className="col-8 ps-0 py-2">
-//                                             <div className="card-body">
-//                                                 <div className="veg">
-//                                                     <div className="veg-nonveg"></div>
-//                                                 </div>
-//                                                 <div className='card-title'>Onions Pizza</div>
-//                                                 <div className="price">₹79</div>
-//                                                 <div className="cardMenuTitle">Onions on a cheesy base with in house sauce. [Fat-7 per 100 g, Protein-12.2 per 100 g, Carbohydrate-50.8 per 100 g, Sugar-7 per 100 g, Calories-315 k.cal]Nutritional information per 100g</div>
-//                                             </div>
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                                 <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
-//                                     <div className="cardMain d-flex">
-//                                         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 p-xl-3 p-lg-3 p-md-3 p-sm-3 p-0 m-0">
-//                                             <div className="card-header ">
-//                                                 <div className="categoryImage">
-//                                                     <img src={FarmVilla} alt="" />
-//                                                 </div>
-//                                             </div>
-//                                             <div className='d-flex justify-content-center'>
-//                                                 <button className='AddBtn' variant="primary" onClick={handleShow}>
-//                                                     + Add
-//                                                 </button>
-//                                             </div>
-//                                         </div>
-//                                         <div className="col-8 ps-0 py-2">
-//                                             <div className="card-body">
-//                                                 <div className="veg">
-//                                                     <div className="veg-nonveg"></div>
-//                                                 </div>
-//                                                 <div className='card-title'>Farm Villa</div>
-//                                                 <div className="price">₹449</div>
-//                                                 <div className="cardMenuTitle">The freshness of capsicum, tomatoes, with the flavour of paneer and red paprika topped with a Cheese dip. [Fat-10.9 per 100 g, Protein-12.7 per 100 g, Carbohydrate-34.9 per 100 g, Sugar-0 per 100 g, Calories-288.9 k.cal]Nutritional information per 100g.</div>
-//                                             </div>
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                                 <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
-//                                     <div className="cardMain d-flex">
-//                                         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 p-xl-3 p-lg-3 p-md-3 p-sm-3 p-0 m-0">
-//                                             <div className="card-header ">
-//                                                 <div className="categoryImage">
-//                                                     <img src={GardenSpecial} alt="" />
-//                                                 </div>
-//                                             </div>
-//                                             <div className='d-flex justify-content-center'>
-//                                                 <button className='AddBtn' variant="primary" onClick={handleShow}>
-//                                                     + Add
-//                                                 </button>
-//                                             </div>
-//                                         </div>
-//                                         <div className="col-8 ps-0 py-2">
-//                                             <div className="card-body">
-//                                                 <div className="veg">
-//                                                     <div className="nonveg"></div>
-//                                                 </div>
-//                                                 <div className='card-title'>Garden Special</div>
-//                                                 <div className="price">₹449</div>
-//                                                 <div className="cardMenuTitle">A close cousin of the gardne delight. Capsicum,Mushrooms,Onion, and Fresh Tomatoes. [Fat-18.8 per 100 g, Protein-10.8 per 100 g, Carbohydrate-16.4 per 100 g, Sugar-0 per 100 g, Calories-277.6 k.call]Nutritional information per 100g</div>
-//                                             </div>
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                                 <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
-//                                     <div className="cardMain d-flex">
-//                                         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 p-xl-3 p-lg-3 p-md-3 p-sm-3 p-0 m-0">
-//                                             <div className="card-header ">
-//                                                 <div className="categoryImage">
-//                                                     <img src={Chezzy7Pizza} alt="" />
-//                                                 </div>
-//                                             </div>
-//                                             <div className='d-flex justify-content-center'>
-//                                                 <button className='AddBtn' variant="primary" onClick={handleShow}>
-//                                                     + Add
-//                                                 </button>
-//                                             </div>
-//                                         </div>
-//                                         <div className="col-8 ps-0 py-2">
-//                                             <div className="card-body">
-//                                                 <div className="veg">
-//                                                     <div className="veg-nonveg"></div>
-//                                                 </div>
-//                                                 <div className='card-title'>Cheezy-7 Pizza</div>
-//                                                 <div className="price">₹499</div>
-//                                                 <div className="cardMenuTitle">An Exotic Combination Of White Mozarella, Cream, White Cheese, Monterey Jack, Cream Orange, Colby And Orange Cheddar Cheese</div>
-//                                             </div>
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                                 <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
-//                                     <div className="cardMain d-flex">
-//                                         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 p-xl-3 p-lg-3 p-md-3 p-sm-3 p-0 m-0">
-//                                             <div className="card-header ">
-//                                                 <div className="categoryImage">
-//                                                     <img src={Paneer65} alt="" />
-//                                                 </div>
-//                                             </div>
-//                                             <div className='d-flex justify-content-center'>
-//                                                 <button className='AddBtn' variant="primary" onClick={handleShow}>
-//                                                     + Add
-//                                                 </button>
-//                                             </div>
-//                                         </div>
-//                                         <div className="col-8 ps-0 py-2">
-//                                             <div className="card-body">
-//                                                 <div className="veg">
-//                                                     <div className="veg-nonveg"></div>
-//                                                 </div>
-//                                                 <div className='card-title'>Paneer 65</div>
-//                                                 <div className="price">₹255</div>
-//                                                 <div className="cardMenuTitle">A Combination Of Onion, Capsicum, Red Paprika, Paneer 65 With Extra Cheese</div>
-//                                             </div>
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//                 {/* {dialogue && dialogueType === "category" && (
-//                     <DialogAdd />
-//                 )} */}
-//                 <Modal
-//                     show={show}
-//                     onHide={handleClose}
-//                     backdrop="static"
-//                     keyboard={false}
-//                     size='lg'
-//                     centered
-//                 >
-//                     <Modal.Header closeButton>
-//                         <Modal.Title>Modal title</Modal.Title>
-//                     </Modal.Header>
-//                     <Modal.Body>
-//                         I will not close if you click outside me. Do not even try to press
-//                         escape key.
-//                     </Modal.Body>
-//                     <Modal.Footer>
-//                         <Button variant="secondary" onClick={handleClose}>
-//                             Close
-//                         </Button>
-//                         <Button variant="primary">Understood</Button>
-//                     </Modal.Footer>
-//                 </Modal>
-//             </div>
-//         </div>
-//     )
-// }
+    const handleDecrement = (id) => {
+        setPizzas(pizzas.map(pizza => {
+            if (pizza.id === id) {
+                if (pizza.count > 1) {
+                    return { ...pizza, count: pizza.count - 1 };
+                } else {
+                    return { ...pizza, showCounter: false, count: 0 };
+                }
+            }
+            return pizza;
+        }));
+    };
 
-// export default CategoryList
+    const handleDelete = (id) => {
+        setPizzas(pizzas.map(pizza =>
+            pizza.id === id ? { ...pizza, showCounter: false, count: 0 } : pizza
+        ));
+    };
 
+    return (
+        <div>
+            <div className="MainPizzaSection MainCategory custombackgroud" style={{ backgroundImage: `url(${BannerbackgroundImg})` }} >
+                <div className="container">
+                    <div className="row d-flex align-items-center mt-5 position-relative">
+                        <div className="col-xl-7 col-lg-12 d-flex align-items-center col-md-12 order-2 order-smm-1 order-lg-1 mb-3 mb-lg-0 col-sm-12 col-smm-12 justify-content-md-center justify-content-xl-start mt-lg-2">
+                            <div className="retrun-icon-2 me-5 d-block text-light position-relative">
+                                <i className="fa-solid fa-arrow-left"></i>
+                            </div>
 
+                            <div className="categoryHeader">
+                                <p className="text-light">pizza</p>
+                            </div>
+                        </div>
+                        <div className="col-xl-5 col-md-12 order-xl-1 mb-lg-3 mb-md-3 d-md-flex justify-content-md-center">
+                            <div className="logobar text-center">
+                                <img src={logobar} alt="logo" className="img" />
+                            </div>
+                        </div>
+                        <div className="mt-4 col-xl-9 col-md-12 order-smm-1 order-2 order-lg-1 mb-3 mb-lg-0 col-sm-6">
+                            <div className="retrun-icon text-light position-relative">
+                                <i className="fa-solid fa-arrow-left"></i>
+                            </div>
+                        </div>
+                        <div className="col-xl-3 col-md-12 order-xl-1 mb-md-3 mt-4 d-md-flex justify-content-md-center">
+                            <div className="search-Bar">
+                                <Searching
+                                    type={`server`}
+                                    data={data}
+                                    setData={setData}
+                                    className={`w-100`}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row mt-4 position-relative" style={{ backgroundColor: '#9B7A41' }}>
+                        <div className="col-lg-6" style={{ backgroundColor: '#323231' }}>
+                            <div className="pizza-media">
+                                <button className='pizza-login'>pizza</button>
+                            </div>
+                        </div>
+                        <div className="col-lg-6">
+                            <div className="combo-media">
+                                <button className='combo-login'>pizza</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row mt-5 position-relative">
+                        {pizzas.map(pizza => (
+                            <div className={`col-xxl-3 col-xl-4 col-lg-6 mb-4 ${pizza.id % 3 === 2 ? 'some-class' : pizza.id % 3 === 0 ? 'another-class' : ''}`} key={pizza.id}>
+                                <div className="MainPizzaBox position-relative d-flex">
+                                    <div className="PizzaImg">
+                                        <img src={pizzaImg} alt='img' />
+                                    </div>
+                                    <div className="pizzadetails pt-3">
+                                        <h1 className='title pb-1'>Blazing Onion & Paprika</h1>
+                                        <p className='descripnation pb-2'>Hot & spicy pizza with onion & red
+                                            paprika toppings and a new spicy peri..</p>
+                                        <div className="price pb-2">
+                                            <p className='title'>₹ 299</p>
+                                        </div>
+                                        <div className='d-flex align-items-center'>
+                                            {!pizza.showCounter ? (
+                                                <button className='add-show' onClick={() => handleAdd(pizza.id)}>ADD</button>
+                                            ) : (
+                                                <div className="counter d-flex align-items-center me-3">
+                                                    {pizza.count > 1 ? (
+                                                        <button className="decrement me-1" onClick={() => handleDecrement(pizza.id)}>-</button>
+                                                    ) : (
+                                                        <div className="counter-button" onClick={() => handleDelete(pizza.id)}>
+                                                            <img src={Delete} alt="Delete" />
+                                                        </div>
+                                                    )}
+                                                    <span className="counter-number">{pizza.count}</span>
+                                                    <button className="increment" onClick={() => handleIncrement(pizza.id)}>+</button>
+                                                </div>
+                                            )}
+                                            <button className='show-details'>SHOW</button>
+                                            <i className="fa-regular fa-heart" style={{ color: '#9B7A41' }}></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="col-lg-12 d-flex justify-content-center">
+                        <div className="cart-view d-flex justify-content-between align-items-center">
+                            <p className='ps-5'>3 items</p>
+                            <p className='pe-5'>view items</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
 
-
-//     < div className = 'row' >
-// <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
-//     <div className="cardMain d-flex">
-//         <div className="col-8 ps-3 py-2">
-//             <div className="card-body">
-//                 <div className='card-title'>Burger</div>
-//                 <div className="price">₹286</div>
-//                 <div className="cardMenuTitle">saf</div>
-//             </div>
-//         </div>
-//         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 p-xl-3 p-lg-3 p-md-3 p-sm-3 p-0 m-0">
-//             <div className="card-header">
-//                 <div className="categoryImage">
-//                     <img src={Burger} alt="" />
-//                 </div>
-//             </div>
-//         </div>
-//     </div>
-// </div>
-
-// <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
-//     <div className="cardMain d-flex">
-//         <div className="col-8 ps-3 py-2">
-//             <div className="card-body">
-//                 <div className='card-title'>Cheezy-7 Pizza</div>
-//                 <div className="price">₹286</div>
-//                 <div className="cardMenuTitle">An Exotic Combination of White Mozzarilla, Cream White Cheese, Cheddar, Monterey Jack, Cream Orange Cheese, Colby, Orange Cheddar. [Fat-12.4, Protein-10.3, Carbohydrate-32.2, Sugar-2.1, Calories-281.8]</div>
-//             </div>
-//         </div>
-//         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 p-xl-3 p-lg-3 p-md-3 p-sm-3 p-0 m-0">
-//             <div className="card-header ">
-//                 <div className="categoryImage">
-//                     <img src={Pizza} alt="" />
-//                 </div>
-//             </div>
-//         </div>
-//     </div>
-// </div>
-// <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
-//     <div className="cardMain d-flex">
-//         <div className="col-8 ps-3 py-2">
-//             <div className="card-body">
-//                 <div className='card-title'>Angara Punjab Burger</div>
-//                 <div className="price">₹108</div>
-//                 <div className="cardMenuTitle">Rajasthani angara spices meet punjabi flavors topped with our magic mayonnaise and premium veggies.</div>
-//             </div>
-//         </div>
-//         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 p-xl-3 p-lg-3 p-md-3 p-sm-3 p-0 m-0">
-//             <div className="card-header ">
-//                 <div className="categoryImage">
-//                     <img src={AngaraPunjabBurger} alt="" />
-//                 </div>
-//             </div>
-//         </div>
-//     </div>
-// </div>
-// <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
-//     <div className="cardMain d-flex">
-//         <div className="col-8 ps-3 py-2">
-//             <div className="card-body">
-//                 <div className='card-title'>Batata Harra Burger</div>
-//                 <div className="price">₹68</div>
-//                 <div className="cardMenuTitle">Fusion burger made from Lebanese and South Indian spices perfected to Indian palate topped with our premium mayonnaise and premium veggies.</div>
-//             </div>
-//         </div>
-//         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 p-xl-3 p-lg-3 p-md-3 p-sm-3 p-0 m-0">
-//             <div className="card-header ">
-//                 <div className="categoryImage">
-//                     <img src={BatataHarraBurger} alt="" />
-//                 </div>
-//             </div>
-//         </div>
-//     </div>
-// </div>
-// <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
-//     <div className="cardMain d-flex">
-//         <div className="col-8 ps-3 py-2">
-//             <div className="card-body">
-//                 <div className='card-title'>Bhuna Mediterranean Burger </div>
-//                 <div className="price">₹83</div>
-//                 <div className="cardMenuTitle">Patty made from Coastal Mediterranean European flavors with roasted notes of garlic topped with our cocktail mayonnaise and premium veggies.</div>
-//             </div>
-//         </div>
-//         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 p-xl-3 p-lg-3 p-md-3 p-sm-3 p-0 m-0">
-//             <div className="card-header ">
-//                 <div className="categoryImage">
-//                     <img src={BhunaMediterraneanBurger} alt="" />
-//                 </div>
-//             </div>
-//         </div>
-//     </div>
-// </div>
-// <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
-//     <div className="cardMain d-flex">
-//         <div className="col-8 ps-3 py-2">
-//             <div className="card-body">
-//                 <div className='card-title'>Spinach Corn Bomber Burger </div>
-//                 <div className="price">₹270</div>
-//                 <div className="cardMenuTitle">Refreshing patty made from spinach, corns, potato & cheese topped with our dual dip pesto-basil , premium mayonnaise and premium veggies.</div>
-//             </div>
-//         </div>
-//         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 p-xl-3 p-lg-3 p-md-3 p-sm-3 p-0 m-0">
-//             <div className="card-header ">
-//                 <div className="categoryImage">
-//                     <img src={SpinachCornBomberBurger} alt="" />
-//                 </div>
-//             </div>
-//         </div>
-//     </div>
-// </div>
-// </div >
-
-
-
- 
+export default PizzaArea;

@@ -66,6 +66,7 @@
   position: relative;
   display: inline-block;
   margin-bottom: 50px;
+  cursor: pointer;
 }
 @media screen and (max-width: 1400px) {
   .TableSection .tableBox {
@@ -168,6 +169,7 @@
   border-radius: 11px;
   background-color: #352e23;
   text-align: center;
+  cursor: pointer;
 }
 @media screen and (max-width: 992px) {
   .MainCategory .retrun-icon {
@@ -182,6 +184,7 @@
 }
 .MainCategory .retrun-icon-2 {
   border: 3px solid #9B7A41;
+  cursor: pointer;
   width: 48px;
   height: 48px;
   border-radius: 11px;
@@ -201,7 +204,7 @@
   transform: translate(-50%);
 }
 .MainCategory .CategoryBox {
-  background-color: #323231;
+  background-color: #323232;
   width: 199px;
   height: 230px;
   margin-top: 40px;
@@ -209,12 +212,13 @@
   margin-bottom: 30px;
   position: relative;
   display: flex;
+  cursor: pointer;
   justify-content: center;
   align-items: center;
 }
 @media screen and (max-width: 992px) {
   .MainCategory .CategoryBox {
-    width: 186px !important;
+    width: 177px !important;
     margin: 0px !important;
   }
 }
@@ -251,7 +255,7 @@
   height: 59px;
   font-size: 16px;
   width: 100%;
-  background-color: #323231;
+  background-color: #323232;
   text-transform: uppercase;
   color: #ffffff;
   border: none;
@@ -259,7 +263,7 @@
   white-space: nowrap;
   background-image: url("../../Images/pizza-icon.png");
   background-repeat: no-repeat;
-  background-position: 350px center;
+  background-position: 340px center;
   display: flex;
   text-align: center;
   align-items: center;
@@ -281,17 +285,17 @@
   position: relative;
 }
 .MainPizzaSection .combo-media .combo-login {
-  width: 800px;
   height: 59px;
   font-size: 16px;
   width: 100%;
   background-color: #9B7A41;
   text-transform: uppercase;
+  padding-top: 6px;
   color: #ffffff;
   border: none;
   font-weight: 700;
   white-space: nowrap;
-  background-image: url("../../Images/pizza-icon.png");
+  background-image: url("../../Images/combo.png");
   background-repeat: no-repeat;
   background-position: 350px center;
   display: flex;
@@ -313,23 +317,55 @@
 }
 .MainPizzaSection .MainPizzaBox {
   background-color: #ffffff;
-  width: 352px;
-  height: 160px;
+  width: 383px;
+  height: 170px;
   border-radius: 5px;
+}
+@media screen and (min-width: 280px) and (max-width: 387px) {
+  .MainPizzaSection .MainPizzaBox {
+    display: unset !important;
+    height: unset !important;
+  }
+}
+@media screen and (min-width: 1399px) and (max-width: 1700px) {
+  .MainPizzaSection .MainPizzaBox {
+    width: 326px !important;
+  }
 }
 .MainPizzaSection .MainPizzaBox .PizzaImg {
   display: inline-block;
 }
 .MainPizzaSection .MainPizzaBox .PizzaImg img {
-  width: 120px;
-  height: 150px;
-  margin: 6px;
+  width: 130px;
+  height: 152px;
+  margin: 9px;
   border-radius: 5px;
+}
+@media screen and (min-width: 280px) and (max-width: 387px) {
+  .MainPizzaSection .MainPizzaBox .PizzaImg img {
+    width: 245px !important;
+  }
+}
+@media screen and (min-width: 1399px) and (max-width: 1700px) {
+  .MainPizzaSection .MainPizzaBox .PizzaImg img {
+    width: 109px;
+  }
+}
+@media screen and (min-width: 280px) and (max-width: 387px) {
+  .MainPizzaSection .MainPizzaBox .pizzadetails {
+    padding-left: 24px;
+    padding-bottom: 10px;
+  }
 }
 .MainPizzaSection .MainPizzaBox .pizzadetails .title {
   font-size: 16px;
   color: #9B7A41;
   font-weight: 900;
+}
+@media screen and (min-width: 1200px) and (max-width: 1700px) {
+  .MainPizzaSection .MainPizzaBox .pizzadetails .title {
+    font-size: 12px;
+  }
 }
 .MainPizzaSection .MainPizzaBox .pizzadetails .descripnation {
   font-size: 12px;
@@ -345,15 +381,119 @@
   text-transform: uppercase;
   font-size: 12px;
   border: 1px solid #9B7A41;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 .MainPizzaSection .MainPizzaBox .pizzadetails .show-details {
-  width: 8 0px;
+  width: 80px;
   height: 23px;
+  margin-right: 55px;
   border-radius: 3px;
   background-color: #9B7A41;
   color: #ffffff;
   text-transform: uppercase;
   font-size: 12px;
   border: 1px solid #9B7A41;
+}
+@media screen and (min-width: 1200px) and (max-width: 1700px) {
+  .MainPizzaSection .MainPizzaBox .pizzadetails .show-details {
+    margin-right: 28px !important;
+  }
+}
+.MainPizzaSection .MainPizzaBox .counter {
+  display: flex;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+.MainPizzaSection .MainPizzaBox .counter .counter-button {
+  background-color: #af7b3b;
+  color: white;
+  border: none;
+  width: 23px;
+  height: 23px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.MainPizzaSection .MainPizzaBox .counter .decrement,
+.MainPizzaSection .MainPizzaBox .counter .increment {
+  background-color: #af7b3b;
+  color: white;
+  border: none;
+  width: 23px;
+  height: 23px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 700;
+}
+.MainPizzaSection .MainPizzaBox .counter .counter-number {
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: 5px;
+  color: #9B7A41;
+}
+.MainPizzaSection .cart-view {
+  background-color: #9B7A41;
+  width: 1037px;
+  height: 61px;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 7px;
+  position: fixed;
+  top: 90%;
+}
+@media screen and (max-width: 991px) {
+  .MainPizzaSection .cart-view {
+    top: 77%;
+    position: fixed;
+  }
+}
+@media screen and (max-width: 991px) {
+  .MainPizzaSection .cart-view {
+    width: 350px !important;
+  }
+}
+@media screen and (min-width: 280px) and (max-width: 387px) {
+  .MainPizzaSection .cart-view {
+    width: 275px !important;
+  }
+}
+@media screen and (min-width: 280px) and (max-width: 387px) {
+  .MainPizzaSection .cart-view p {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+@media screen and (max-width: 991px) {
+  .MainPizzaSection .show {
+    display: none !important;
+  }
+}
+.MainPizzaSection .show .menu-item {
+  flex: 1;
+  text-align: center;
+  height: 59px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.MainPizzaSection .show .menu-item .icon {
+  height: 25px;
+  margin: 0 13px 5px;
+}
+.MainPizzaSection .show-1 {
+  display: none !important;
+}
+@media screen and (max-width: 991px) {
+  .MainPizzaSection .show-1 {
+    display: block !important;
+  }
 }/*# sourceMappingURL=style.css.map */
