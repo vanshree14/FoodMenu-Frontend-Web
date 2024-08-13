@@ -1,8 +1,8 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { setToken } from "../../../Api/AxiosApi";
+import { apiInstance, setToken } from "../../../Api/AxiosApi";
 import { SetDevKey } from "../../Utils/SetAuth";
-import { BaseURL, Key } from "../../../Component/Utils/Config";
+import { baseURL, Key } from "../../../Component/Utils/Config";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -11,32 +11,18 @@ const initialState = {
     isLoading: false,
 };
 
-export const Register = createAsyncThunk('auth/register', async (payload) => {
-    try {
-        const response = await axios.post(`${BaseURL}auth/register`, payload);
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-});
 
-export const OTP = createAsyncThunk('auth/verify/otp', async (payload) => {
-    try {
-        const response = await axios.post(`${BaseURL}auth/verify/otp`, payload);
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-});
+export const Register = createAsyncThunk("admin/login", async (payload) => {
+    return apiInstance.post(`${baseURL}auth/register`, payload);
+})
+export const OTP = createAsyncThunk("auth/verify/otp", async (payload) => {
+    return apiInstance.post(`${baseURL}auth/verify/otp`, payload);
+})
+export const login = createAsyncThunk("auth/login/email", async (payload) => {
+    return apiInstance.post(`${baseURL}auth/login/email`, payload);
+})
 
-export const login = createAsyncThunk('auth/login/email', async (payload) => {
-    try {
-        const response = await axios.post(`${BaseURL}auth/login/email`, payload);
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-});
+
 
 const authSlice = createSlice({
     name: "authslice",

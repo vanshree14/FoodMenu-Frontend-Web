@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Burger = () => {
+const BurgerArea = () => {
   return (
     <div>
-      
+      wefedf
     </div>
   )
 }
 
-export default Burger
+export default BurgerArea

@@ -15,7 +15,7 @@ const SignIn = () => {
 
 
     useEffect(() => {
-        isAuth && navigate("/table");
+        isAuth && navigate("/booking/tables");
     }, [isAuth, navigate]);
 
     const handleLogin = async (e) => {
@@ -24,7 +24,7 @@ const SignIn = () => {
         try {
             let response = await dispatch(login(loginData)).unwrap();
             alert("user login successfully");
-            response.status ? navigate("/table") : alert("SomeThing IS missing");
+            response.status ? navigate("/booking/tables") : alert("SomeThing IS missing");
         } catch (error) {
             console.error('Login failed:', error);
             alert("Oops! Something went wrong.");

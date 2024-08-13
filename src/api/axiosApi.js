@@ -1,13 +1,13 @@
 import axios from "axios";
 import { setToast } from "../Component/Extra/Toast";
-import { BaseURL, Key } from "../Component/Utils/Config";
+import { baseURL, Key } from "../Component/Utils/Config";
 
 
 export const apiInstance = axios.create({
-  BaseURL: BaseURL,
+  baseURL: baseURL,
 });
 
-apiInstance.defaults.headers.common["key"] = Key;
+apiInstance.defaults.headers.common["Key"] = Key;
 
 apiInstance.interceptors.request.use(
   function (config) {

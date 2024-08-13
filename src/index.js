@@ -7,12 +7,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Store from './Component/Redux/Store';
 import axios from 'axios';
-import {  Key } from "./Component/Utils/Config";
+// import {  Key } from "./Component/Utils/Config";
 import Loader from './Component/Utils/Loader';
 // import { GoogleOAuthProvider } from '@react-oauth/google';
 
 // const clientId = '636182318567-bk2i2kf1soreko4a11lj0ciinmb88uuh.apps.googleusercontent.com';
-axios.defaults.headers.common["key"] = Key
+
+// axios.defaults.headers.common["key"] = Key
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

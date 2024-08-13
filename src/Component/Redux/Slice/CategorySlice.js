@@ -16,7 +16,9 @@ export const categoryGet = createAsyncThunk("category/show", async (payload) => 
 const categorySlice = createSlice({
   name: "categorySlice",
   initialState,
-  reducers: {},
+  reducers: {
+    
+  },
 
   extraReducers: (builder) => {
     // categoryGet

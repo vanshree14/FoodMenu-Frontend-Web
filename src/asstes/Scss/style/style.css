@@ -334,6 +334,7 @@
 }
 .MainPizzaSection .MainPizzaBox .PizzaImg {
   display: inline-block;
+  position: relative;
 }
 .MainPizzaSection .MainPizzaBox .PizzaImg img {
   width: 130px;
@@ -350,6 +351,53 @@
   .MainPizzaSection .MainPizzaBox .PizzaImg img {
     width: 109px;
   }
+}
+.MainPizzaSection .MainPizzaBox .PizzaImg .type-icon {
+  position: absolute;
+  top: 11%;
+  left: 13%;
+}
+.MainPizzaSection .MainPizzaBox .PizzaImg .type-icon .veg-flag {
+  width: 18px;
+  height: 18px;
+  border: 1px solid green;
+  text-align: center;
+  background-color: #fff;
+  margin-right: 7px;
+  margin-top: 2px;
+  position: relative;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.MainPizzaSection .MainPizzaBox .PizzaImg .type-icon .veg-flag .dot {
+  height: 10px;
+  width: 10px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+}
+.MainPizzaSection .MainPizzaBox .PizzaImg .type-icon .Non-veg-flag {
+  width: 18px;
+  height: 18px;
+  border: 1px solid red;
+  text-align: center;
+  background-color: #fff;
+  margin-right: 7px;
+  margin-top: 2px;
+  position: relative;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.MainPizzaSection .MainPizzaBox .PizzaImg .type-icon .Non-veg-flag .dot {
+  height: 10px;
+  width: 10px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
 }
 @media screen and (min-width: 280px) and (max-width: 387px) {
   .MainPizzaSection .MainPizzaBox .pizzadetails {

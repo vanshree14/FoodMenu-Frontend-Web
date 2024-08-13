@@ -1,4 +1,4 @@
-import { BaseURL } from "./Config";
+import { baseURL } from "./Config";
 import $ from "jquery"
 
 export const submitData = (e) => {
@@ -197,7 +197,7 @@ export const editData = (editData) => {
             const imgSibling = document.querySelector(`[data-image="${key}"]`);
 
             if (imgSibling) {
-              imgSibling.src = BaseURL + value;
+              imgSibling.src = baseURL + value;
               imgSibling.className = `${imgSibling.className}  showImage d-block `;
               imgSibling.classList.remove("d-none")
             }
@@ -209,7 +209,7 @@ export const editData = (editData) => {
                 const imageTag = document.createElement("img");
                 const divTag = document.createElement("div");
                 const removeDiv = document.createElement("div");
-                imageTag.src = BaseURL + value[i];
+                imageTag.src = baseURL + value[i];
                 imageTag.setAttribute("data-class", "showImage");
                 divTag.appendChild(imageTag);
                 divTag.appendChild(removeDiv);

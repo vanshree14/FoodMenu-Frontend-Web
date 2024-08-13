@@ -324,17 +324,67 @@
 
     & .PizzaImg {
       display: inline-block;
+      position: relative;
       & img {
         width: 130px;
         height: 152px;
         margin: 9px;
         border-radius: 5px;
+      
         @media screen and (min-width: 280px) and (max-width: 387px) {
           width: 245px !important;
         }
         @media screen and (min-width: 1399px) and (max-width: 1700px) {
           width: 109px;
         }
+      }
+      & .type-icon{
+        position: absolute;
+        top: 11%;
+        left: 13%;
+       & .veg-flag {
+          width: 18px;
+          height: 18px;
+          border: 1px solid green;
+          text-align: center;
+          background-color: #fff;
+          margin-right: 7px;
+          margin-top: 2px;
+          position: relative;
+          border-radius: 3px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          & .dot {
+            height: 10px;
+            width: 10px;
+            background-color: green;
+            border-radius: 50%;
+            display: inline-block;
+          }
+        }
+       & .Non-veg-flag {
+          width: 18px;
+          height: 18px;
+          border: 1px solid red;
+          text-align: center;
+          background-color: #fff;
+          margin-right: 7px;
+          margin-top: 2px;
+          position: relative;
+          border-radius: 3px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          & .dot {
+            height: 10px;
+            width: 10px;
+            background-color: red;
+            border-radius: 50%;
+            display: inline-block;
+          }
+        }
+        
       }
     }
     & .pizzadetails {
@@ -488,3 +538,6 @@
 }
 
 // =========================== pizza end ============================
+
+
+
