@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap");
 .social-media {
   position: relative;
@@ -153,6 +154,7 @@
   font-weight: 900;
   font-size: 50px;
   line-height: 60.51px;
+  text-transform: capitalize;
 }
 @media screen and (max-width: 992px) {
   .MainCategory .categoryHeader p {
@@ -204,7 +206,7 @@
   transform: translate(-50%);
 }
 .MainCategory .CategoryBox {
-  background-color: #323232;
+  background-color: #323231;
   width: 199px;
   height: 230px;
   margin-top: 40px;
@@ -255,7 +257,7 @@
   height: 59px;
   font-size: 16px;
   width: 100%;
-  background-color: #323232;
+  background-color: #323231;
   text-transform: uppercase;
   color: #ffffff;
   border: none;
@@ -409,6 +411,7 @@
   font-size: 16px;
   color: #9B7A41;
   font-weight: 900;
+  text-transform: capitalize;
 }
 @media screen and (min-width: 1200px) and (max-width: 1700px) {
   .MainPizzaSection .MainPizzaBox .pizzadetails .title {
@@ -416,9 +419,13 @@
   }
 }
 .MainPizzaSection .MainPizzaBox .pizzadetails .descripnation {
-  font-size: 12px;
   color: #636363;
+  font-size: 12px;
   font-weight: 400;
+  height: 40px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
 }
 .MainPizzaSection .MainPizzaBox .pizzadetails .add-show {
   width: 60px;
@@ -490,6 +497,10 @@
   color: white;
   font-size: 20px;
   font-weight: 500;
+  box-shadow: -7px 4px 9.1px 0px rgba(0, 0, 0, 0.5411764706);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-radius: 7px;
   position: fixed;
   top: 90%;
@@ -544,4 +555,199 @@
   .MainPizzaSection .show-1 {
     display: block !important;
   }
+}
+
+/* =====================cartToggle============= */
+.menuToggleBtn {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  -webkit-backdrop-filter: blur(1px);
+          backdrop-filter: blur(1px);
+  top: 0;
+  overflow: scroll;
+  z-index: 999;
+  transition: all 1s ease 0s;
+  background: rgba(0, 0, 0, 0.6);
+}
+.menuToggleBtn .menuToggleWrap {
+  transition: 1s ease-in-out;
+  position: absolute;
+  width: 100%;
+  background: #fff;
+  max-width: 400px;
+  top: 0;
+  transition: 0.5s ease;
+  right: 0;
+  box-shadow: 7px 10px 40px rgba(13, 52, 79, 0.1);
+}
+.menuToggleBtn .menuToggleWrap .DetailsPic {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.menuToggleBtn .menuToggleWrap .DetailsPic img {
+  width: 440px;
+  height: 300px;
+  border-radius: 0px 0px 80px 80px;
+}
+.menuToggleBtn .menuToggleWrap .DetailsPic .close-btn {
+  position: absolute;
+  top: 3%;
+  left: 6%;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background-color: #9B7A41;
+  border: none;
+  color: #ffffff;
+}
+.menuToggleBtn .menuToggleWrap .details {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.menuToggleBtn .menuToggleWrap .details .title {
+  color: #000000;
+  font-weight: 900;
+  font-size: 28px;
+  line-height: 33px;
+  text-transform: capitalize;
+}
+.menuToggleBtn .menuToggleWrap .details .descripanation {
+  width: 296px;
+  color: #838282;
+  font-size: 16px;
+  font-weight: 400;
+}
+.menuToggleBtn .menuToggleWrap .details .price {
+  font-weight: 900;
+  color: #9B7A41;
+  font-size: 28px;
+}
+.menuToggleBtn .menuToggleWrap .order-container {
+  display: flex;
+  justify-content: center;
+}
+.menuToggleBtn .menuToggleWrap .order-container .customize-order-box .section-title {
+  font-size: 14px;
+  font-weight: 900;
+  margin-bottom: 10px;
+  color: #1B1B1B;
+}
+.menuToggleBtn .menuToggleWrap .order-container .customize-order-box .extra-add,
+.menuToggleBtn .menuToggleWrap .order-container .customize-order-box .remove-ingredients {
+  border: 1px solid #6C6C6C;
+  border-radius: 20px;
+  width: 352px;
+  height: 158px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+.menuToggleBtn .menuToggleWrap .order-container .customize-order-box .ingredient-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+}
+.menuToggleBtn .menuToggleWrap .order-container .customize-order-box .ingredient-option:last-child {
+  margin-bottom: 0;
+}
+.menuToggleBtn .menuToggleWrap .order-container .customize-order-box .quantity-order {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.menuToggleBtn .menuToggleWrap .order-container .customize-order-box .quantity-order .quantity-controls {
+  display: flex;
+  align-items: center;
+}
+.menuToggleBtn .menuToggleWrap .order-container .customize-order-box .quantity-order .quantity-btn {
+  background-color: #d4a055;
+  border: none;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  margin: 0 5px;
+}
+.menuToggleBtn .menuToggleWrap .order-container .customize-order-box .quantity-order .quantity-input {
+  width: 40px;
+  text-align: center;
+  font-size: 16px;
+  padding: 5px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+}
+.menuToggleBtn .menuToggleWrap .order-container .customize-order-box .quantity-order .trash-btn {
+  background-color: #d4a055;
+  border: none;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+.menuToggleBtn .menuToggleWrap .order-container .customize-order-box input[type=checkbox] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #9B7A41;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+}
+.menuToggleBtn .menuToggleWrap .order-container .customize-order-box input[type=checkbox]:checked {
+  background-color: #9B7A41;
+  border: none;
+}
+.menuToggleBtn .menuToggleWrap .order-container .customize-order-box input[type=checkbox]:checked::before {
+  content: "✓";
+  display: block;
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  line-height: 20px;
+}
+.menuToggleBtn .menuToggleWrap .cart {
+  background-color: #9B7A41;
+  height: 53px;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+}
+
+.size {
+  display: flex;
+  justify-content: space-around;
+}
+.size .size-media {
+  width: 111px;
+  height: 48px;
+  font-size: 12px;
+  border-radius: 7px;
+  text-transform: uppercase;
+  background-color: #ffffff;
+  line-height: 16px;
+  color: #000000;
+  border: 1px solid #6C6C6C;
+  font-weight: 900;
+  white-space: nowrap;
+  background-image: url("../../Icon/pizza (1).png");
+  background-repeat: no-repeat;
+  background-position: 9px center;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }/*# sourceMappingURL=style.css.map */

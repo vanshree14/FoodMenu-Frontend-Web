@@ -125,6 +125,10 @@ body {
 .mainLoginPage .loginDiv .loginPage .loginButton .m10-top {
   margin-top: 10px;
 }
+.mainLoginPage .loginDiv .loginPage .signIn:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 
 .entryImage {
   display: flex;
@@ -291,7 +295,7 @@ button:disabled {
   line-height: 18.15px;
   font-family: "Inter", sans-serif;
   font-weight: 500;
-  color: #7e7e7e;
+  color: #504f4f;
 }
 @media screen and (max-width: 576px) {
   .inputData label {
@@ -517,7 +521,7 @@ button:disabled {
   top: 50%;
   transform: translateY(-50%);
   left: 21px;
-  color: #cbcbcb;
+  color: #9c9c9c;
 }
 .inputData input {
   border: 1px solid #e5e5e5;
@@ -539,11 +543,11 @@ button:disabled {
   outline: none;
 }
 .inputData input::-moz-placeholder {
-  color: #cbcbcb;
+  color: #9c9c9c;
   font-size: 14px;
 }
 .inputData input::placeholder {
-  color: #cbcbcb;
+  color: #9c9c9c;
   font-size: 14px;
 }
 @media screen and (max-width: 992px) {

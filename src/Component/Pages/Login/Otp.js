@@ -16,7 +16,7 @@ const Otp = () => {
 
   useEffect(() => {
     if (isAuth) {
-      navigate("/signin");
+      navigate("/LogIn");
     }
   }, [isAuth, navigate]);
 
@@ -36,7 +36,7 @@ const Otp = () => {
       await dispatch(OTP(loginData)).unwrap();
       alert("Verification successful");
       sessionStorage.removeItem('otp');
-      navigate("/signin");
+      navigate("/LogIn");
     } catch (error) {
       setError("OTP verification failed");
       console.error('OTP verification error:', error);

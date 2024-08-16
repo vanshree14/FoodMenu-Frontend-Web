@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Searching from '../../Extra/Searching';
-import { categoryGet } from '../../Redux/Slice/CategorySlice';
 import { baseURL } from '../../Utils/Config';
 import BannerbackgroundImg from '../../../Asstes/Images/fa3ea1263d103c3a22d1096792fafc70.png';
 import logobar from '../../../Asstes/Images/loginLogo.png';
+import { categoryGet, productsByCategoryGet } from '../../Redux/Slice/CategorySlice'
+
 
 const CategoryList = () => {
+    const location = useLocation();
     const [data, setData] = useState([]);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -16,6 +18,8 @@ const CategoryList = () => {
     const [page, setPage] = useState(0);
     const [rowPerPage, setRowperPage] = useState(10);
     const [search, setSearch] = useState("");
+
+    const { categoryId } = location.state || {};
 
     const payload = {
         page,
@@ -26,6 +30,13 @@ const CategoryList = () => {
     useEffect(() => {
         dispatch(categoryGet({ ...payload, command: false }));
     }, [page, rowPerPage, search]);
+
+    useEffect(() => {
+        if (categoryId) {
+            dispatch(productsByCategoryGet({ page: 0, limit: 10, categoryId }));
+        }
+    }, [categoryId, dispatch]);
+
 
     useEffect(() => {
         setData(category);
@@ -39,9 +50,10 @@ const CategoryList = () => {
         navigate("/booking/tables");
     };
 
-    const handleNavClick = (categoryName) => {
-        navigate(`/categories/${categoryName}`);
+    const handleNavClick = (categoryId, categoryName) => {
+        navigate(`/categories/${categoryName}`, { state: { categoryId } });
     };
+
 
     return (
         <div>
@@ -84,7 +96,7 @@ const CategoryList = () => {
                             const imagePath = items?.image.replace(/\\/g, "/");
                             const fullImageUrl = baseURL + imagePath;
                             return (
-                                <div className="col-lg-2" key={index}>
+                                <div className=" col mb-4" key={index}>
                                     <div className="CategoryBox">
                                         <div className="CategoryDetails">
                                             <div className="CategoryImg d-flex justify-content-center">
@@ -92,7 +104,7 @@ const CategoryList = () => {
                                                     src={fullImageUrl}
                                                     alt={items?.name}
                                                     className="featuredImg2"
-                                                    onClick={() => handleNavClick(items?.name.toLowerCase())}
+                                                    onClick={() => handleNavClick(items._id, items?.name.toLowerCase())}
                                                 />
                                             </div>
                                             <p className='text-light d-flex justify-content-center pt-3'>{items?.name}</p>

@@ -13,9 +13,7 @@ import PrivateRoute from './Component/Utils/PrivateRoute';
 import Signup from './Component/Pages/Login/Signup';
 import Otp from './Component/Pages/Login/Otp';
 import SignIn from './Component/Pages/Login/SignIn';
-import PizzaArea from './Component/Pages/Category/Pizza/PizzaArea';
-import BookingTable from './Component/Pages/BookingTable/BookingTable';
-import BurgerArea from './Component/Pages/Category/Burger/BurgerArea';
+import CategoryProducts from './Component/Pages/Category/CategoryProducts ';
 
 function App() {
   const dispatch = useDispatch();
@@ -25,23 +23,21 @@ function App() {
   useEffect(() => {
     if (!token && !key) return;
     setToken(token)
-    dispatch(setOldAdmin({token}))
+    dispatch(setOldAdmin({ token }))
   }, [setToken, key]);
 
-
+ 
   return (
     <div>
       <Routes>
-        <Route path='/' element={<Signup/>}/>
-        <Route path='/signup' element={<Signup/>}/>
-        <Route path='/otp' element={<Otp/>} />
-        <Route path='/signin' element={<SignIn/>}/>
-           
-         <Route path='/booking/*' element={<Admin/>}/>
-       
+        <Route path='/Log in' element={<SignIn />} />
+        <Route path='/' element={<SignIn />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/otp' element={<Otp />} />
+        <Route path='/booking/*' element={<Admin />} />
         <Route path='/categories' element={<CategoryList />} />
-        <Route path='/categories/pizza' element={<PizzaArea />} />
-        <Route path='/categories/burger' element={<BurgerArea />} />
+        <Route path="/categories/:categoryName" element={<CategoryProducts />} />
+    
       </Routes>
     </div>
   );

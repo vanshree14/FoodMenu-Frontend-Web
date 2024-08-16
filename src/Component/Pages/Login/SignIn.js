@@ -30,6 +30,9 @@ const SignIn = () => {
             alert("Oops! Something went wrong.");
         }
     };
+    const handleclick = () => {
+        navigate("/signup")
+    }
     return (
         <div className="mainLoginPage" style={{ backgroundImage: `url(${BannerbackgroundImg})`, height: '100vh' }}>
             <div className="loginDiv" >
@@ -73,7 +76,7 @@ const SignIn = () => {
                         <div className="social-media mb-2">
                             <button className="google-login mb-3">Continue with google</button>
                         </div>
-                        <span className='text-light fw-700 mb-4' style={{ fontSize: '15px' }}>Already have an account?<span className='fw-700' style={{ color: '#9B7A41' }}>Login </span> </span>
+                        <span className='text-light fw-700 mb-4 account-details' style={{ fontSize: '15px' }}>Already have an account?<span className='fw-700 signIn' style={{ color: '#9B7A41' }} onClick={handleclick}>Sign In </span> </span>
                         <p className='text-light fw-700 mb-5' style={{ fontSize: '16px', }}>I forgot my password</p>
                     </div>
                 </div>

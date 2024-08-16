@@ -1,7 +1,7 @@
 @import "../Abstract/variable";
 
 @include maxMediaQuery($lg) {
-  .mt-lg-2{
+  .mt-lg-2 {
     margin-top: 15px;
   }
 }
@@ -13,12 +13,12 @@ body {
   background: transparent;
   cursor: pointer;
 }
-.custombackgroud{
+.custombackgroud {
   position: relative;
   overflow: hidden;
   background-size: 250px 250px;
   height: 100vh;
-  @include maxMediaQuery($lg){
+  @include maxMediaQuery($lg) {
     height: unset !important;
   }
   &::before {
@@ -45,13 +45,13 @@ body {
       box-shadow: 0px 0px 51.9px 0px #00000030;
       box-shadow: 0px 0px 51.9px 0px #00000030;
       backdrop-filter: blur(56px) saturate(180%);
-    -webkit-backdrop-filter: blur(56px) saturate(180%);
+      -webkit-backdrop-filter: blur(56px) saturate(180%);
       padding: 15px 60px;
       opacity: 0.78;
       border-radius: 50px;
       width: 499px;
       @include maxMediaQuery($sm) {
-        background:unset !important;
+        background: unset !important;
         backdrop-filter: blur(0px) !important;
         -webkit-backdrop-filter: blur(0px) !important;
         margin: 0px !important;
@@ -88,13 +88,13 @@ body {
       box-shadow: 0px 0px 51.9px 0px #00000030;
       box-shadow: 0px 0px 51.9px 0px #00000030;
       backdrop-filter: blur(56px) saturate(180%);
-    -webkit-backdrop-filter: blur(56px) saturate(180%);
+      -webkit-backdrop-filter: blur(56px) saturate(180%);
       padding: 15px 60px;
       opacity: 0.78;
       border-radius: 50px;
       width: 499px;
       @include maxMediaQuery($sm) {
-        background:unset !important;
+        background: unset !important;
         backdrop-filter: blur(0px) !important;
         -webkit-backdrop-filter: blur(0px) !important;
         margin: 0px !important;
@@ -125,6 +125,10 @@ body {
         .m10-top {
           margin-top: 10px;
         }
+      }
+      .signIn:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
       }
     }
   }
@@ -786,7 +790,6 @@ button:disabled {
     transform: translateY(-30%);
     right: 51px;
     cursor: pointer;
-
   }
 
   &.radio,

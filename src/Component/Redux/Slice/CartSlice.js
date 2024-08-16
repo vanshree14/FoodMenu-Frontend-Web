@@ -39,18 +39,7 @@ const categorySlice = createSlice({
       state.isSkeleton = false;
     });
 
-    // productsByCategoryGet
-    builder.addCase(productsByCategoryGet.pending, (state) => {
-      state.isSkeleton = true;
-    })
-    builder.addCase(productsByCategoryGet.fulfilled, (state, action) => {
-      state.product = action.payload.product;
-      state.totalCount = action.payload.totalCount;
-      state.isSkeleton = false;
-    })
-    builder.addCase(productsByCategoryGet.rejected, (state) => {
-      state.isSkeleton = false;
-    });
+    
 
 
   },
