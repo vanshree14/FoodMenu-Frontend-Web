@@ -485,7 +485,7 @@
     color: white;
     font-size: 20px;
     font-weight: 500;
-    box-shadow: -7px 4px 9.1px 0px #0000008A;
+    box-shadow: -7px 4px 9.1px 0px #0000008a;
 
     display: flex;
     justify-content: space-between;
@@ -546,7 +546,7 @@
 
 // =========================== pizza end ============================
 
-/* =====================cartToggle============= */
+/* =====================menuToggleBtn============= */
 .menuToggleBtn {
   width: 100%;
   height: 100%;
@@ -564,8 +564,8 @@
     background: #fff;
     max-width: 400px;
     top: 0;
-   
-    transition:  0.5s ease;
+
+    transition: 0.5s ease;
     right: 0;
     box-shadow: 7px 10px 40px rgba(13, 52, 79, 0.1);
     & .DetailsPic {
@@ -616,7 +616,7 @@
     & .order-container {
       display: flex;
       justify-content: center;
-    
+
       & .customize-order-box {
         & .section-title {
           font-size: 14px;
@@ -624,7 +624,7 @@
           margin-bottom: 10px;
           color: $dark1;
         }
-    
+
         .extra-add,
         .remove-ingredients {
           border: 1px solid $gray3;
@@ -643,11 +643,11 @@
           font-weight: 500;
           line-height: 16px;
         }
-    
+
         & .ingredient-option:last-child {
           margin-bottom: 0;
         }
-    
+
         & .quantity-order {
           display: flex;
           justify-content: space-between;
@@ -656,7 +656,7 @@
             display: flex;
             align-items: center;
           }
-    
+
           & .quantity-btn {
             background-color: #d4a055;
             border: none;
@@ -667,7 +667,7 @@
             border-radius: 5px;
             margin: 0 5px;
           }
-    
+
           & .quantity-input {
             width: 40px;
             text-align: center;
@@ -676,7 +676,7 @@
             border: 1px solid #e0e0e0;
             border-radius: 5px;
           }
-    
+
           & .trash-btn {
             background-color: #d4a055;
             border: none;
@@ -688,7 +688,7 @@
             margin-left: 10px;
           }
         }
-    
+
         & input[type="checkbox"] {
           appearance: none;
           -webkit-appearance: none;
@@ -712,7 +712,6 @@
             }
           }
         }
-        
       }
     }
     & .cart {
@@ -729,8 +728,7 @@
 .size {
   display: flex;
   justify-content: space-around;
-  & .size-media{
-
+  & .size-media {
     width: 111px;
     height: 48px;
     font-size: 12px;
@@ -749,9 +747,105 @@
     text-align: center;
     align-items: center;
     justify-content: center;
+  }
+}
 
+// ============== CartDetails =================================
+
+.CartDetails {
+  & h1 {
+    font-weight: 900;
+    font-size: 50px;
+    line-height: 60.51px;
+    text-transform: uppercase;
+  }
+  & .retrun-icon {
+    border: 3px solid $prime;
+    width: 48px;
+    height: 48px;
+    border-radius: 11px;
+    background-color: #352e23;
+    text-align: center;
+    cursor: pointer;
+   
+    & i {
+      position: absolute;
+      top: 34%;
+      left: 50%;
+      transform: translate(-50%);
+    }
+  }
+  .card {
+    border: 1px solid $prime;
+    border-radius: 10px;
+    background: transparent;
     
-    
+    & .edit-details {
+      width: 78px;
+      height: 28px;
+      border-radius: 3px;
+      color: $light;
+      background-color: $prime;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 16px;
+    }
+    & .price {
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 26px;
+      color: $light;
+      text-transform: capitalize;
+    }
+    & .order {
+      width: 350px;
+      height: 40px;
+      background-color: $prime;
+      border: none;
+      font-size: 16px;
+      @include maxMediaQuery($lg) {
+        display: none !important;
+        height: 235px !important;
+      }
+    }
+    & .cart-img {
+      @media screen and (min-width: 280px) and (max-width: 449px) {
+        width: 79% !important;
+      }
+    }
+  }
+  .order-name {
+    display: none !important;
+    @include maxMediaQuery($lg) {
+      display: block !important;
+      font-size: 25px;
+      font-weight: 900;
+      line-height: 21px;
+      padding-top: 15px;
+    }
+  }
+  & .order-1 {
+    display: none;
+    @include maxMediaQuery($lg) {
+      display: block !important;
+    }
+    width: 350px;
+    height: 40px;
+    background-color: #9b7a41;
+    border: none;
+    font-size: 16px;
+  }
+  .card-title {
+    margin-bottom: 10px;
+  }
+
+  .card-body ul {
+    margin: 0;
+  }
+
+  img {
+    border-radius: 10px;
   }
 }
 

@@ -11,11 +11,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { productget } from '../../Redux/Slice/ProductSlice';
 import { baseURL } from '../../Utils/Config';
 import left from '../../../Asstes/Icon/left.png';
-import { productsByCategoryGet } from '../../Redux/Slice/CategorySlice';
+import { categoryGet, productsByCategoryGet } from '../../Redux/Slice/CategorySlice';
 import burgerpic from '../../../Asstes/Images/burger-img.png'
 import deleteicon from '../../../Asstes/Icon/delete.png'
+import { addItemToCart } from '../../Redux/Slice/CartSlice';
+import { openDialog } from '../../Redux/Slice/DialogueSlice';
+import ProductDetails from './ProductDetails';
+import { jwtDecode } from 'jwt-decode';
 
-const CategoryProducts = () => {
+const CategoryProducts = ({ productId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -25,7 +29,13 @@ const CategoryProducts = () => {
   const [page, setPage] = useState(0);
   const [rowPerPage, setRowPerPage] = useState(10);
   const [search, setSearch] = useState("");
-  const [isCartVisible, setIsCartVisible] = useState(false); // New state for cart visibility
+  const [isProductVisible, setIsProductVisible] = useState(false);
+  const { auth } = useSelector((state) => state.auth);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedAddOnIngridiants, setSelectedAddOnIngridiants] = useState([]);
+  const [selectedCustomizeIngridiants, setSelectedCustomizeIngridiants] = useState([]);
+  const [productCount, setProductCount] = useState(1);
+
 
   const payload = {
     page,
@@ -42,6 +52,10 @@ const CategoryProducts = () => {
     setData(filteredData);
   };
 
+  const handleCart = () => {
+    navigate('/cart')
+  }
+
   useEffect(() => {
     if (categoryId) {
       dispatch(productsByCategoryGet({ page: 0, limit: 10, categoryId }));
@@ -53,16 +67,33 @@ const CategoryProducts = () => {
   }, [page, rowPerPage, search]);
 
   useEffect(() => {
+    dispatch(categoryGet({ ...payload, command: false }));
+  }, [page, rowPerPage, search]);
+
+
+  useEffect(() => {
     setData(product);
   }, [product]);
+  const productMaterId = localStorage.getItem("productId");
+
 
   const currentCategory = category.find(cat => cat._id === categoryId);
 
-  const handleAdd = (id) => {
-    setData(data.map(pizza =>
-      pizza._id === id ? { ...pizza, showCounter: true, count: 1 } : pizza
-    ));
+  const handleAddToCart = (selectedProductId) => {
+    const token = sessionStorage.getItem("token");
+    const decodedToken = JSON.parse(token);
+    const userId = decodedToken._id;
+    const payload = {
+      productId: selectedProductId,
+      userId: userId,
+      productCount,
+      addOnIngridiantId: selectedAddOnIngridiants,
+      customizeIngridiantId: selectedCustomizeIngridiants,
+    };
+
+    dispatch(addItemToCart(payload));
   };
+
 
   const handleIncrement = (id) => {
     setData(data.map(pizza =>
@@ -93,26 +124,16 @@ const CategoryProducts = () => {
     navigate('/categories');
   };
 
-  const toggleCart = () => {
-    setIsCartVisible(!isCartVisible);
+  const handleShowImage = (pizza) => {
+    setSelectedProduct(pizza);
+    setIsProductVisible(true);
   };
 
   const closeCart = () => {
-    setIsCartVisible(false);
+    setIsProductVisible(false);
   };
-  const [quantity, setQuantity] = useState(1); // State for managing quantity
-  const handleIncrementQuantity = () => {
-    setQuantity(prevQuantity => prevQuantity + 1);
-  };
+  const [quantity, setQuantity] = useState(1);
 
-  const handleDecrementQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(prevQuantity => prevQuantity - 1);
-    }
-  };
-  const handleDeleteQuantity = () => {
-    setQuantity(1); // Reset quantity to 1 when deleted
-  };
 
   return (
     <div>
@@ -194,7 +215,7 @@ const CategoryProducts = () => {
                     </div>
                     <div className='d-flex align-items-center'>
                       {!pizza.showCounter ? (
-                        <button className='add-show' onClick={() => handleAdd(pizza._id)}>ADD</button>
+                        <button className='add-show' onClick={() => handleAddToCart(pizza._id)}>ADD</button>
                       ) : (
                         <div className="counter d-flex align-items-center me-3">
                           {pizza.count > 1 ? (
@@ -208,151 +229,52 @@ const CategoryProducts = () => {
                           <button className="increment" onClick={() => handleIncrement(pizza._id)}>+</button>
                         </div>
                       )}
-                      <button className='show-details cartToggle' onClick={toggleCart}>SHOW</button>
+                      <button className='show-details cartToggle' onClick={() => handleShowImage(pizza)}>
+                        SHOW
+                      </button>
+
                       <i className="fa-regular fa-heart" style={{ color: '#9B7A41' }}></i>
                     </div>
                   </div>
                 </div>
               </div>
             ))}
-           
+
             <div className="col-lg-12 d-flex justify-content-center">
-            <div className="cart-view">
-            <p className='ps-5'>3 items</p>
-            <p className='pe-5'>View cart</p>
-            </div>
+              <div className="cart-view">
+                <p className='ps-5'>3 items</p>
+                <p className='pe-5' onClick={handleCart}>View cart</p>
+              </div>
             </div>
             <div className="show mt-3 show-1 ">
-            <div className="row position-relative" style={{ backgroundColor: '#A57F40',margin:'0px -64px' }}>
-              <div className="col" style={{ backgroundColor: '#323232' }}>
-                <div className="menu-item">
-                  <img src={pizzaicon} alt="Pizza Icon" className="icon" />
-                  {currentCategory && (
-                    <span className='text-uppercase'>{currentCategory.name}</span>
-                  )}
-                </div>
-              </div>
-              <div className="col">
-                <div className="menu-item">
-                  <img src={comboicon} alt="Combo Icon" className="icon" />
-                  <span>COMBO</span>
-                </div>
-              </div>
-            </div>
-          </div>
-            </div>
-          </div>
-      </div>
-
-      {/* Cart Side Menu */}
-      {isCartVisible && (
-        <div className="menuToggleBtn ">
-          <div className="menuToggleWrap">
-            <div className="DetailsPic ms-4 me-4">
-              <img src={burgerpic} alt='img' />
-              <button className="close-btn" onClick={closeCart}><i class="fa-solid fa-arrow-left"></i></button>
-            </div>
-            <div className="details text-center mt-4">
-              <h1 className='title'>Stovetohp Burgers</h1>
-              <p className='descripanation d-flex justify-content-center'>Hot & spicy pizza with onion & red
-                paprika toppings and a new spicy peri..</p>
-              <span className='price pt-2'>₹199</span>
-            </div>
-            <div className="size mt-3">
-              <button className='size-media'><p className='ps-4'>small</p></button>
-              <button className='size-media'> <p className='ps-4'>Medium</p></button>
-              <button className='size-media'><p className='ps-4'>Large</p></button>
-            </div>
-            <div class="order-container">
-              <div class="customize-order-box mt-4">
-                <p class="section-title" style={{ fontSize: '17px' }}>Customize my order</p>
-                <div class="extra-add">
-                  <p class="section-title">Extra Add Ingredients</p>
-                  <div class="ingredient-option">
-                    <span>Extra Cheese Slice</span>
-                    <div className="price d-flex align-items-center justify">
-                      <span className='pe-2'>20₹</span>
-                      <input type="checkbox" />
-                    </div>
-                  </div>
-                  <div class="ingredient-option">
-                    <span>Extra Cheese Burst</span>
-                    <div className="price d-flex align-items-center justify">
-
-                      <span className='pe-2'>89₹</span>
-                      <input type="checkbox" />
-                    </div>
-                  </div>
-                  <div class="ingredient-option">
-                    <span>Extra Double Cheese</span>
-                    <div className="price d-flex align-items-center justify">
-
-                      <span className='pe-2'>99₹</span>
-                      <input type="checkbox" />
-                    </div>
-                  </div>
-                </div>
-                <div class="remove-ingredients">
-                  <p class="section-title">Remove Ingredients</p>
-                  <div class="ingredient-option">
-                    <span>No Tometo</span>
-                    <div className="price d-flex align-items-center justify">
-
-                      <span className='pe-2'>0₹</span>
-                      <input type="checkbox" />
-                    </div>
-                  </div>
-                  <div class="ingredient-option">
-                    <span>No Onion</span>
-                    <div className="price d-flex align-items-center justify">
-
-                      <span className='pe-2'>0₹</span>
-                      <input type="checkbox" />
-                    </div>
-                  </div>
-                  <div class="ingredient-option">
-                    <span>No Lettuce</span>
-                    <div className="price d-flex align-items-center justify">
-
-                      <span className='pe-2'>0₹</span>
-                      <input type="checkbox" />
-                    </div>
-                  </div>
-                </div>
-                <div class="quantity-order">
-                  <p class="section-title">Quantity order</p>
-                  <div className="quantity-controls">
-                    {quantity > 1 ? (
-                      <>
-                        <button className="quantity-btn" onClick={handleDecrementQuantity}>-</button>
-                      </>
-                    ) : (
-                      <>
-                        <button className="trash-btn" onClick={handleDeleteQuantity}><img src={deleteicon} alt='img' /></button>
-                      </>
+              <div className="row position-relative" style={{ backgroundColor: '#A57F40', margin: '0px -64px' }}>
+                <div className="col" style={{ backgroundColor: '#323232' }}>
+                  <div className="menu-item">
+                    <img src={pizzaicon} alt="Pizza Icon" className="icon" />
+                    {currentCategory && (
+                      <span className='text-uppercase'>{currentCategory.name}</span>
                     )}
-                    <input
-                      type="number"
-                      value={quantity}
-                      min="1"
-                      className="quantity-input"
-                      readOnly
-                    />
-                    <button className="quantity-btn" onClick={handleIncrementQuantity}>+</button>
                   </div>
                 </div>
-                <div className="cart mt-4 mb-5">
-                  <p>Add to cart - ₹{quantity * 199}</p>
+                <div className="col">
+                  <div className="menu-item">
+                    <img src={comboicon} alt="Combo Icon" className="icon" />
+                    <span>COMBO</span>
+                  </div>
                 </div>
               </div>
             </div>
-
-
-
-
           </div>
         </div>
+      </div>
+
+
+      {/* Cart Side Menu */}
+
+      {isProductVisible && selectedProduct && (
+        <ProductDetails product={selectedProduct} closeDialog={closeCart} />
       )}
+
     </div>
   );
 };

@@ -5,6 +5,14 @@
     margin-top: 15px;
   }
 }
+.text-prime{
+  color: $prime;
+}
+@include maxMediaQuery($lg) {
+  .mt-lg{
+    margin-top: 30px;
+  }
+}
 
 /* ============= Login CSS ============= */
 body {
@@ -16,7 +24,7 @@ body {
 .custombackgroud {
   position: relative;
   overflow: hidden;
-  background-size: 250px 250px;
+  background-size: 220px 220px;
   height: 100vh;
   @include maxMediaQuery($lg) {
     height: unset !important;

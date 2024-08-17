@@ -14,6 +14,8 @@ import Signup from './Component/Pages/Login/Signup';
 import Otp from './Component/Pages/Login/Otp';
 import SignIn from './Component/Pages/Login/SignIn';
 import CategoryProducts from './Component/Pages/Category/CategoryProducts ';
+import CartDetails from './Component/Pages/Cart/CartDetails';
+import ProductDetails from './Component/Pages/Category/ProductDetails';
 
 function App() {
   const dispatch = useDispatch();
@@ -30,13 +32,15 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path='/Log in' element={<SignIn />} />
+        <Route path='/login' element={<SignIn />} />
         <Route path='/' element={<SignIn />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/otp' element={<Otp />} />
         <Route path='/booking/*' element={<Admin />} />
         <Route path='/categories' element={<CategoryList />} />
         <Route path="/categories/:categoryName" element={<CategoryProducts />} />
+        <Route path='/cart' element={<CartDetails/>}/>
+        <Route path = '/productDetails' element={<ProductDetails/>}/>
     
       </Routes>
     </div>

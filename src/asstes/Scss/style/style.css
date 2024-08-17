@@ -557,7 +557,7 @@
   }
 }
 
-/* =====================cartToggle============= */
+/* =====================menuToggleBtn============= */
 .menuToggleBtn {
   width: 100%;
   height: 100%;
@@ -750,4 +750,101 @@
   text-align: center;
   align-items: center;
   justify-content: center;
+}
+
+.CartDetails h1 {
+  font-weight: 900;
+  font-size: 50px;
+  line-height: 60.51px;
+  text-transform: uppercase;
+}
+.CartDetails .retrun-icon {
+  border: 3px solid #9B7A41;
+  width: 48px;
+  height: 48px;
+  border-radius: 11px;
+  background-color: #352e23;
+  text-align: center;
+  cursor: pointer;
+}
+.CartDetails .retrun-icon i {
+  position: absolute;
+  top: 34%;
+  left: 50%;
+  transform: translate(-50%);
+}
+.CartDetails .card {
+  border: 1px solid #9B7A41;
+  border-radius: 10px;
+  background: transparent;
+}
+.CartDetails .card .edit-details {
+  width: 78px;
+  height: 28px;
+  border-radius: 3px;
+  color: #ffffff;
+  background-color: #9B7A41;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16px;
+}
+.CartDetails .card .price {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 26px;
+  color: #ffffff;
+  text-transform: capitalize;
+}
+.CartDetails .card .order {
+  width: 350px;
+  height: 40px;
+  background-color: #9B7A41;
+  border: none;
+  font-size: 16px;
+}
+@media screen and (max-width: 992px) {
+  .CartDetails .card .order {
+    display: none !important;
+    height: 235px !important;
+  }
+}
+@media screen and (min-width: 280px) and (max-width: 449px) {
+  .CartDetails .card .cart-img {
+    width: 79% !important;
+  }
+}
+.CartDetails .order-name {
+  display: none !important;
+}
+@media screen and (max-width: 992px) {
+  .CartDetails .order-name {
+    display: block !important;
+    font-size: 25px;
+    font-weight: 900;
+    line-height: 21px;
+    padding-top: 15px;
+  }
+}
+.CartDetails .order-1 {
+  display: none;
+  width: 350px;
+  height: 40px;
+  background-color: #9b7a41;
+  border: none;
+  font-size: 16px;
+}
+@media screen and (max-width: 992px) {
+  .CartDetails .order-1 {
+    display: block !important;
+  }
+}
+.CartDetails .card-title {
+  margin-bottom: 10px;
+}
+.CartDetails .card-body ul {
+  margin: 0;
+}
+.CartDetails img {
+  border-radius: 10px;
 }/*# sourceMappingURL=style.css.map */
