@@ -14,7 +14,7 @@ import left from '../../../Asstes/Icon/left.png';
 import { categoryGet, productsByCategoryGet } from '../../Redux/Slice/CategorySlice';
 import burgerpic from '../../../Asstes/Images/burger-img.png'
 import deleteicon from '../../../Asstes/Icon/delete.png'
-import { addItemToCart } from '../../Redux/Slice/CartSlice';
+import { addItemToCart, CartQuntity, removeFromCart } from '../../Redux/Slice/CartSlice';
 import { openDialog } from '../../Redux/Slice/DialogueSlice';
 import ProductDetails from './ProductDetails';
 import { jwtDecode } from 'jwt-decode';
@@ -36,7 +36,6 @@ const CategoryProducts = ({ productId }) => {
   const [selectedCustomizeIngridiants, setSelectedCustomizeIngridiants] = useState([]);
   const [productCount, setProductCount] = useState(1);
 
-
   const payload = {
     page,
     limit: rowPerPage,
@@ -53,8 +52,8 @@ const CategoryProducts = ({ productId }) => {
   };
 
   const handleCart = () => {
-    navigate('/cart')
-  }
+    navigate('/cart');
+  };
 
   useEffect(() => {
     if (categoryId) {
@@ -70,12 +69,9 @@ const CategoryProducts = ({ productId }) => {
     dispatch(categoryGet({ ...payload, command: false }));
   }, [page, rowPerPage, search]);
 
-
   useEffect(() => {
     setData(product);
   }, [product]);
-  const productMaterId = localStorage.getItem("productId");
-
 
   const currentCategory = category.find(cat => cat._id === categoryId);
 
@@ -83,6 +79,7 @@ const CategoryProducts = ({ productId }) => {
     const token = sessionStorage.getItem("token");
     const decodedToken = JSON.parse(token);
     const userId = decodedToken._id;
+
     const payload = {
       productId: selectedProductId,
       userId: userId,
@@ -92,32 +89,45 @@ const CategoryProducts = ({ productId }) => {
     };
 
     dispatch(addItemToCart(payload));
+
+    setData(prevData =>
+      prevData.map(pizza =>
+        pizza._id === selectedProductId
+          ? { ...pizza, showCounter: true, count: (pizza.count || 0) + productCount }
+          : pizza
+      )
+    );
+
+    setSelectedAddOnIngridiants([]);
+    setSelectedCustomizeIngridiants([]);
+    setProductCount(1);
+  };
+
+  const handleIncrement = (cartId, action) => {
+    setData(prevData =>
+      prevData.map(pizza =>
+        pizza._id === cartId
+          ? { ...pizza, count: (pizza.count || 0) + 1 }
+          : pizza
+      )
+    );
+    dispatch(CartQuntity({ cartId, action }));
+  };
+
+  const handleDecrement = (cartId, action) => {
+    setData(prevData =>
+      prevData.map(pizza =>
+        pizza._id === cartId
+          ? { ...pizza, count: (pizza.count || 0) - 1 }
+          : pizza
+      )
+    );
+    dispatch(CartQuntity({ cartId, action }));
   };
 
 
-  const handleIncrement = (id) => {
-    setData(data.map(pizza =>
-      pizza._id === id ? { ...pizza, count: pizza.count + 1 } : pizza
-    ));
-  };
-
-  const handleDecrement = (id) => {
-    setData(data.map(pizza => {
-      if (pizza._id === id) {
-        if (pizza.count > 1) {
-          return { ...pizza, count: pizza.count - 1 };
-        } else {
-          return { ...pizza, showCounter: false, count: 0 };
-        }
-      }
-      return pizza;
-    }));
-  };
-
-  const handleDelete = (id) => {
-    setData(data.map(pizza =>
-      pizza._id === id ? { ...pizza, showCounter: false, count: 0 } : pizza
-    ));
+  const handleDelete = (cartId) => {
+    dispatch(removeFromCart(cartId));
   };
 
   const handlenavClick = () => {
@@ -132,35 +142,37 @@ const CategoryProducts = ({ productId }) => {
   const closeCart = () => {
     setIsProductVisible(false);
   };
-  const [quantity, setQuantity] = useState(1);
-
 
   return (
     <div>
       <div className="MainPizzaSection MainCategory custombackgroud" style={{ backgroundImage: `url(${BannerbackgroundImg})` }}>
         <div className="container">
           <div className="row d-flex align-items-center mt-5 position-relative">
-            <div className="col-xl-7 col-lg-12 d-flex align-items-center col-md-12 order-2 order-smm-1 order-lg-1 mb-lg-0 col-sm-12 col-smm-12 justify-content-md-center justify-content-xl-start mt-lg-2">
-              <div className="retrun-icon-2 me-5 d-block text-light position-relative" onClick={handlenavClick}>
-                <i className="fa-solid fa-arrow-left"></i>
-              </div>
+            {/* Category Name */}
+            <div className="col-xl-6  d-flex align-items-center col-md-6 order-lg-1 order-3 mb-lg-0 col-sm-6 col-smm-6 justify-content-md-center justify-content-lg-start mt-lg-2">
               {currentCategory && (
                 <div className="categoryHeader">
-                  <p className="text-light">{currentCategory.name}</p>  {/* Display category name */}
+                  <p className="text-light">{currentCategory.name}</p> {/* Display category name */}
                 </div>
               )}
             </div>
-            <div className="col-xl-5 col-md-12 order-xl-1 mb-lg-3 mb-md-3 d-md-flex justify-content-md-center">
+
+            {/* Logo Bar */}
+            <div className="col-xl-6 col-md-12 order-xl-2  mb-lg-3 mb-md-3 d-flex justify-content-xl-end justify-content-md-center justify-content-sm-center justify-content-center">
               <div className="logobar text-center">
                 <img src={logobar} alt="logo" className="img" />
               </div>
             </div>
-            <div className="mt-4 col-xl-9 col-md-12 order-smm-1 order-2 order-lg-1 mb-3 mb-lg-0 col-sm-6">
+
+            {/* Return Icon */}
+            <div className="col-xl-6 col-md-6 col-smm-6 col-6 order-lg-3 order-2 col-sm-6 mb-3 mb-lg-0 d-flex align-items-center mt-lg-2 justify-content-md-center justify-content-xl-start justify-content-center">
               <div className="retrun-icon text-light position-relative" onClick={handlenavClick}>
                 <i className="fa-solid fa-arrow-left"></i>
               </div>
             </div>
-            <div className="col-xl-3 col-md-12 order-xl-1 mb-md-3 mt-4 d-md-flex justify-content-md-center">
+
+            {/* Search Bar */}
+            <div className="col-xl-6 col-6 col-md-12 order-xl-4  mt-4 d-flex   justify-content-xl-end justify-content-md-center ">
               <div className="search-Bar">
                 <Searching
                   type="server"
@@ -172,6 +184,7 @@ const CategoryProducts = ({ productId }) => {
               </div>
             </div>
           </div>
+
 
           <div className="show mt-3">
             <div className="row position-relative" style={{ backgroundColor: '#A57F40' }}>
@@ -219,20 +232,19 @@ const CategoryProducts = ({ productId }) => {
                       ) : (
                         <div className="counter d-flex align-items-center me-3">
                           {pizza.count > 1 ? (
-                            <button className="decrement me-1" onClick={() => handleDecrement(pizza._id)}>-</button>
+                            <button className="decrement me-1" onClick={() => handleDecrement(pizza._id, false)}>-</button>
                           ) : (
                             <div className="counter-button" onClick={() => handleDelete(pizza._id)}>
                               <img src={Delete} alt="Delete" />
                             </div>
                           )}
                           <span className="counter-number">{pizza.count}</span>
-                          <button className="increment" onClick={() => handleIncrement(pizza._id)}>+</button>
+                          <button className="increment" onClick={() => handleIncrement(pizza._id, true)}>+</button>
                         </div>
                       )}
                       <button className='show-details cartToggle' onClick={() => handleShowImage(pizza)}>
                         SHOW
                       </button>
-
                       <i className="fa-regular fa-heart" style={{ color: '#9B7A41' }}></i>
                     </div>
                   </div>
@@ -268,9 +280,7 @@ const CategoryProducts = ({ productId }) => {
         </div>
       </div>
 
-
       {/* Cart Side Menu */}
-
       {isProductVisible && selectedProduct && (
         <ProductDetails product={selectedProduct} closeDialog={closeCart} />
       )}

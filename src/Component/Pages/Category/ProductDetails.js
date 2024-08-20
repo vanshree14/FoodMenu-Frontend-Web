@@ -3,6 +3,7 @@ import burgerpic from '../../../Asstes/Images/burger.jpg';
 import deleteicon from '../../../Asstes/Icon/delete.png'; 
 import { baseURL } from '../../Utils/Config';
 import pizzaImg from '../../../Asstes/Images/pizza-img.png';
+import BannerbackgroundImg from '../../../Asstes/Images/fa3ea1263d103c3a22d1096792fafc70.png';
 
 const ProductDetails = ({ product, closeDialog }) => {
   const [quantity, setQuantity] = useState(1);
@@ -28,8 +29,8 @@ const ProductDetails = ({ product, closeDialog }) => {
 
   return (
     <div>
-      <div className="menuToggleBtn">
-        <div className="menuToggleWrap">
+      <div className="menuToggleBtn ">
+        <div className="menuToggleWrap" >
           <div className="DetailsPic ms-4 me-4">
           <img src={baseURL ? baseURL + product.images?.[0] : pizzaImg} alt='img' />
             <button className="close-btn" onClick={closeDialog}>
@@ -41,7 +42,7 @@ const ProductDetails = ({ product, closeDialog }) => {
             <p className='descripanation d-flex justify-content-center'>{product.description}</p>
             <span className='price pt-2'>₹{product.price}</span>
           </div>
-          <div className="size mt-3">
+          <div className="size mt-3 position-relative">
             <button className='size-media'><p className='ps-4'>Small</p></button>
             <button className='size-media'><p className='ps-4'>Medium</p></button>
             <button className='size-media'><p className='ps-4'>Large</p></button>
@@ -93,7 +94,7 @@ const ProductDetails = ({ product, closeDialog }) => {
                   <button className="quantity-btn" onClick={handleIncrementQuantity}>+</button>
                 </div>
               </div>
-              <div className="cart mt-4 mb-5">
+              <div className="cart mt-4 mb-5 position-relative">
                 <p>Add to cart - ₹{quantity * product.price}</p>
               </div>
             </div>

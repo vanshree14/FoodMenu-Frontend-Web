@@ -60,25 +60,31 @@ const CategoryList = () => {
             <div className="MainCategory custombackgroud" style={{ backgroundImage: `url(${BannerbackgroundImg})`, height: '100vh' }}>
                 <div className="container">
                     <div className="row d-flex align-items-center mt-5 position-relative">
-                        <div className="col-xl-7 col-lg-12 d-flex align-items-center col-md-12 order-2 order-smm-1 order-lg-1 mb-3 mb-lg-0 col-sm-12 col-smm-12 justify-content-md-center justify-content-xl-start mt-lg-2">
-                            <div className="retrun-icon-2 me-5 d-block text-light position-relative" onClick={handleClick}>
-                                <i className="fa-solid fa-arrow-left"></i>
-                            </div>
-                            <div className="categoryHeader">
-                                <p className="text-light">Select Category</p>
-                            </div>
+                        {/* Category Name */}
+                        <div className="col-xl-6  d-flex align-items-center col-md-6 order-lg-1 order-3 mb-lg-0 col-sm-6 col-smm-6 justify-content-md-center justify-content-lg-start mt-lg-2">
+                           
+                                <div className="categoryHeader">
+                                    <p className="text-light">select category</p> {/* Display category name */}
+                                </div>
+                            
                         </div>
-                        <div className="col-xl-5 col-md-12 order-xl-1 mb-lg-3 mb-md-3 d-md-flex justify-content-md-center">
+
+                        {/* Logo Bar */}
+                        <div className="col-xl-6 col-md-12 order-xl-2  mb-lg-3 mb-md-3 d-flex justify-content-xl-end justify-content-md-center justify-content-sm-center justify-content-center">
                             <div className="logobar text-center">
                                 <img src={logobar} alt="logo" className="img" />
                             </div>
                         </div>
-                        <div className="mt-4 col-xl-9 col-md-12 order-smm-1 order-2 order-lg-1 mb-3 mb-lg-0 col-sm-6">
+
+                        {/* Return Icon */}
+                        <div className="col-xl-6 col-md-6 col-smm-6 order-lg-3 order-2 col-sm-6 mb-3 mb-lg-0 d-flex align-items-center mt-lg-2 justify-content-md-center justify-content-xl-start justify-content-center">
                             <div className="retrun-icon text-light position-relative" onClick={handleClick}>
                                 <i className="fa-solid fa-arrow-left"></i>
                             </div>
                         </div>
-                        <div className="col-xl-3 col-md-12 order-xl-1 mb-md-3 mt-4 d-md-flex justify-content-md-center">
+
+                        {/* Search Bar */}
+                        <div className="col-xl-6 col-md-12 order-xl-4  mt-4 d-flex   justify-content-xl-end justify-content-md-center justify-content-center">
                             <div className="search-Bar">
                                 <Searching
                                     type="server"

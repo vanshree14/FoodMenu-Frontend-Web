@@ -154,11 +154,11 @@
   font-weight: 900;
   font-size: 50px;
   line-height: 60.51px;
-  text-transform: capitalize;
+  text-transform: uppercase;
 }
 @media screen and (max-width: 992px) {
   .MainCategory .categoryHeader p {
-    font-size: 25px;
+    font-size: 30px;
     white-space: nowrap;
     display: flex;
     justify-content: center;
@@ -175,7 +175,8 @@
 }
 @media screen and (max-width: 992px) {
   .MainCategory .retrun-icon {
-    display: none;
+    width: 41px;
+    height: 41px;
   }
 }
 .MainCategory .retrun-icon i {
@@ -577,9 +578,35 @@
   background: #fff;
   max-width: 400px;
   top: 0;
+  display: block;
   transition: 0.5s ease;
   right: 0;
   box-shadow: 7px 10px 40px rgba(13, 52, 79, 0.1);
+}
+@media screen and (max-width: 992px) {
+  .menuToggleBtn .menuToggleWrap {
+    overflow: hidden;
+    background-size: 220px 220px;
+    background-image: url("../../Images/fa3ea1263d103c3a22d1096792fafc70.png");
+    height: 100vh;
+  }
+}
+@media screen and (max-width: 992px) and (max-width: 992px) {
+  .menuToggleBtn .menuToggleWrap {
+    height: unset !important;
+  }
+}
+@media screen and (max-width: 992px) {
+  .menuToggleBtn .menuToggleWrap::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #000000;
+    opacity: 0.9;
+  }
 }
 .menuToggleBtn .menuToggleWrap .DetailsPic {
   display: flex;
@@ -613,18 +640,26 @@
   font-weight: 900;
   font-size: 28px;
   line-height: 33px;
+  position: relative;
   text-transform: capitalize;
+}
+@media screen and (max-width: 992px) {
+  .menuToggleBtn .menuToggleWrap .details .title {
+    color: #ffffff;
+  }
 }
 .menuToggleBtn .menuToggleWrap .details .descripanation {
   width: 296px;
   color: #838282;
   font-size: 16px;
   font-weight: 400;
+  position: relative;
 }
 .menuToggleBtn .menuToggleWrap .details .price {
   font-weight: 900;
   color: #9B7A41;
   font-size: 28px;
+  position: relative;
 }
 .menuToggleBtn .menuToggleWrap .order-container {
   display: flex;
@@ -635,6 +670,12 @@
   font-weight: 900;
   margin-bottom: 10px;
   color: #1B1B1B;
+  position: relative;
+}
+@media screen and (max-width: 992px) {
+  .menuToggleBtn .menuToggleWrap .order-container .customize-order-box .section-title {
+    color: #ffffff;
+  }
 }
 .menuToggleBtn .menuToggleWrap .order-container .customize-order-box .extra-add,
 .menuToggleBtn .menuToggleWrap .order-container .customize-order-box .remove-ingredients {
@@ -642,6 +683,7 @@
   border-radius: 20px;
   width: 352px;
   height: 158px;
+  position: relative;
   padding: 15px;
   margin-bottom: 20px;
 }
@@ -653,6 +695,11 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 16px;
+}
+@media screen and (max-width: 992px) {
+  .menuToggleBtn .menuToggleWrap .order-container .customize-order-box .ingredient-option {
+    color: #ffffff;
+  }
 }
 .menuToggleBtn .menuToggleWrap .order-container .customize-order-box .ingredient-option:last-child {
   margin-bottom: 0;
@@ -750,6 +797,12 @@
   text-align: center;
   align-items: center;
   justify-content: center;
+}
+@media screen and (max-width: 992px) {
+  .size .size-media {
+    background-color: unset;
+    color: #ffffff;
+  }
 }
 
 .CartDetails h1 {

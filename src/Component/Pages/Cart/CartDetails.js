@@ -9,27 +9,28 @@ import { ItemToCartGet } from '../../Redux/Slice/CartSlice';
 const CartDetails = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  
+  const [search, setSearch] = useState("");
+
   const { cart, totalProduct } = useSelector(state => state.cart);
+  const { auth } = useSelector(state => state.auth);
 
-  const userId = useSelector(state => state.user.id); 
-  const { auth, isLoggedIn } = useSelector((state) => state.auth || {});
-
+  const payload = {
+    page,
+    limit: rowsPerPage,
+    search,
+    userId: auth?._id,
+  };
   useEffect(() => {
-    if (auth && auth._id) {
-      const payload = {
-        page,
-        limit: rowsPerPage,
-        search: "",
-        userId: auth._id,
-      };
-      dispatch(ItemToCartGet(payload));
+    if (auth?._id) {
+      dispatch(ItemToCartGet(payload)).then((response) => {
+        console.log("Cart Data:", response.payload.cart);
+        console.log("Total Product:", response.payload.totalProduct);
+      });
     }
-  }, [ auth, rowsPerPage, page]);
-
+  }, [page, rowsPerPage, search, auth?._id]);
+  
   const handleClick = () => {
     navigate("/categories/:categoryName");
   };
@@ -57,13 +58,13 @@ const CartDetails = () => {
           <div className="row g-3 mt-4">
             {/* Left Section */}
             <div className="col-lg-8 col-sm-12 col-xs-12" style={{ border: '1px solid #9B7A41', padding: '35px 25px', position: 'relative', borderRadius: '40px' }}>
-              {cart.length ? (
+              {cart && cart.lenght > 0 ? (
                 cart.map(item => (
                   <div className="card bg-light text-white" key={item._id}>
                     <div className="row g-0 align-items-center">
                       <div className="col-md-2 col-sm-3 col-xs-12 col-smm-3 text-center">
                         <div className="cart-img">
-                          <img src={pizzaimg} className="img-fluid rounded-start m-3" alt='img' />
+                          <img src={pizzaimg} className="img-fluid rounded-start m-3" alt='Pizza' />
                         </div>
                       </div>
                       <div className="col-md-10 col-sm-9 col-smm-9 col-xs-12">

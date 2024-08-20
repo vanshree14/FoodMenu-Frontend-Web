@@ -17,6 +17,7 @@ import deleteicon from '../../../Asstes/Icon/delete.png'
 import { addItemToCart } from '../../Redux/Slice/CartSlice';
 import { openDialog } from '../../Redux/Slice/DialogueSlice';
 import ProductDetails from './ProductDetails';
+import { jwtDecode } from 'jwt-decode';
 
 const CategoryProducts = ({ productId }) => {
   const navigate = useNavigate();
@@ -29,9 +30,11 @@ const CategoryProducts = ({ productId }) => {
   const [rowPerPage, setRowPerPage] = useState(10);
   const [search, setSearch] = useState("");
   const [isProductVisible, setIsProductVisible] = useState(false);
-  const isAuthenticated = useSelector((state) => state.auth.isAuth);
   const { auth } = useSelector((state) => state.auth);
-  const [selectedProduct, setSelectedProduct] = useState(null); 
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedAddOnIngridiants, setSelectedAddOnIngridiants] = useState([]);
+  const [selectedCustomizeIngridiants, setSelectedCustomizeIngridiants] = useState([]);
+  const [productCount, setProductCount] = useState(1);
 
 
   const payload = {
@@ -71,20 +74,26 @@ const CategoryProducts = ({ productId }) => {
   useEffect(() => {
     setData(product);
   }, [product]);
+  const productMaterId = localStorage.getItem("productId");
+
 
   const currentCategory = category.find(cat => cat._id === categoryId);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (selectedProductId) => {
+    const token = sessionStorage.getItem("token");
+    const decodedToken = JSON.parse(token);
+    const userId = decodedToken._id;
+    const payload = {
+      productId: selectedProductId,
+      userId: userId,
+      productCount,
+      addOnIngridiantId: selectedAddOnIngridiants,
+      customizeIngridiantId: selectedCustomizeIngridiants,
+    };
 
-    dispatch(
-      addItemToCart({
-        // productId,
-        // userId: auth?._id,
-        // productCount,
-      })
-    );
-
+    dispatch(addItemToCart(payload));
   };
+
 
   const handleIncrement = (id) => {
     setData(data.map(pizza =>
@@ -116,15 +125,15 @@ const CategoryProducts = ({ productId }) => {
   };
 
   const handleShowImage = (pizza) => {
-    setSelectedProduct(pizza); 
-    setIsProductVisible(true); 
+    setSelectedProduct(pizza);
+    setIsProductVisible(true);
   };
 
   const closeCart = () => {
     setIsProductVisible(false);
   };
   const [quantity, setQuantity] = useState(1);
- 
+
 
   return (
     <div>
@@ -206,9 +215,7 @@ const CategoryProducts = ({ productId }) => {
                     </div>
                     <div className='d-flex align-items-center'>
                       {!pizza.showCounter ? (
-                        <button className='add-show' onClick={() =>
-                          handleAddToCart(productId)
-                        }>ADD</button>
+                        <button className='add-show' onClick={() => handleAddToCart(pizza._id)}>ADD</button>
                       ) : (
                         <div className="counter d-flex align-items-center me-3">
                           {pizza.count > 1 ? (
