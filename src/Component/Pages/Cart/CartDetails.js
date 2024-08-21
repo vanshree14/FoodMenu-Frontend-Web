@@ -13,7 +13,7 @@ const CartDetails = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [search, setSearch] = useState("");
 
-  const { cart, totalProduct } = useSelector(state => state.cart);
+  const { cart, totalCount } = useSelector(state => state.cart);
   const { auth } = useSelector(state => state.auth);
 
   const payload = {
@@ -22,15 +22,12 @@ const CartDetails = () => {
     search,
     userId: auth?._id,
   };
+
   useEffect(() => {
     if (auth?._id) {
-      dispatch(ItemToCartGet(payload)).then((response) => {
-        console.log("Cart Data:", response.payload.cart);
-        console.log("Total Product:", response.payload.totalProduct);
-      });
-    }
+      dispatch(ItemToCartGet(payload))}
   }, [page, rowsPerPage, search, auth?._id]);
-  
+
   const handleClick = () => {
     navigate("/categories/:categoryName");
   };
@@ -58,7 +55,7 @@ const CartDetails = () => {
           <div className="row g-3 mt-4">
             {/* Left Section */}
             <div className="col-lg-8 col-sm-12 col-xs-12" style={{ border: '1px solid #9B7A41', padding: '35px 25px', position: 'relative', borderRadius: '40px' }}>
-              {cart && cart.lenght > 0 ? (
+              {cart.length > 0 ? (
                 cart.map(item => (
                   <div className="card bg-light text-white" key={item._id}>
                     <div className="row g-0 align-items-center">
@@ -107,7 +104,7 @@ const CartDetails = () => {
                 <div className="summary mt-2">
                   <div className="d-flex justify-content-between pb-3">
                     <span className='price'>Sub Total</span>
-                    <span className='price'>₹{totalProduct}</span>
+                    <span className='price'>₹{totalCount}</span>
                   </div>
                   <div className="d-flex justify-content-between pb-4" style={{ borderBottom: '1px solid #ffffff' }}>
                     <span className='price'>Total Tax</span>
@@ -115,17 +112,17 @@ const CartDetails = () => {
                   </div>
                   <div className="d-flex justify-content-between pt-4 pb-5">
                     <span className='price'>Total</span>
-                    <span className="text-warning h4 price">₹{totalProduct + 14}</span>
+                    <span className="text-warning h4 price">₹{totalCount + 14}</span>
                   </div>
                   <div className="order-btn d-flex justify-content-center">
-                    <button className="order text-light fw-700">Order Now - ₹{totalProduct + 14}</button>
+                    <button className="order text-light fw-700">Order Now - ₹{totalCount + 14}</button>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="order-btn d-flex justify-content-center mt-3 position-relative">
-              <button className="order-1 text-light fw-700">Order Now - ₹{totalProduct + 14}</button>
+              <button className="order-1 text-light fw-700">Order Now - ₹{totalCount + 14}</button>
             </div>
           </div>
         </div>

@@ -61,7 +61,7 @@ const CategoryList = () => {
                 <div className="container">
                     <div className="row d-flex align-items-center mt-5 position-relative">
                         {/* Category Name */}
-                        <div className="col-xl-6  d-flex align-items-center col-md-6 order-lg-1 order-3 mb-lg-0 col-sm-6 col-smm-6 justify-content-md-center justify-content-lg-start mt-lg-2">
+                        <div className="col-6  d-flex align-items-center  order-4 order-xl-1 mb-lg-0  justify-content-md-center justify-content-xl-start justify-content-center justify-content-lg-start mt-lg-2">
                            
                                 <div className="categoryHeader">
                                     <p className="text-light">select category</p> {/* Display category name */}
@@ -77,7 +77,7 @@ const CategoryList = () => {
                         </div>
 
                         {/* Return Icon */}
-                        <div className="col-xl-6 col-md-6 col-smm-6 order-lg-3 order-2 col-sm-6 mb-3 mb-lg-0 d-flex align-items-center mt-lg-2 justify-content-md-center justify-content-xl-start justify-content-center">
+                        <div className="col-6 order-lg-3 order-2  mb-3 mb-lg-0 d-flex align-items-center mt-lg-2 justify-content-md-center justify-content-xl-start ">
                             <div className="retrun-icon text-light position-relative" onClick={handleClick}>
                                 <i className="fa-solid fa-arrow-left"></i>
                             </div>
@@ -97,7 +97,7 @@ const CategoryList = () => {
                         </div>
                     </div>
 
-                    <div className="row d-flex align-items-center position-relative">
+                    <div className="row d-flex align-items-center mt-3 position-relative">
                         {data?.map((items, index) => {
                             const imagePath = items?.image.replace(/\\/g, "/");
                             const fullImageUrl = baseURL + imagePath;

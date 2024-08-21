@@ -149,12 +149,13 @@
       font-weight: 900;
       font-size: 50px;
       line-height: 60.51px;
-      text-transform: uppercase;
+      text-transform: capitalize;
+      white-space: nowrap;
       @include maxMediaQuery($lg) {
-        font-size: 30px;
+        font-size: 21px;
         white-space: nowrap;
-        display: flex;
-        justify-content: center;
+       text-transform: uppercase;
+
       }
     }
   }

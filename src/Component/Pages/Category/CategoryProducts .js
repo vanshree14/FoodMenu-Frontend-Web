@@ -10,14 +10,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { productget } from '../../Redux/Slice/ProductSlice';
 import { baseURL } from '../../Utils/Config';
-import left from '../../../Asstes/Icon/left.png';
 import { categoryGet, productsByCategoryGet } from '../../Redux/Slice/CategorySlice';
-import burgerpic from '../../../Asstes/Images/burger-img.png'
-import deleteicon from '../../../Asstes/Icon/delete.png'
 import { addItemToCart, CartQuntity, removeFromCart } from '../../Redux/Slice/CartSlice';
-import { openDialog } from '../../Redux/Slice/DialogueSlice';
 import ProductDetails from './ProductDetails';
-import { jwtDecode } from 'jwt-decode';
 
 const CategoryProducts = ({ productId }) => {
   const navigate = useNavigate();
@@ -35,6 +30,7 @@ const CategoryProducts = ({ productId }) => {
   const [selectedAddOnIngridiants, setSelectedAddOnIngridiants] = useState([]);
   const [selectedCustomizeIngridiants, setSelectedCustomizeIngridiants] = useState([]);
   const [productCount, setProductCount] = useState(1);
+  const [num, setNum] = useState(1);
 
   const payload = {
     page,
@@ -77,13 +73,27 @@ const CategoryProducts = ({ productId }) => {
 
   const handleAddToCart = (selectedProductId) => {
     const token = sessionStorage.getItem("token");
+    const isAuthenticated = !!token;
+
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
+    }
+
     const decodedToken = JSON.parse(token);
     const userId = decodedToken._id;
+
+    // Ensure productCount is a valid number
+    const validProductCount = Number(productCount);
+    if (isNaN(validProductCount)) {
+      console.error('Invalid product count:', productCount);
+      return;
+    }
 
     const payload = {
       productId: selectedProductId,
       userId: userId,
-      productCount,
+      productCount: validProductCount,
       addOnIngridiantId: selectedAddOnIngridiants,
       customizeIngridiantId: selectedCustomizeIngridiants,
     };
@@ -93,41 +103,49 @@ const CategoryProducts = ({ productId }) => {
     setData(prevData =>
       prevData.map(pizza =>
         pizza._id === selectedProductId
-          ? { ...pizza, showCounter: true, count: (pizza.count || 0) + productCount }
+          ? { ...pizza, showCounter: true, count: (pizza.count || 0) + validProductCount }
           : pizza
       )
     );
-
     setSelectedAddOnIngridiants([]);
     setSelectedCustomizeIngridiants([]);
     setProductCount(1);
   };
 
-  const handleIncrement = (cartId, action) => {
+  const handleIncrement = (selectedProductId) => {
+    const token = sessionStorage.getItem("token");
+    const decodedToken = JSON.parse(token);
+    const userId = decodedToken._id;
     setData(prevData =>
       prevData.map(pizza =>
-        pizza._id === cartId
-          ? { ...pizza, count: (pizza.count || 0) + 1 }
-          : pizza
+        pizza._id === selectedProductId
+          ? { ...pizza, count: (parseInt(pizza.count) || 0) + 1 } : pizza
       )
     );
-    dispatch(CartQuntity({ cartId, action }));
+    dispatch(CartQuntity({ userId, productId: selectedProductId, action: true }));
   };
 
-  const handleDecrement = (cartId, action) => {
+  const handleDecrement = (selectedProductId) => {
+    const token = sessionStorage.getItem("token");
+    const decodedToken = JSON.parse(token);
+    const userId = decodedToken._id;
     setData(prevData =>
       prevData.map(pizza =>
-        pizza._id === cartId
-          ? { ...pizza, count: (pizza.count || 0) - 1 }
-          : pizza
-      )
-    );
-    dispatch(CartQuntity({ cartId, action }));
+        pizza._id === selectedProductId
+          ? { ...pizza, count: (parseInt(pizza.count) || 0) - 1 } : pizza));
+    dispatch(CartQuntity({ userId, productId: selectedProductId, action: false }));
   };
 
 
-  const handleDelete = (cartId) => {
-    dispatch(removeFromCart(cartId));
+  const handleDelete = (selectedProductId) => {
+    const token = sessionStorage.getItem("token");
+    const decodedToken = JSON.parse(token);
+    const userId = decodedToken._id;
+    setData(prevData =>
+      prevData.map(pizza =>
+        pizza._id === selectedProductId
+          ? { ...pizza, count: (parseInt(pizza.count) || 0) - 1 } : pizza));
+    dispatch(removeFromCart({ userId, productId: selectedProductId, action: false }));
   };
 
   const handlenavClick = () => {
@@ -149,7 +167,7 @@ const CategoryProducts = ({ productId }) => {
         <div className="container">
           <div className="row d-flex align-items-center mt-5 position-relative">
             {/* Category Name */}
-            <div className="col-xl-6  d-flex align-items-center col-md-6 order-lg-1 order-3 mb-lg-0 col-sm-6 col-smm-6 justify-content-md-center justify-content-lg-start mt-lg-2">
+            <div className="col-6  d-flex align-items-center  order-4 order-xl-1 mb-lg-0  justify-content-md-center justify-content-xl-start justify-content-center justify-content-lg-start mt-lg-2">
               {currentCategory && (
                 <div className="categoryHeader">
                   <p className="text-light">{currentCategory.name}</p> {/* Display category name */}
@@ -165,14 +183,14 @@ const CategoryProducts = ({ productId }) => {
             </div>
 
             {/* Return Icon */}
-            <div className="col-xl-6 col-md-6 col-smm-6 col-6 order-lg-3 order-2 col-sm-6 mb-3 mb-lg-0 d-flex align-items-center mt-lg-2 justify-content-md-center justify-content-xl-start justify-content-center">
+            <div className="col-6 order-lg-3 order-2  mb-3 mb-lg-0 d-flex align-items-center mt-lg-2 justify-content-md-center justify-content-xl-start ">
               <div className="retrun-icon text-light position-relative" onClick={handlenavClick}>
                 <i className="fa-solid fa-arrow-left"></i>
               </div>
             </div>
 
             {/* Search Bar */}
-            <div className="col-xl-6 col-6 col-md-12 order-xl-4  mt-4 d-flex   justify-content-xl-end justify-content-md-center ">
+            <div className="col-xl-6 col-md-12 order-xl-4  mt-4 d-flex   justify-content-xl-end justify-content-md-center justify-content-center">
               <div className="search-Bar">
                 <Searching
                   type="server"
@@ -279,8 +297,8 @@ const CategoryProducts = ({ productId }) => {
           </div>
         </div>
       </div>
-
       {/* Cart Side Menu */}
+
       {isProductVisible && selectedProduct && (
         <ProductDetails product={selectedProduct} closeDialog={closeCart} />
       )}

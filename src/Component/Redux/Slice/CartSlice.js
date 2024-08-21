@@ -3,12 +3,12 @@ import { apiInstance } from "../../../Api/AxiosApi";
 
 const initialState = {
   cart: [],
-  totalProduct: 0,
-  cartDataTotal: 0,
-  loading: false,
-  error: null,
+  totalCount: 0,
+  // cartDataTotal: 0,
+  isLoading: false,
+  cartLoader: false,
 
-};
+}
 
 
 export const addItemToCart = createAsyncThunk("cart/add", async (payload) => {
@@ -17,10 +17,10 @@ export const addItemToCart = createAsyncThunk("cart/add", async (payload) => {
 
 
 export const CartQuntity = createAsyncThunk(
-  "cart/update",
+  "cart/updateQty",
   async (payload) => {
-    return apiInstance.put(
-      `cart/update?cartId=${payload.cartId}&action=${payload.action}`
+    return apiInstance.patch(
+      `cart/updateQty?userId=${payload.userId}&productId=${payload.productId}&action=${payload.action}`
     );
   }
 );
@@ -31,12 +31,12 @@ export const ItemToCartGet = createAsyncThunk("cart/show", async (payload) => {
   );
 });
 
-export const removeFromCart = createAsyncThunk("cart/delete", async (cartId) => {
-  return apiInstance.delete(`cart/delete?cartId=${cartId}`);
+export const removeFromCart = createAsyncThunk("cart/delete", async (payload) => {
+  return apiInstance.delete(`cart/deleteById?userId=${payload.userId}&productId=${payload.productId}`);
 });
 
 
-const AddToCartSlice = createSlice({
+const CartSlice = createSlice({
   name: "AddToCartSlice",
   initialState,
   reducers: {},
@@ -44,16 +44,16 @@ const AddToCartSlice = createSlice({
     // get cart ==============x===
 
     builder.addCase(ItemToCartGet.pending, (state) => {
-      state.status = "loading";
+      state.isLoading = true;
     });
     builder.addCase(ItemToCartGet.fulfilled, (state, action) => {
-      state.cart = action?.payload?.cart || [];
-      state.totalProduct = action?.payload?.totalProduct || 0;
-      state.status = "succeeded";
+      state.cart = action.payload?.cart || []; 
+      state.totalCount = action.payload?.cart?.totalCount || 0; 
+      state.isLoading = false;
     });
     
     builder.addCase(ItemToCartGet.rejected, (state, action) => {
-      state.status = action.error.message || "failed";
+      state.isLoading = true;
     });
 
 
@@ -66,30 +66,29 @@ const AddToCartSlice = createSlice({
       state.error = null;
     });
     builder.addCase(addItemToCart.fulfilled, (state, action) => {
-      if (action.payload && action.payload.cart) {
-        if (!Array.isArray(state.cart)) {
-          state.cart = [];
-        }
-        const { productId, _id } = action.payload.cart;
-        if (!productId || !_id) {
-          console.error('Invalid cart item:', action.payload.cart);
-          return;
-        }
-        const inCart = state.cart.some(obj => obj.productId === productId);
+      console.log("Add to Cart Response:", action.payload?.cart);
+      const cart = action.payload?.cart;
+      
+      if (cart) {
+        const inCart = state.cart.some(obj => obj.productId === cart.productId);
+    
         if (inCart) {
-          const cartIdx = state.cart.findIndex((product) => product._id === _id);
+          const cartIdx = state.cart.findIndex((product) => product._id === cart._id);
           if (cartIdx !== -1) {
-            state.cart[cartIdx] = { ...state.cart[cartIdx], ...action.payload.cart };
+            state.cart[cartIdx] = { ...state.cart[cartIdx], ...cart };
           }
         } else {
-          state.cart.unshift(action.payload.cart);
-          state.totalProduct += 1;
+          state.cart.unshift(cart); // Add new item to the cart
+          state.totalCount += 1;
         }
-      } else {
-        console.error('Invalid payload:', action.payload);
-      }
+      } 
       state.cartLoader = false;
     });
+    
+    
+    
+    
+    
     builder.addCase(addItemToCart.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
@@ -101,7 +100,7 @@ const AddToCartSlice = createSlice({
     });
     builder.addCase(removeFromCart.fulfilled, (state, action) => {
       state.cart = state.cart.filter((cart) => cart._id !== action.meta.arg);
-      state.totalProduct -= 1
+      state.totalCount -= 1
       // state.isLoading = false;
     });
     builder.addCase(removeFromCart.rejected, (state, action) => {
@@ -115,21 +114,24 @@ const AddToCartSlice = createSlice({
     builder.addCase(CartQuntity.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(CartQuntity.fulfilled, (state, action) => {
-      const { cartData } = action.payload;
-      const itemIndex = state.cart.findIndex(item => item._id === cartData._id);
-      if (itemIndex !== -1) {
-        state.cart[itemIndex] = { ...state.cart[itemIndex], ...cartData };
+   builder.addCase(CartQuntity.fulfilled, (state, action) => {
+      const cart = action.payload?.cart;
+      if (cart) {
+        const itemIndex = state.cart.findIndex((item) => item._id === cart._id);
+        if (itemIndex !== -1) {
+          state.cart[itemIndex] = { ...state.cart[itemIndex], ...cart };
+        }
+      } else {
+        console.error('Cart is undefined in payload');
       }
-      state.loading = false;
     });
+  
     builder.addCase(CartQuntity.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.error.message;
     });
   },
 });
 
 
-
-export default AddToCartSlice.reducer;
+export const { decrementQuantity, incrementQuantity } = CartSlice.actions;
+export default CartSlice.reducer;

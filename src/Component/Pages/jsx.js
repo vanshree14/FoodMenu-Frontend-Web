@@ -280,3 +280,4 @@ const CategoryProducts = ({ productId }) => {
 };
 
 export default CategoryProducts;
+

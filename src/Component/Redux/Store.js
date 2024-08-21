@@ -4,7 +4,7 @@ import DialogueSlice from "./Slice/DialogueSlice";
 import CategorySlice from "./Slice/CategorySlice";
 import BookingSlice from "./Slice/BookingSlice";
 import ProductSlice from "./Slice/ProductSlice";
-import AddToCartSlice from './Slice/CartSlice'
+import CartSlice from "./Slice/CartSlice";
 
 const Store = configureStore({
     reducer: {
@@ -14,7 +14,7 @@ const Store = configureStore({
         category: CategorySlice,
         table: BookingSlice,
         product: ProductSlice,
-        cart: AddToCartSlice,
+        cart: CartSlice,
        
     },
 });
