@@ -4,6 +4,7 @@ import { apiInstance, setToken } from "../../../Api/AxiosApi";
 import { SetDevKey } from "../../Utils/SetAuth";
 import { baseURL, Key } from "../../../Component/Utils/Config";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { setToast } from "../../Extra/Toast";
 
 const initialState = {
     user: [],
@@ -32,6 +33,7 @@ const authSlice = createSlice({
             const token = JSON.parse(action.payload.token);
             state.user = token;
             state.token = action.payload.token;
+            state.isAuth = true;
             setToken(action.payload.tokenSil);
             SetDevKey(Key);
         },
@@ -54,16 +56,19 @@ const authSlice = createSlice({
             state.isLoading = true;
         });
         builder.addCase(Register.fulfilled, (state, action) => {
-            const token_ = jwtDecode(action.payload.token);
-            state.user = token_;
-            state.token = action.payload.token;
+
+            if (action.payload.status) {
+                const token_ = jwtDecode(action.payload.token);
+                state.user = token_;
+                state.token = action.payload.token;
+                SetDevKey(Key);
+                setToken(action.payload.token);
+                sessionStorage.setItem("otp", token_.otp);
+                delete token_.otp;
+                sessionStorage.setItem("token", token_ ? JSON.stringify(token_) : undefined);
+                sessionStorage.setItem("key", Key ? Key : undefined);
+            }
             state.isLoading = false;
-            SetDevKey(Key);
-            setToken(action.payload.token);
-            sessionStorage.setItem("otp", token_.otp);
-            delete token_.otp;
-            sessionStorage.setItem("token", token_ ? JSON.stringify(token_) : undefined);
-            sessionStorage.setItem("key", Key ? Key : undefined);
         });
         builder.addCase(Register.rejected, (state) => {
             state.isLoading = false;
@@ -88,18 +93,22 @@ const authSlice = createSlice({
             state.isLoading = true;
         });
         builder.addCase(login.fulfilled, (state, action) => {
-            let token_ = jwtDecode(action.payload.token);
-            state.user = token_;
-            state.token = action.payload.token;
+            if (action.payload.status) {
+                let token_ = jwtDecode(action.payload.token);
+                state.user = token_;
+                state.token = action.payload.token;
+                state.isAuth = true;
+                SetDevKey(Key);
+                setToken(action.payload.token);
+                sessionStorage.setItem("isAuth", true);
+                sessionStorage.setItem("token", token_ ? JSON.stringify(token_) : undefined);
+                sessionStorage.setItem("tokenSil", action.payload.token ? action.payload.token : undefined);
+                sessionStorage.setItem("key", Key ? Key : undefined);
+
+            }
             state.isLoading = false;
-            state.isAuth = true; 
-            SetDevKey(Key);
-            setToken(action.payload.token);
-            sessionStorage.setItem("token", token_ ? JSON.stringify(token_) : undefined);
-            sessionStorage.setItem("tokenSil", action.payload.token ? action.payload.token : undefined);
-            sessionStorage.setItem("key", Key ? Key : undefined);
-          });
-          
+        });
+
         builder.addCase(login.rejected, (state) => {
             state.isLoading = false;
         });

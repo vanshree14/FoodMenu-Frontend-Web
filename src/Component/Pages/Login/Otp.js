@@ -6,17 +6,19 @@ import Button from '../../Extra/Button';
 import BannerbackgroundImg from '../../../Asstes/Images/fa3ea1263d103c3a22d1096792fafc70.png';
 import { OTP } from '../../Redux/Slice/AuthSlice';
 import { submitData } from '../../Utils/Fuction';
+import logobar from '../../../Asstes/Images/loginLogo.png';
+
 
 const Otp = () => {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isAuth = useSelector((state) => state.user.isAuth);
+  const {isAuth} = useSelector((state) => state.user);
 
   useEffect(() => {
     if (isAuth) {
-      navigate("/LogIn");
+      navigate("/login");
     }
   }, [isAuth, navigate]);
 
@@ -28,7 +30,6 @@ const Otp = () => {
     loginData.email = decodeToken.email
     if (!loginData || !loginData.otp || !loginData.email) {
       setError("Please provide both email and OTP");
-      
       return;
     }
 
@@ -36,7 +37,7 @@ const Otp = () => {
       await dispatch(OTP(loginData)).unwrap();
       alert("Verification successful");
       sessionStorage.removeItem('otp');
-      navigate("/LogIn");
+      navigate("/login");
     } catch (error) {
       setError("OTP verification failed");
       console.error('OTP verification error:', error);
@@ -46,11 +47,12 @@ const Otp = () => {
 
 
   return (
-    <div className="mainLoginPage" style={{ backgroundImage: `url(${BannerbackgroundImg})` }}>
+    <div className="mainLoginPage">
       <div className="loginDiv">
-        <div className="loginPage pt-3 m-auto text-center" style={{ width: "499px" }}>
+        <div className="loginPage pt-3 m-auto text-center width-sm-500  w-100 p15-y p60-sm-x p70-smm-x p30-x" >
           <div className="loginTitle" style={{ marginBottom: '120px', marginTop: '40px' }}>
-            <h1 className="fw-bold m-0">FOOOD LOGO</h1>
+          <img src={logobar} alt='img'/>
+
             <p className='text-white'>Enter with your OTP</p>
           </div>
           <h1 className='text-light fw-800 mb-3' style={{ fontSize: '30px' }}>ENTER OTP</h1>

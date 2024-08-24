@@ -1,5 +1,5 @@
-@import "../abstracts/variabale";
-// $themeAll: $prime, $second, $third, $fourth;
+@import "../Abstract/variable";
+// $themeAll: $prime, $primeGradient, $third, $fourth;
 
 /*============== Container Props ==============*/
 .container {
@@ -9,6 +9,7 @@
   @media screen and (max-width:1900px) and (min-width:1000px) {
     padding: 0 20px;
   }
+
 }
 
 /*============== Responsive Text color Props ==============*/
@@ -36,7 +37,7 @@ $value in $responsive {
 @each $key,
 $value in $themeAll {
   .bg-#{$key} {
-    background-color: #{$value} !important;
+    background: #{$value} !important;
   }
 }
 
@@ -47,7 +48,73 @@ $value in $responsive {
     @each $key,
     $value in $themeAll {
       .bg-#{$size}-#{$key} {
-        background-color: #{$value} !important;
+        background: #{$value} !important;
+      }
+    }
+  }
+}
+
+
+
+/*============== Backgroung gradient color Props ==============*/
+@each $key,
+$value in $themeAll {
+  .bg-grad-#{$key} {
+    background: linear-gradient(90deg, $value, #{$value}98);
+  }
+}
+
+@each $size,
+$value in $responsive {
+  @media (min-width: #{$value}px) {
+
+    @each $key,
+    $value in $themeAll {
+      .bg-grad-#{$size}-#{$key} {
+        background: linear-gradient(90deg, $value, #{$value}98);
+      }
+    }
+  }
+}
+
+// box-shadow: 0 3px 8.3px 0.7px rgba(160, 40, 41, 0.35);
+/*============== Backgroung gradient color Props ==============*/
+@each $key,
+$value in $themeAll {
+  .box-shadow-#{$key} {
+    box-shadow: 0 3px 8.3px 0.7px rgba($value, 0.55);
+  }
+}
+
+@each $size,
+$value in $responsive {
+  @media (min-width: #{$value}px) {
+
+    @each $key,
+    $value in $themeAll {
+      .box-shadow-#{$size}-#{$key} {
+        box-shadow: 0 3px 8.3px 0.7px rgba($value, 0.35);
+      }
+    }
+  }
+}
+
+/*============== Outline color Props ==============*/
+@each $key,
+$value in $themeAll {
+  .outline-#{$key} {
+    outline-color: #{$value} !important;
+  }
+}
+
+@each $size,
+$value in $responsive {
+  @media (min-width: #{$value}px) {
+
+    @each $key,
+    $value in $themeAll {
+      .outline-#{$size}-#{$key} {
+        outline-color: #{$value} !important;
       }
     }
   }
@@ -89,6 +156,34 @@ $value in $themeAll {
   }
 }
 
+// ====== border Responsive ====
+@each $size,
+$value in $responsive {
+  @media (min-width: #{$value}px) {
+
+    @each $key,
+    $value in $themeAll {
+      @for $i from 1 through 5 {
+        .border-#{$size}-#{$key}-#{$i} {
+          border: $value #{$i}px solid !important;
+        }
+      }
+
+      /*# Border color wise ==============*/
+      @each $angle in $angles {
+
+        /*#Angle*/
+        @for $i from 1 through 5 {
+          .border-#{$size}-#{$angle}-#{$key}-#{$i} {
+            border-#{$angle}: $value #{$i}px solid !important;
+          }
+        }
+      }
+    }
+
+  }
+}
+
 /*============== font-wight Props ============*/
 @for $i from 1 through 9 {
   .fw-#{$i * 100} {
@@ -108,7 +203,7 @@ $value in $responsive {
 }
 
 /*============== resposive font-size Props ============ */
-@for $i from 1 through 70 {
+@for $i from 1 through 200 {
   .fs-#{$i} {
     font-size: #{$i}px !important;
   }
@@ -117,7 +212,7 @@ $value in $responsive {
 @each $size,
 $value in $responsive {
   @media (min-width: #{$value}px) {
-    @for $i from 1 through 70 {
+    @for $i from 1 through 200 {
       .fs-#{$size}-#{$i} {
         font-size: #{$i}px !important;
       }
@@ -125,8 +220,46 @@ $value in $responsive {
   }
 }
 
+/*============== resposive line-height Props ============ */
+@for $i from 1 through 200 {
+  .lh-#{$i} {
+    line-height: #{$i}px !important;
+  }
+}
+
+@each $size,
+$value in $responsive {
+  @media (min-width: #{$value}px) {
+    @for $i from 1 through 200 {
+      .lh-#{$size}-#{$i} {
+        line-height: #{$i}px !important;
+      }
+    }
+  }
+}
+
+/*============== resposive font-size & line height Props ============ */
+@for $i from 1 through 200 {
+  .fsl-#{$i} {
+    font-size: #{$i}px !important;
+    line-height: #{$i}px !important;
+  }
+}
+
+@each $size,
+$value in $responsive {
+  @media (min-width: #{$value}px) {
+    @for $i from 1 through 200 {
+      .fsl-#{$size}-#{$i} {
+        font-size: #{$i}px !important;
+        line-height: #{$i}px !important;
+      }
+    }
+  }
+}
+
 /*============== responsive width & max-width Props ============ */
-@for $i from 1 through 100 {
+@for $i from 1 through 1000 {
   .width-#{$i} {
     width: #{$i}px !important;
   }
@@ -148,7 +281,7 @@ $value in $responsive {
 @each $size,
 $value in $responsive {
   @media (min-width: #{$value}px) {
-    @for $i from 1 through 100 {
+    @for $i from 1 through 1000 {
       .width-#{$size}-#{$i} {
         width: #{$i}px !important;
       }
@@ -176,15 +309,23 @@ $value in $responsive {
   .height-#{$i} {
     height: #{$i}px !important;
   }
+
+  .h-#{$i} {
+    height: #{$i}#{"%"} !important;
+  }
 }
 
-/*============== 0000Props ============ */
+/*============== responsive height Props ============ */
 @each $size,
 $value in $responsive {
   @media (min-width: #{$value}px) {
     @for $i from 1 through 1000 {
       .height-#{$size}-#{$i} {
         height: #{$i}px !important;
+      }
+
+      .h-#{$size}-#{$i} {
+        height: #{$i}#{"%"} !important;
       }
     }
   }
@@ -231,9 +372,6 @@ $value in $responsive {
   margin-right: calc(-.5 * var(--mk-gutter-x));
   margin-left: calc(-.5 * var(--mk-gutter-x));
 
-  @include maxMediaQuery($md) {
-    --mk-gutter-x: 0rem;
-  }
 
   &>* {
     flex-shrink: 0;
@@ -272,7 +410,7 @@ $value in $responsive {
 }
 
 /*============== margin-padding Props ============ */
-@mixin margin-padding($length, $class) {
+@mixin margin-padding($length, $class, $count) {
   @if $class ==m {
     .m-auto {
       margin: auto !important;
@@ -287,7 +425,7 @@ $value in $responsive {
     }
   }
 
-  @for $i from 0 through 40 {
+  @for $i from 0 through $count {
     .#{$class}#{$i} {
       #{$length}: #{$i}px !important;
     }
@@ -327,7 +465,7 @@ $value in $responsive {
         }
       }
 
-      @for $i from 0 through 40 {
+      @for $i from 0 through $count {
         .#{$class}#{$i}-#{$size} {
           #{$length}: #{$i}px !important;
         }
@@ -355,10 +493,10 @@ $value in $responsive {
 }
 
 /*============== Padding ============ */
-@include margin-padding(padding, p);
+@include margin-padding(padding, p, 300);
 
 /*============== Margin ============ */
-@include margin-padding(margin, m);
+@include margin-padding(margin, m, 300);
 
 dl,
 ol,
@@ -375,7 +513,7 @@ ul {
 
 /*============== skeleton ============ */
 .skeleton {
-  background-color: #e2e5e7;
+  background: #e2e5e7;
   // The shine that's going to move across the skeleton:
   background-image:
     linear-gradient(90deg,
@@ -402,12 +540,6 @@ ul {
   padding: 100px 0;
 }
 
-.text-overflow-1 {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
 /* ================ Toast PROPS =============== */
 
 
@@ -422,7 +554,7 @@ ul {
   }
 
   & .Toastify__progress-bar {
-    background-color: transparent;
+    background: transparent;
   }
 
   & .Toastify__toast-icon.Toastify--animate-icon.Toastify__zoom-enter~div {
@@ -485,14 +617,54 @@ ul {
   }
 }
 
-.primeButton button {
-  width: 100%;
-  background-color: #A86464;
-  color: #ffffff;
-  border: none;
-  padding: 5px 0;
-  cursor: pointer;
-  border-radius: 4px;
+
+
+
+// ================== overFlow Props ========================
+
+@mixin overflowText($line) {
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
+@for $i from 1 through 10 {
+  .text-overflow-#{$i} {
+    @include overflowText($i)
+  }
+}
+
+@each $size,
+$value in $responsive {
+  @media (min-width: #{$value}px) {
+    @for $i from 1 through 10 {
+      .text-overflow-#{$size}-#{$i} {
+        @include overflowText($i)
+      }
+    }
+  }
+}
+
+
+
+/*============== resposive transition Props ============ */
+@for $i from 1 through 10 {
+  .trans-#{$i} {
+    transition: #{"."}#{$i}s !important;
+  }
+}
+
+@each $size,
+$value in $responsive {
+  @media (min-width: #{$value}px) {
+    @for $i from 1 through 10 {
+      .trans-#{$size}-#{$i} {
+        transition: #{"."}#{$i}s !important;
+      }
+    }
+  }
+}

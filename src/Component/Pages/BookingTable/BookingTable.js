@@ -39,7 +39,7 @@ const BookingTable = () => {
 
     return (
         <div>
-            <div className='TableSection custombackgroud' style={{ backgroundImage: `url(${BannerbackgroundImg})`, height: '100vh' }}>
+            <div className='TableSection'>
                 <div className="container">
                     <div className="row d-flex justify-content-center align-items-center mt-5 position-relative">
                         <div className="col-lg-7 col-md-12 order-2 order-lg-1 mb-3 mb-lg-0">
@@ -58,7 +58,7 @@ const BookingTable = () => {
                         {
                         data?.map((items, index) => (
                             <div key={index} className="col d-flex justify-content-between align-items-center text-light">
-                                <div className="tableBox" onClick={() => navigate('/categories')}>
+                                <div className="tableBox" onClick={() => navigate('/booking/categories')}>
                                     <button className="table-login mb-3">Table {items?.tableNo}</button>
                                 </div>
                             </div>

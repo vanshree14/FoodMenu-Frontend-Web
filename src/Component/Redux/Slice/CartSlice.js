@@ -4,9 +4,9 @@ import { apiInstance } from "../../../Api/AxiosApi";
 const initialState = {
   cart: [],
   totalCount: 0,
-  // cartDataTotal: 0,
   isLoading: false,
   cartLoader: false,
+  productDetails:{}
 
 }
 
@@ -35,9 +35,13 @@ export const removeFromCart = createAsyncThunk("cart/delete", async (payload) =>
   return apiInstance.delete(`cart/deleteById?userId=${payload.userId}&productId=${payload.productId}`);
 });
 
+export const ProductByCodeGet = createAsyncThunk("product/productByCod", async (payload) => {
+  return apiInstance.get(`product/productByCod?productCode=${payload.productCode}&size=${payload.size}`);
+});
+
 
 const CartSlice = createSlice({
-  name: "AddToCartSlice",
+  name: "CartSlice",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -84,12 +88,7 @@ const CartSlice = createSlice({
       } 
       state.cartLoader = false;
     });
-    
-    
-    
-    
-    
-    builder.addCase(addItemToCart.rejected, (state, action) => {
+     builder.addCase(addItemToCart.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
@@ -107,6 +106,17 @@ const CartSlice = createSlice({
       state.isLoading = false;
     });
 
+
+    builder.addCase(ProductByCodeGet.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(ProductByCodeGet.fulfilled, (state, action) => {
+      state.productDetails = action.payload?.product || null;
+      state.isLoading = false;
+    });
+    builder.addCase(ProductByCodeGet.rejected, (state, action) => {
+      state.isLoading = false;
+    });
 
 
     // put cart =================

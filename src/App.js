@@ -16,6 +16,8 @@ import SignIn from './Component/Pages/Login/SignIn';
 import CategoryProducts from './Component/Pages/Category/CategoryProducts ';
 import CartDetails from './Component/Pages/Cart/CartDetails';
 import ProductDetails from './Component/Pages/Category/ProductDetails';
+import AuthRoute from './Component/Utils/AuthRoute';
+import OtpRouter from './Component/Utils/OtpRouter';
 
 function App() {
   const dispatch = useDispatch();
@@ -28,20 +30,21 @@ function App() {
     dispatch(setOldAdmin({ token }))
   }, [setToken, key]);
 
- 
+
   return (
-    <div>
+    <div className='custombackgroud'>
       <Routes>
         <Route path='/login' element={<SignIn />} />
         <Route path='/' element={<SignIn />} />
         <Route path='/signup' element={<Signup />} />
+        <Route element={<OtpRouter />}>
         <Route path='/otp' element={<Otp />} />
+        </Route>
+        <Route element={<AuthRoute />}>
         <Route path='/booking/*' element={<Admin />} />
-        <Route path='/categories' element={<CategoryList />} />
-        <Route path="/categories/:categoryName" element={<CategoryProducts />} />
-        <Route path='/cart' element={<CartDetails/>}/>
-        <Route path = '/productDetails' element={<ProductDetails/>}/>
-    
+        </Route>
+       
+
       </Routes>
     </div>
   );

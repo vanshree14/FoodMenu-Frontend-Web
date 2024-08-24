@@ -79,17 +79,14 @@ const CategoryProducts = ({ productId }) => {
       navigate("/login");
       return;
     }
-
     const decodedToken = JSON.parse(token);
     const userId = decodedToken._id;
-
-    // Ensure productCount is a valid number
     const validProductCount = Number(productCount);
+
     if (isNaN(validProductCount)) {
       console.error('Invalid product count:', productCount);
       return;
     }
-
     const payload = {
       productId: selectedProductId,
       userId: userId,
@@ -136,7 +133,6 @@ const CategoryProducts = ({ productId }) => {
     dispatch(CartQuntity({ userId, productId: selectedProductId, action: false }));
   };
 
-
   const handleDelete = (selectedProductId) => {
     const token = sessionStorage.getItem("token");
     const decodedToken = JSON.parse(token);
@@ -144,12 +140,18 @@ const CategoryProducts = ({ productId }) => {
     setData(prevData =>
       prevData.map(pizza =>
         pizza._id === selectedProductId
-          ? { ...pizza, count: (parseInt(pizza.count) || 0) - 1 } : pizza));
+          ? {
+            ...pizza,
+            count: Math.max((parseInt(pizza.count) || 0) - 1, 0),
+            showCounter: (parseInt(pizza.count) || 0) - 1 > 0
+          }
+          : pizza)
+    );
     dispatch(removeFromCart({ userId, productId: selectedProductId, action: false }));
   };
 
   const handlenavClick = () => {
-    navigate('/categories');
+    navigate('/booking/categories');
   };
 
   const handleShowImage = (pizza) => {
@@ -157,13 +159,13 @@ const CategoryProducts = ({ productId }) => {
     setIsProductVisible(true);
   };
 
-  const closeCart = () => {
+  const closeProduct = () => {
     setIsProductVisible(false);
   };
 
   return (
     <div>
-      <div className="MainPizzaSection MainCategory custombackgroud" style={{ backgroundImage: `url(${BannerbackgroundImg})` }}>
+      <div className="MainPizzaSection MainCategory">
         <div className="container">
           <div className="row d-flex align-items-center mt-5 position-relative">
             {/* Category Name */}
@@ -203,13 +205,12 @@ const CategoryProducts = ({ productId }) => {
             </div>
           </div>
 
-
           <div className="show mt-3">
             <div className="row position-relative" style={{ backgroundColor: '#A57F40' }}>
               <div className="col-lg-6" style={{ backgroundColor: '#323232' }}>
                 <div className="menu-item">
                   <img src={pizzaicon} alt="Pizza Icon" className="icon" />
-                  {currentCategory && (
+                  { currentCategory && (
                     <span className='text-uppercase'>{currentCategory.name}</span>
                   )}
                 </div>
@@ -217,7 +218,7 @@ const CategoryProducts = ({ productId }) => {
               <div className="col-lg-6">
                 <div className="menu-item">
                   <img src={comboicon} alt="Combo Icon" className="icon" />
-                  <span>COMBO</span>
+                  <span >COMBO</span>
                 </div>
               </div>
             </div>
@@ -225,7 +226,7 @@ const CategoryProducts = ({ productId }) => {
 
           <div className="row mt-5 position-relative">
             {data?.map(pizza => (
-              <div className="col-xxl-3 col-xl-4 col-lg-6 col-smm-12 mb-4 d-flex justify-content-center" key={pizza._id}>
+              <div className="col-xxl-3 col-xl-4 col-md-12 col-lg-6 col-sm-12 col-smm-12 mb-4 d-flex justify-content-center" key={pizza._id}>
                 <div className="MainPizzaBox position-relative d-flex">
                   <div className="PizzaImg">
                     <img src={baseURL ? baseURL + pizza.images?.[0] : pizzaImg} alt='img' />
@@ -238,13 +239,13 @@ const CategoryProducts = ({ productId }) => {
                     </div>
                   </div>
 
-                  <div className="pizzadetails pt-3 pe-2">
+                  <div className="pizzadetails pt-3  p10-smm-x">
                     <h1 className='title pb-1'>{pizza.title}</h1>
                     <p className='descripnation pb-2'>{pizza.description}</p>
                     <div className="price pb-2">
                       <p className='title'>₹ {pizza.price}</p>
                     </div>
-                    <div className='d-flex align-items-center'>
+                    <div className='button-container d-flex align-items-centert' style={{gap:'10px'}}>
                       {!pizza.showCounter ? (
                         <button className='add-show' onClick={() => handleAddToCart(pizza._id)}>ADD</button>
                       ) : (
@@ -297,10 +298,11 @@ const CategoryProducts = ({ productId }) => {
           </div>
         </div>
       </div>
+
       {/* Cart Side Menu */}
 
       {isProductVisible && selectedProduct && (
-        <ProductDetails product={selectedProduct} closeDialog={closeCart} />
+        <ProductDetails product={selectedProduct} closeDialog={closeProduct} />
       )}
 
     </div>

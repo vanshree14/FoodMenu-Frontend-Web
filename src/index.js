@@ -9,6 +9,7 @@ import Store from './Component/Redux/Store';
 import axios from 'axios';
 // import {  Key } from "./Component/Utils/Config";
 import Loader from './Component/Utils/Loader';
+import { ToastContainer } from 'react-toastify';
 // import { GoogleOAuthProvider } from '@react-oauth/google';
 
 // const clientId = '636182318567-bk2i2kf1soreko4a11lj0ciinmb88uuh.apps.googleusercontent.com';
@@ -23,7 +24,8 @@ root.render(
       {/* <GoogleOAuthProvider clientId={clientId}> */}
         <Provider store={Store}>
           <App />
-          <Loader/>
+          {/* <Loader/> */}
+          <ToastContainer/>
         </Provider>
       {/* </GoogleOAuthProvider> */}
     </BrowserRouter>

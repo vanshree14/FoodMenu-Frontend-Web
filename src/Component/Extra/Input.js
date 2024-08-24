@@ -14,6 +14,7 @@ const Input = (props) => {
     const {
         id,
         className,
+        inputDataClass,
         type,
         name,
         label,
@@ -54,7 +55,7 @@ const Input = (props) => {
     };
 
     return (
-        <div className={`inputData ${types} flex-row justify-content-start text-start position-relative`}>
+        <div className={`inputData ${types} ${inputDataClass} flex-row justify-content-start text-start position-relative`}>
             {label && (
                 <label
                     htmlFor={id}
@@ -65,28 +66,40 @@ const Input = (props) => {
                 </label>
             )}
 
-            {icon && <i className={`${icon} position-absolute`} style={{ left: '17px', top: '24%',color:'#636363' }}></i>}
+            <div className="inputsBox position-relative">
+                {icon && <i className={`inputsIcons ${icon}`} ></i>}
 
-            <input
-                type={types}
-                name={name}
-                className={`input-field ${className}`}
-                id={id}
-                onChange={(e) => checkForm(e)}
-                placeholder={placeholder}
-                value={value}
-                onWheel={(e) => type === "number" && e.target.blur()}
-                disabled={disabled}
-                readOnly={readOnly}
-                minLength={min}
-                maxLength={max}
-                autoComplete={autoComplete}
-                defaultValue={defaultValue}
-                data-validation={validation}
-                data-ignore={ignore}
-                title={validationError}
-                style={{ paddingLeft: icon ? '50px' : '10px' }}
-            />
+                <input
+                    type={types}
+                    name={name}
+                    className={`input-field ${className}`}
+                    id={id}
+                    onChange={(e) => checkForm(e)}
+                    placeholder={placeholder}
+                    value={value}
+                    onWheel={(e) => type === "number" && e.target.blur()}
+                    disabled={disabled}
+                    readOnly={readOnly}
+                    minLength={min}
+                    maxLength={max}
+                    autoComplete={autoComplete}
+                    defaultValue={defaultValue}
+                    data-validation={validation}
+                    data-ignore={ignore}
+                    title={validationError}
+                    style={{ paddingLeft: icon ? '50px' : '10px' }}
+                />
+                {/* Password hide show */}
+                {type === "password" && (
+                    <div className="passHideShow" onClick={hideShow}>
+                        {types === "password" ? (
+                            <i className="ri-eye-line"></i>
+                        ) : (
+                            <i className="ri-eye-close-line"></i>
+                        )}
+                    </div>
+                )}
+            </div>
 
             {/* Show Image */}
             <img
@@ -106,16 +119,7 @@ const Input = (props) => {
                 <p className={`errorMessage text-start ${error}`} id={`error-${name}`}>{errorMessage}</p>
             )}
 
-            {/* Password hide show */}
-            {type === "password" && (
-                <div className="passHideShow" onClick={hideShow}>
-                    {types === "password" ? (
-                        <i className="ri-eye-line"></i>
-                    ) : (
-                        <i className="ri-eye-close-line"></i>
-                    )}
-                </div>
-            )}
+
 
             {/* Search Icon */}
             {type === "search" && !value && (

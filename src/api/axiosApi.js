@@ -23,7 +23,7 @@ apiInstance.interceptors.response.use(
   },
   function (error) {
     if (!error?.response?.data?.error) {
-      setToast("error", "Something went Wrong!!!!!")
+      setToast("error", error?.response?.data?.error)
     }
     if (
       error?.response?.data?.code === "E_USER_NOT_FOUND" ||

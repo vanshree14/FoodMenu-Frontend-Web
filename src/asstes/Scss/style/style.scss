@@ -6,7 +6,7 @@
   position: relative;
 
   & .google-login {
-    padding: 12px 65px 12px 72px;
+    padding: 16px 65px 16px 72px;
     font-size: 14px;
     width: 100%;
     border-radius: 16px;
@@ -25,7 +25,7 @@
 
     @include maxMediaQuery($sm) {
       font-size: 12px;
-      padding: 14px 63px 14px 95px !important;
+      padding: 16px 63px 16px 95px !important;
       background-position: 73px center;
     }
     @include maxMediaQuery($sm) {
@@ -154,8 +154,7 @@
       @include maxMediaQuery($lg) {
         font-size: 21px;
         white-space: nowrap;
-       text-transform: uppercase;
-
+        text-transform: uppercase;
       }
     }
   }
@@ -199,7 +198,7 @@
   }
   & .CategoryBox {
     background-color: $third;
-    width: 199px;
+    // width: 199px;
     height: 230px;
     margin-top: 40px;
     border-radius: 16px;
@@ -312,8 +311,7 @@
   }
   & .MainPizzaBox {
     background-color: $light;
-    width: 383px;
-    height: 170px;
+    width: 450px;
     border-radius: 5px;
 
     @media screen and (min-width: 280px) and (max-width: 387px) {
@@ -321,9 +319,9 @@
       height: unset !important;
     }
 
-    @media screen and (min-width: 1399px) and (max-width: 1700px) {
-      width: 326px !important;
-    }
+    // @media screen and (min-width: 1399px) and (max-width: 1700px) {
+    //   width: 330px !important;
+    // }
 
     & .PizzaImg {
       display: inline-block;
@@ -430,7 +428,7 @@
       & .show-details {
         width: 80px;
         height: 23px;
-        margin-right: 55px;
+        // margin-right: 55px;
         border-radius: 3px;
         background-color: $prime;
         color: $light;
@@ -557,8 +555,9 @@
   top: 0;
   overflow: scroll;
   z-index: 999;
-  transition: all 1s ease 0s;
+  transition: right 0.3s ease-in-out;
   background: rgba(0, 0, 0, 0.6);
+
   & .menuToggleWrap {
     transition: 1s ease-in-out;
     position: absolute;

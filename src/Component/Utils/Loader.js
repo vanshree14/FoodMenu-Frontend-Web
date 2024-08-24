@@ -12,13 +12,9 @@ const Loader = () => {
 
   return (
     <>
-      {roleLoader && (
-        <div className='mainLoader'>
-          <div className="lds-ripple">
-            <div></div>
-          </div>
-        </div>
-      )}
+      <div className='mainLoader'>
+        <span class="loader"></span>
+      </div>
     </>
   );
 }

@@ -34,7 +34,7 @@ const CartDetails = () => {
 
   return (
     <div>
-      <div className="CartDetails custombackgroud" style={{ backgroundImage: `url(${BannerbackgroundImg})`, height: '100vh' }}>
+      <div className="CartDetails" >
         <div className="container">
           <div className="row d-flex align-items-center mt-5 position-relative">
             <div className="col-6">

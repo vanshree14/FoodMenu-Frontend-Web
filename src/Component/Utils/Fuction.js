@@ -128,13 +128,13 @@ export const submitData = (e) => {
     if (allRadio.value == "") {
       for (let i = 0; i < allRadio.length; i++) {
         allRadio[i].classList.add("error-radio");
-        allRadio[i].previousSibling.classList.add("text-danger");
+        allRadio[i].parentElement.previousElementSibling.classList.add("text-danger");
       }
       hasEmptyField = true;
     } else {
       for (let i = 0; i < allRadio.length; i++) {
         allRadio[i].classList.remove("error-radio");
-        allRadio[i].previousSibling.classList.remove("text-danger");
+        allRadio[i].parentElement.previousElementSibling.classList.remove("text-danger");
         console.log("radioArray", radioArray);
         console.log("allRadio.value", allRadio.value);
       }
@@ -149,11 +149,11 @@ export const submitData = (e) => {
     const key = checkbox[i].name;
     if (!checkbox[i].checked) {
       checkbox[i].classList.add("error-checkbox");
-      checkbox[i].previousSibling.classList.add("text-danger");
+      checkbox[i].parentElement.previousElementSibling.classList.add("text-danger");
       hasEmptyField = true;
     } else {
       checkbox[i].classList.remove("error-checkbox");
-      checkbox[i].previousSibling.classList.remove("text-danger");
+      checkbox[i].parentElement.previousElementSibling.classList.remove("text-danger");
     }
     if (value === "true") {
       formDataObject[key] = true;

@@ -51,13 +51,13 @@ const CategoryList = () => {
     };
 
     const handleNavClick = (categoryId, categoryName) => {
-        navigate(`/categories/${categoryName}`, { state: { categoryId } });
+        navigate(`/booking/categories/${categoryName}`, { state: { categoryId } });
     };
 
 
     return (
         <div>
-            <div className="MainCategory custombackgroud" style={{ backgroundImage: `url(${BannerbackgroundImg})`, height: '100vh' }}>
+            <div className="MainCategory">
                 <div className="container">
                     <div className="row d-flex align-items-center mt-5 position-relative">
                         {/* Category Name */}

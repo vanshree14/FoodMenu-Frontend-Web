@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import burgerpic from '../../../Asstes/Images/burger.jpg'; 
+import pizzaImg from '../../../Asstes/Images/pizza-img.png';
 import deleteicon from '../../../Asstes/Icon/delete.png'; 
 import { baseURL } from '../../Utils/Config';
-import pizzaImg from '../../../Asstes/Images/pizza-img.png';
-import BannerbackgroundImg from '../../../Asstes/Images/fa3ea1263d103c3a22d1096792fafc70.png';
 
 const ProductDetails = ({ product, closeDialog }) => {
   const [quantity, setQuantity] = useState(1);
@@ -25,14 +23,16 @@ const ProductDetails = ({ product, closeDialog }) => {
   if (!product) {
     return <div>No product data available</div>; 
   }
-  
+
+  const availableSizes = ['Small', 'Medium', 'Large']; // Define available sizes
+  const sizeOptions = availableSizes.filter(size => product.size.toLowerCase() === size.toLowerCase());
 
   return (
     <div>
       <div className="menuToggleBtn ">
-        <div className="menuToggleWrap" >
+        <div className="menuToggleWrap">
           <div className="DetailsPic ms-4 me-4">
-          <img src={baseURL ? baseURL + product.images?.[0] : pizzaImg} alt='img' />
+            <img src={baseURL ? baseURL + product.images?.[0] : pizzaImg} alt='img' />
             <button className="close-btn" onClick={closeDialog}>
               <i className="fa-solid fa-arrow-left"></i>
             </button>
@@ -42,11 +42,23 @@ const ProductDetails = ({ product, closeDialog }) => {
             <p className='descripanation d-flex justify-content-center'>{product.description}</p>
             <span className='price pt-2'>₹{product.price}</span>
           </div>
-          <div className="size mt-3 position-relative">
-            <button className='size-media'><p className='ps-4'>Small</p></button>
-            <button className='size-media'><p className='ps-4'>Medium</p></button>
-            <button className='size-media'><p className='ps-4'>Large</p></button>
-          </div>
+
+         
+            <div className="size mt-3 position-relative">
+             
+                <button className='size-media'>
+                  <p className='ps-4'>SMALL</p>
+                </button>
+                <button className='size-media'>
+                  <p className='ps-4'>MEDIUM</p>
+                </button>
+                <button className='size-media'>
+                  <p className='ps-4'>LARGE</p>
+                </button>
+            
+            </div>
+          
+
           <div className="order-container">
             <div className="customize-order-box mt-4">
               <p className="section-title" style={{ fontSize: '17px' }}>Customize my order</p>

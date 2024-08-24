@@ -4,13 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../../Component/Redux/Slice/AuthSlice';
 import Input from "../../Extra/Input";
 import Button from "../../Extra/Button";
-import BannerbackgroundImg from '../../../Asstes/Images/fa3ea1263d103c3a22d1096792fafc70.png';
 import { submitData } from '../../Utils/Fuction';
+import logobar from '../../../Asstes/Images/loginLogo.png';
+import { setToast } from '../../Extra/Toast';
+import Loader from '../../Utils/Loader';
+
 
 const SignIn = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const isAuth = useSelector((state) => state.user.isAuth);
+    const { isAuth, isLoading } = useSelector((state) => state.user);
 
 
 
@@ -21,27 +24,29 @@ const SignIn = () => {
     const handleLogin = async (e) => {
         const loginData = submitData(e);
         console.log("loginData", loginData);
-        try {
+        if (loginData) {
             let response = await dispatch(login(loginData)).unwrap();
-            alert("user login successfully");
-            response.status ? navigate("/booking/tables") : alert("SomeThing IS missing");
-        } catch (error) {
-            console.error('Login failed:', error);
-            alert("Oops! Something went wrong.");
+            if (response.status) {
+                setToast("success", response.message)
+                navigate("/booking/tables")
+            } else {
+                setToast("error", response.message)
+            }
         }
+
     };
     const handleclick = () => {
         navigate("/signup")
     }
     return (
-        <div className="mainLoginPage" style={{ backgroundImage: `url(${BannerbackgroundImg})`, height: '100vh' }}>
+        <div className="mainLoginPage">
             <div className="loginDiv" >
-                <div className="loginPage pt-3 m-auto text-center" style={{ width: "499px" }}>
+                <div className="loginPage pt-3 m-auto text-center width-sm-500  w-100 p15-y p60-sm-x p70-smm-x p30-x " >
                     <div className="loginTitle mb-5 mt-5">
-                        <h1 className="fw-bold m-0 ">FOOOD LOGO</h1>
+                        <img src={logobar} alt='img' />
                         <p className='text-white'>Login with your details</p>
                     </div>
-                    <h2 className='text-white fw-700 mb-3'>LOGIN</h2>
+                    <h2 className='text-white fw-700 m40-y'>LOGIN</h2>
                     <form
                         onSubmit={handleLogin}
                         id="loginForm">
@@ -52,6 +57,7 @@ const SignIn = () => {
                                 placeholder={`Enter Your Email`}
                                 name={`email`}
                                 errorMessage={`Enter Email`}
+                                inputDataClass={`m10-bottom`}
                                 icon="fa-solid fa-envelope"
                             />
                             <Input
@@ -60,6 +66,8 @@ const SignIn = () => {
                                 placeholder={`Enter Your Password`}
                                 name={`password`}
                                 errorMessage={`Enter Password`}
+                                inputDataClass={`m10-bottom`}
+
                                 icon="fa-solid fa-lock"
                             />
                         </div>
@@ -76,11 +84,12 @@ const SignIn = () => {
                         <div className="social-media mb-2">
                             <button className="google-login mb-3">Continue with google</button>
                         </div>
-                        <span className='text-light fw-700 mb-4 account-details' style={{ fontSize: '15px' }}>Already have an account?<span className='fw-700 signIn' style={{ color: '#9B7A41' }} onClick={handleclick}>Sign In </span> </span>
-                        <p className='text-light fw-700 mb-5' style={{ fontSize: '16px', }}>I forgot my password</p>
+                        <span className='text-light fw-700 mb-4 account-details fs-sm-15 fs-14' >Already have an account?<span className='fw-700 signIn ps-2 signIn' style={{ color: '#9B7A41' }} onClick={handleclick}>Sign In </span> </span>
+                        <p className='text-light fw-700 mb-5 fs-sm-16 fs-14' >I forgot my password</p>
                     </div>
                 </div>
             </div>
+            {isLoading && <Loader />}
         </div>
     );
 };
