@@ -328,6 +328,13 @@
     height: unset !important;
   }
 }
+.MainPizzaSection .MainPizzaBox .old-price {
+  text-decoration: line-through;
+  color: #888;
+  font-weight: 500;
+  font-size: 13px;
+  padding-top: 4px;
+}
 .MainPizzaSection .MainPizzaBox .PizzaImg {
   display: inline-block;
   position: relative;
@@ -823,7 +830,19 @@
   border-radius: 10px;
   background: transparent;
 }
+.CartDetails .card .ingredient {
+  color: #636363;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
 .CartDetails .card .edit-details {
+  font-size: 30px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   width: 78px;
   height: 28px;
   border-radius: 3px;

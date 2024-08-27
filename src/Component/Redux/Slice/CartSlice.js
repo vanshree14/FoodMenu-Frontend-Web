@@ -6,7 +6,7 @@ const initialState = {
   totalCount: 0,
   isLoading: false,
   cartLoader: false,
-  productDetails:{}
+  // productDetails:[],
 
 }
 
@@ -21,6 +21,14 @@ export const CartQuntity = createAsyncThunk(
   async (payload) => {
     return apiInstance.patch(
       `cart/updateQty?userId=${payload.userId}&productId=${payload.productId}&action=${payload.action}`
+    );
+  }
+);
+export const CartQuntityUpdate = createAsyncThunk(
+  "cart/update",
+  async (payload) => {
+    return apiInstance.patch(
+      `cart/update?cartId=${payload.cartId}&action=${payload.action}`
     );
   }
 );
@@ -51,8 +59,10 @@ const CartSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(ItemToCartGet.fulfilled, (state, action) => {
-      state.cart = action.payload?.cart || []; 
-      state.totalCount = action.payload?.cart?.totalCount || 0; 
+      console.log("Add to Cart Full Payload:", action.payload);
+      
+      state.cart = action.payload?.cart ; 
+      state.totalCount = action.payload?.cart?.totalCount ; 
       state.isLoading = false;
     });
     
@@ -70,12 +80,12 @@ const CartSlice = createSlice({
       state.error = null;
     });
     builder.addCase(addItemToCart.fulfilled, (state, action) => {
-      console.log("Add to Cart Response:", action.payload?.cart);
+      console.log("Add to Cart Full Payload:", action.payload);
       const cart = action.payload?.cart;
-      
+   
       if (cart) {
         const inCart = state.cart.some(obj => obj.productId === cart.productId);
-    
+   
         if (inCart) {
           const cartIdx = state.cart.findIndex((product) => product._id === cart._id);
           if (cartIdx !== -1) {
@@ -88,6 +98,7 @@ const CartSlice = createSlice({
       } 
       state.cartLoader = false;
     });
+   
      builder.addCase(addItemToCart.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
@@ -125,7 +136,8 @@ const CartSlice = createSlice({
       state.loading = true;
     });
    builder.addCase(CartQuntity.fulfilled, (state, action) => {
-      const cart = action.payload?.cart;
+    console.log("Add to Cart Full Payload:", action.payload);
+    const cart = action.payload?.cart;
       if (cart) {
         const itemIndex = state.cart.findIndex((item) => item._id === cart._id);
         if (itemIndex !== -1) {
@@ -137,6 +149,29 @@ const CartSlice = createSlice({
     });
   
     builder.addCase(CartQuntity.rejected, (state, action) => {
+      state.loading = false;
+    });
+
+
+    // put cart =================
+
+    builder.addCase(CartQuntityUpdate.pending, (state) => {
+      state.loading = true;
+    });
+   builder.addCase(CartQuntityUpdate.fulfilled, (state, action) => {
+    console.log("Add to Cart Full Payload:", action.payload);
+    const cart = action.payload?.cart;
+      if (cart) {
+        const itemIndex = state.cart.findIndex((item) => item._id === cart._id);
+        if (itemIndex !== -1) {
+          state.cart[itemIndex] = { ...state.cart[itemIndex], ...cart };
+        }
+      } else {
+        console.error('Cart is undefined in payload');
+      }
+    });
+  
+    builder.addCase(CartQuntityUpdate.rejected, (state, action) => {
       state.loading = false;
     });
   },

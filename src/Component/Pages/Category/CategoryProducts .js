@@ -13,10 +13,12 @@ import { baseURL } from '../../Utils/Config';
 import { categoryGet, productsByCategoryGet } from '../../Redux/Slice/CategorySlice';
 import { addItemToCart, CartQuntity, removeFromCart } from '../../Redux/Slice/CartSlice';
 import ProductDetails from './ProductDetails';
+import { comboget } from '../../Redux/Slice/ComboSlice';
 
 const CategoryProducts = ({ productId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { cart } = useSelector((state) => state.cart); 
   const location = useLocation();
   const { categoryId } = location.state || {};
   const { product, category } = useSelector((state) => state.category);
@@ -31,6 +33,8 @@ const CategoryProducts = ({ productId }) => {
   const [selectedCustomizeIngridiants, setSelectedCustomizeIngridiants] = useState([]);
   const [productCount, setProductCount] = useState(1);
   const [num, setNum] = useState(1);
+  const { combo } = useSelector((state) => state.combo);
+
 
   const payload = {
     page,
@@ -48,7 +52,7 @@ const CategoryProducts = ({ productId }) => {
   };
 
   const handleCart = () => {
-    navigate('/cart');
+    navigate('/booking/cart');
   };
 
   useEffect(() => {
@@ -153,7 +157,10 @@ const CategoryProducts = ({ productId }) => {
   const handlenavClick = () => {
     navigate('/booking/categories');
   };
-
+  const getCartProductCount = (productId) => {
+    const cartItem = cart.find(item => item.productId === productId);
+    return cartItem ? cartItem.count : 0;
+  };
   const handleShowImage = (pizza) => {
     setSelectedProduct(pizza);
     setIsProductVisible(true);
@@ -162,7 +169,10 @@ const CategoryProducts = ({ productId }) => {
   const closeProduct = () => {
     setIsProductVisible(false);
   };
-
+  const handleComboClick = () => {
+    dispatch(comboget(payload));
+    setData(combo);
+  };
   return (
     <div>
       <div className="MainPizzaSection MainCategory">
@@ -208,15 +218,15 @@ const CategoryProducts = ({ productId }) => {
           <div className="show mt-3">
             <div className="row position-relative" style={{ backgroundColor: '#A57F40' }}>
               <div className="col-lg-6" style={{ backgroundColor: '#323232' }}>
-                <div className="menu-item">
+                <div className="menu-item" onClick={() => dispatch(productsByCategoryGet({ categoryId, page: 0, limit: 10 }))}>
                   <img src={pizzaicon} alt="Pizza Icon" className="icon" />
-                  { currentCategory && (
+                  {currentCategory && (
                     <span className='text-uppercase'>{currentCategory.name}</span>
                   )}
                 </div>
               </div>
               <div className="col-lg-6">
-                <div className="menu-item">
+                <div className="menu-item" onClick={handleComboClick}>
                   <img src={comboicon} alt="Combo Icon" className="icon" />
                   <span >COMBO</span>
                 </div>
@@ -242,10 +252,19 @@ const CategoryProducts = ({ productId }) => {
                   <div className="pizzadetails pt-3  p10-smm-x">
                     <h1 className='title pb-1'>{pizza.title}</h1>
                     <p className='descripnation pb-2'>{pizza.description}</p>
-                    <div className="price pb-2">
-                      <p className='title'>₹ {pizza.price}</p>
+                    <div className="mainprice pb-2 d-flex">
+                      {pizza.isCombo ? (
+                        <>
+                          {pizza.newComboPrice > 0 && <p className='title pe-3 fs-18'>₹ {pizza.newComboPrice}</p>}
+                          {pizza.oldComboPrice > 0 && <p className=' old-price d-flex align-items-center'>₹ {pizza.oldComboPrice}</p>}
+                        </>
+                      ) : (
+                        <p className='title fs-18'>₹ {pizza.price}</p>
+                      )}
                     </div>
-                    <div className='button-container d-flex align-items-centert' style={{gap:'10px'}}>
+
+
+                    <div className='button-container d-flex align-items-center' style={{ gap: '10px' }}>
                       {!pizza.showCounter ? (
                         <button className='add-show' onClick={() => handleAddToCart(pizza._id)}>ADD</button>
                       ) : (
@@ -264,18 +283,19 @@ const CategoryProducts = ({ productId }) => {
                       <button className='show-details cartToggle' onClick={() => handleShowImage(pizza)}>
                         SHOW
                       </button>
-                      <i className="fa-regular fa-heart" style={{ color: '#9B7A41' }}></i>
+                      <i className="fa-regular fa-heart ps-5" style={{ color: '#9B7A41' }}></i>
                     </div>
                   </div>
                 </div>
               </div>
             ))}
-
             <div className="col-lg-12 d-flex justify-content-center">
-              <div className="cart-view">
-                <p className='ps-5'>3 items</p>
-                <p className='pe-5' onClick={handleCart}>View cart</p>
-              </div>
+             
+                <div className="cart-view">
+                  <p className='ps-5'>0{cart.reduce((getCartProductCount) => getCartProductCount.count, 0)} items</p>
+                  <p className='pe-5' onClick={handleCart}>View cart</p>
+                </div>
+             
             </div>
             <div className="show mt-3 show-1 ">
               <div className="row position-relative" style={{ backgroundColor: '#A57F40', margin: '0px -64px' }}>
@@ -296,6 +316,7 @@ const CategoryProducts = ({ productId }) => {
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
