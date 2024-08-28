@@ -18,7 +18,7 @@ import { comboget } from '../../Redux/Slice/ComboSlice';
 const CategoryProducts = ({ productId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { cart } = useSelector((state) => state.cart); 
+  const totalCount = useSelector((state) => state.cart.totalCount);
   const location = useLocation();
   const { categoryId } = location.state || {};
   const { product, category } = useSelector((state) => state.category);
@@ -121,6 +121,7 @@ const CategoryProducts = ({ productId }) => {
       prevData.map(pizza =>
         pizza._id === selectedProductId
           ? { ...pizza, count: (parseInt(pizza.count) || 0) + 1 } : pizza
+          
       )
     );
     dispatch(CartQuntity({ userId, productId: selectedProductId, action: true }));
@@ -157,10 +158,6 @@ const CategoryProducts = ({ productId }) => {
   const handlenavClick = () => {
     navigate('/booking/categories');
   };
-  const getCartProductCount = (productId) => {
-    const cartItem = cart.find(item => item.productId === productId);
-    return cartItem ? cartItem.count : 0;
-  };
   const handleShowImage = (pizza) => {
     setSelectedProduct(pizza);
     setIsProductVisible(true);
@@ -182,7 +179,7 @@ const CategoryProducts = ({ productId }) => {
             <div className="col-6  d-flex align-items-center  order-4 order-xl-1 mb-lg-0  justify-content-md-center justify-content-xl-start justify-content-center justify-content-lg-start mt-lg-2">
               {currentCategory && (
                 <div className="categoryHeader">
-                  <p className="text-light">{currentCategory.name}</p> {/* Display category name */}
+                  <p className="text-light">{currentCategory.name}</p> 
                 </div>
               )}
             </div>
@@ -290,12 +287,12 @@ const CategoryProducts = ({ productId }) => {
               </div>
             ))}
             <div className="col-lg-12 d-flex justify-content-center">
-             
-                <div className="cart-view">
-                  <p className='ps-5'>0{cart.reduce((getCartProductCount) => getCartProductCount.count, 0)} items</p>
-                  <p className='pe-5' onClick={handleCart}>View cart</p>
-                </div>
-             
+
+              <div className="cart-view">
+                <p className='ps-5'>{totalCount}items</p>
+                <p className='pe-5' onClick={handleCart}>View cart</p>
+              </div>
+
             </div>
             <div className="show mt-3 show-1 ">
               <div className="row position-relative" style={{ backgroundColor: '#A57F40', margin: '0px -64px' }}>
@@ -320,12 +317,11 @@ const CategoryProducts = ({ productId }) => {
         </div>
       </div>
 
-      {/* Cart Side Menu */}
+     {/* Cart Side Menu */}
 
-      {isProductVisible && selectedProduct && (
-        <ProductDetails product={selectedProduct} closeDialog={closeProduct} />
-      )}
-
+     {isProductVisible && selectedProduct && (
+            <ProductDetails product={selectedProduct}  closeDialog={closeProduct} />
+          )}
     </div>
   );
 };

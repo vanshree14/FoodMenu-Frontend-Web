@@ -14,7 +14,7 @@ export const productget = createAsyncThunk("product/show", async (payload) => {
 });
 
 export const ProductByCodeGet = createAsyncThunk("product/productByCod", async (payload) => {
-  return apiInstance.get(`product/productByCod?productCode=${payload.productCode}&size=${payload.size}`);
+  return apiInstance.get(`product/productByCode?productCode=${payload.productCode}&size=${payload.size}`);
 });
 
 const productSlice = createSlice({
