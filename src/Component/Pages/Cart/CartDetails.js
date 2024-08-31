@@ -16,8 +16,8 @@ const CartDetails = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [search, setSearch] = useState("");
-  const [isDialogOpen, setIsDialogOpen] = useState(false); // State to handle dialog visibility
-  const [selectedProduct, setSelectedProduct] = useState(null); // State to store selected product
+  const [isDialogOpen, setIsDialogOpen] = useState(false); 
+  const [selectedProduct, setSelectedProduct] = useState(null); 
 
   const { cart } = useSelector(state => state.cart);
   const { auth } = useSelector(state => state.auth);
@@ -58,13 +58,13 @@ const CartDetails = () => {
   };
 
   const handleEditClick = (product) => {
-    setSelectedProduct(product); // Set the selected product
-    setIsDialogOpen(true); // Open the dialog
+    setSelectedProduct(product); 
+    setIsDialogOpen(true);
   };
 
   const handleCloseDialog = () => {
-    setIsDialogOpen(false); // Close the dialog
-    setSelectedProduct(null); // Reset the selected product
+    setIsDialogOpen(false); 
+    setSelectedProduct(null); 
   };
 
   return (
@@ -193,6 +193,7 @@ const CartDetails = () => {
         <CartDetailsEdit
           product={selectedProduct}
           onClose={handleCloseDialog}
+          
         />
       )}
     </div>

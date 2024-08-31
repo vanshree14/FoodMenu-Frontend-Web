@@ -4,11 +4,11 @@ import { baseURL } from '../../Utils/Config';
 import { ProductByCodeGet } from '../../Redux/Slice/ProductSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addItemToCart } from '../../Redux/Slice/CartSlice';
 import { setToast } from '../../Extra/Toast';
+import { CartEdit } from '../../Redux/Slice/CartSlice';
 
 const CartDetailsEdit = ({ product, onClose }) => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState('');
   const navigate = useNavigate();
@@ -23,6 +23,9 @@ const CartDetailsEdit = ({ product, onClose }) => {
       } else {
         setSelectedSize('');
       }
+     
+      setSelectedAddOnIngridiants(product.addOnIngridiances?.map(item => item._id) || []);
+      setSelectedCustomizeIngridiants(product.customizeIngridiances?.map(item => item._id) || []);
     }
   }, [product]);
 
@@ -74,43 +77,22 @@ const CartDetailsEdit = ({ product, onClose }) => {
     return <div>No product data available</div>;
   }
 
-  const handleAddToCart = async () => {
-    try {
-      const token = sessionStorage.getItem("token");
-      const isAuthenticated = !!token;
+  const handleEditCart = () => {
+    const updatedCartItem = {
+      cartId: product.cartId,
+      addOnIngridiantId: selectedAddOnIngridiants,
+      customizeIngridiantId: selectedCustomizeIngridiants,
+    };
 
-      if (!isAuthenticated) {
-        navigate("/login");
-        return;
-      }
-
-      const decodedToken = JSON.parse(token);
-      const userId = decodedToken._id;
-      const validProductCount = Number(quantity);
-
-      if (isNaN(validProductCount) || validProductCount <= 0) {
-        console.error('Invalid product count:', quantity);
-        setToast("error", "Invalid product count.");
-        return;
-      }
-
-      const payload = {
-        productId: product._id,
-        userId,
-        productCount: validProductCount,
-        addOnIngridiantId: selectedAddOnIngridiants,
-        customizeIngridiantId: selectedCustomizeIngridiants,
-      };
-      await dispatch(addItemToCart(payload));
-      setSelectedAddOnIngridiants([]);
-      setSelectedCustomizeIngridiants([]);
-      setQuantity(1);
-
-      setToast("success", "Item added to cart successfully.");
-    } catch (error) {
-      console.error('Error adding item to cart:', error);
-      setToast("error", "Failed to add item to cart.");
-    }
+    dispatch(CartEdit(updatedCartItem))
+      .then(() => {
+        setToast('Cart updated successfully!', 'success');
+        onClose();
+      })
+      .catch((error) => {
+        setToast('Failed to update cart. Please try again.', 'error');
+        console.error(error);
+      });
   };
 
   const sizeData = product.size;
@@ -118,7 +100,7 @@ const CartDetailsEdit = ({ product, onClose }) => {
 
   return (
     <div>
-       <div className="menuToggleBtn">
+      <div className="menuToggleBtn">
         <div className="menuToggleWrap">
           <div className="DetailsPic ms-4 me-4">
             <img src={baseURL ? baseURL + product.images?.[0] : pizzaImg} alt='img' />
@@ -132,7 +114,6 @@ const CartDetailsEdit = ({ product, onClose }) => {
             <span className='price pt-2'>₹{product.price}</span>
           </div>
 
-          {/* Conditionally render size selection only if sizes are available */}
           {availableSizes.length > 0 && (
             <div className="size mt-3 position-relative">
               {availableSizes.map((size) => (
@@ -196,8 +177,8 @@ const CartDetailsEdit = ({ product, onClose }) => {
                   <button className="quantity-btn" onClick={handleIncrementQuantity}>+</button>
                 </div>
               </div>
-              <div className="cart mt-4 mb-5 position-relative" onClick={handleAddToCart}>
-                <p>Add to cart - ₹{quantity * product.price}</p>
+              <div className="cart mt-4 mb-5 position-relative" onClick={handleEditCart}>
+                <p>Edit Cart</p>
               </div>
             </div>
           </div>
@@ -207,4 +188,4 @@ const CartDetailsEdit = ({ product, onClose }) => {
   )
 }
 
-export default CartDetailsEdit
+export default CartDetailsEdit;

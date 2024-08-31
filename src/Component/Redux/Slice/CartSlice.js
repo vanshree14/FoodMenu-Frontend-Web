@@ -12,6 +12,9 @@ const initialState = {
 export const addItemToCart = createAsyncThunk("cart/add", async (payload) => {
   return apiInstance.post(`cart/add?productId=${payload.productId}&userId=${payload.userId}&productCount=${payload.productCount}&addOnIngridiantId=${payload.addOnIngridiantId}&customizeIngridiantId=${payload.customizeIngridiantId}`, payload);
 });
+export const CartEdit = createAsyncThunk("cart/updateDetails", async (payload) => {
+  return apiInstance.patch(`cart/updateDetails?cartId=${payload.cartId}&addOnIngridiantId=${payload.addOnIngridiantId}&customizeIngridiantId=${payload.customizeIngridiantId}`, payload);
+});
 
 export const CartQuntity = createAsyncThunk("cart/updateQty", async (payload) => {
   return apiInstance.patch(`cart/updateQty?userId=${payload.userId}&productId=${payload.productId}&action=${payload.action}`);
@@ -57,7 +60,7 @@ const CartSlice = createSlice({
     });
 
     // delete cart by product
-    builder.addCase(removeFromCart.pending, (state,action) => {
+    builder.addCase(removeFromCart.pending, (state, action) => {
       state.isLoading = true;
     });
     builder.addCase(removeFromCart.fulfilled, (state, action) => {
@@ -105,7 +108,23 @@ const CartSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-
+    // update cart details
+    builder.addCase(CartEdit.pending, (state) => {
+      state.cartLoader = true;
+    });
+    builder.addCase(CartEdit.fulfilled, (state, action) => {
+      const cart = action.payload?.cart;
+      if (cart) {
+        const itemIndex = state.cart.findIndex((item) => item._id === cart._id);
+        if (itemIndex !== -1) {
+          state.cart[itemIndex] = { ...state.cart[itemIndex], ...cart };
+        }
+      }
+      state.cartLoader = false;
+    });
+    builder.addCase(CartEdit.rejected, (state) => {
+      state.cartLoader = false;
+    });
     // update cart quantity
     builder.addCase(CartQuntity.pending, (state) => {
       state.loading = true;

@@ -12,13 +12,14 @@ import { productget } from '../../Redux/Slice/ProductSlice';
 import { baseURL } from '../../Utils/Config';
 import { categoryGet, productsByCategoryGet } from '../../Redux/Slice/CategorySlice';
 import { addItemToCart, CartQuntity, removeFromCart } from '../../Redux/Slice/CartSlice';
+import Loader from '../../Utils/Loader';
 import ProductDetails from './ProductDetails';
 import { comboget } from '../../Redux/Slice/ComboSlice';
 
-const CategoryProducts = ({ productId }) => {
+const CategoryProducts = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {totalCount} = useSelector((state) => state.cart.totalCount);
+  // const {totalCount`} = useSelector((state) => state.cart.totalCount);
   const location = useLocation();
   const { categoryId } = location.state || {};
   const { product, category } = useSelector((state) => state.category);
@@ -27,12 +28,11 @@ const CategoryProducts = ({ productId }) => {
   const [rowPerPage, setRowPerPage] = useState(10);
   const [search, setSearch] = useState("");
   const [isProductVisible, setIsProductVisible] = useState(false);
-  const { auth } = useSelector((state) => state.auth);
+  const { auth,isLoading } = useSelector((state) => state.auth);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedAddOnIngridiants, setSelectedAddOnIngridiants] = useState([]);
   const [selectedCustomizeIngridiants, setSelectedCustomizeIngridiants] = useState([]);
   const [productCount, setProductCount] = useState(1);
-  const [num, setNum] = useState(1);
   const { combo } = useSelector((state) => state.combo);
 
 
@@ -289,7 +289,7 @@ const CategoryProducts = ({ productId }) => {
             <div className="col-lg-12 d-flex justify-content-center">
 
               <div className="cart-view">
-                <p className='ps-5'>{totalCount}items</p>
+                <p className='ps-5'>items</p>
                 <p className='pe-5' onClick={handleCart}>View cart</p>
               </div>
 
@@ -322,6 +322,7 @@ const CategoryProducts = ({ productId }) => {
      {isProductVisible && selectedProduct && (
             <ProductDetails product={selectedProduct}  closeDialog={closeProduct} />
           )}
+          {isLoading && <Loader />}
     </div>
   );
 };
