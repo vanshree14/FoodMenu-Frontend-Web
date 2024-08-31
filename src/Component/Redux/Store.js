@@ -6,6 +6,7 @@ import BookingSlice from "./Slice/BookingSlice";
 import ProductSlice from "./Slice/ProductSlice";
 import CartSlice from "./Slice/CartSlice";
 import ComboSlice from "./Slice/ComboSlice";
+import UserSlice from "./Slice/UserSlice";
 
 const Store = configureStore({
     reducer: {
@@ -17,6 +18,7 @@ const Store = configureStore({
         product: ProductSlice,
         cart: CartSlice,
         combo:ComboSlice,
+        users:UserSlice,
        
     },
 });

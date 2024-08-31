@@ -305,3 +305,136 @@ const CategoryProducts = ({ productId }) => {
 };
 
 export default CategoryProducts;
+
+
+import React from 'react';
+import './Profile.css'; // Importing the CSS file for styling
+
+const Profile = () => {
+  return (
+    <div className="profile-container">
+      <div className="header">
+        <div className="back-button">
+          <i className="fa-solid fa-arrow-left"></i>
+        </div>
+        <div className="logo">FOOD LOGO</div>
+        <div className="tagline">Your Tagline</div>
+      </div>
+
+      <div className="profile-details">
+        <h1>PROFILE</h1>
+        <p>Male</p>
+        <div className="user-info">
+          <div className="user-detail">
+            <i className="fa-solid fa-user"></i>
+            <span>Jorden Sorai</span>
+          </div>
+          <div className="user-detail">
+            <i className="fa-solid fa-envelope"></i>
+            <span>jordensi@gmail.com</span>
+          </div>
+        </div>
+        <hr />
+        <div className="action-list">
+          <button className="action-button">
+            <i className="fa-solid fa-box"></i> My Orders
+          </button>
+          <button className="action-button">
+            <i className="fa-solid fa-shopping-cart"></i> My Cart
+          </button>
+          <button className="action-button">
+            <i className="fa-solid fa-phone"></i> Call Outlet
+          </button>
+          <button className="action-button">
+            <i className="fa-brands fa-facebook"></i> Facebook
+          </button>
+          <button className="action-button">
+            <i className="fa-brands fa-instagram"></i> Instagram
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Profile;
+
+
+
+.profile-container {
+  background-color: #1c1c1c;
+  color: white;
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #c5a35f;
+}
+
+.tagline {
+  font-size: 12px;
+  color: #c5a35f;
+}
+
+.profile-details {
+  text-align: center;
+}
+
+.user-info {
+  margin: 20px 0;
+}
+
+.user-detail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.user-detail i {
+  margin-right: 10px;
+}
+
+.action-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.action-button {
+  background-color: transparent;
+  border: 1px solid #c5a35f;
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.action-button i {
+  margin-right: 10px;
+}
+
+

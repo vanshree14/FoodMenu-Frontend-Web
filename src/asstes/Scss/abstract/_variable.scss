@@ -1,131 +1,129 @@
+// @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
-  // @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+$font-prime: "Inter", sans-serif;
+// $font-second: "DM Sans", sans-serif;
 
-  $font-prime: "Inter", sans-serif;
-  // $font-second: "DM Sans", sans-serif;
+$prime: #9b7a41;
+$second: #dc2428;
+$third: #323231;
+$fourth: #545454;
+$body: #f8f8f8;
+$dark: #000000;
+$dark1: #1b1b1b;
+$darkGray: #898b97;
+$light: #ffffff;
+$gray: #838282;
+$gray2: #636363;
+$gray3: #6c6c6c;
 
+$lightGray: #f3f3f3;
+$lightBlue: #f3f6f9;
+$transparent: transparent;
+$button: #845adf;
 
-  $prime: #9B7A41;
-  $second: #DC2428;
-  $third: #323231;
-  $fourth: #545454;
-  $body: #F8F8F8;
-  $dark: #000000;
-  $dark1:#1B1B1B;
-  $darkGray: #898b97;
-  $light: #ffffff;
-  $gray: #838282;
-  $gray2: #636363;
-  $gray3: #6C6C6C;
+// new
+$mainBodyBg: rgb(240, 241, 247);
+$darkGraySecond: #111c43;
+$grayScroll: #8f8f8f;
+$blueActiveBg: #141e60;
+$textColorSidebar: #a3aed1;
+$paginationActive: #42b883;
+$textColorHeader: #333335;
+$textTitle: #8c9097;
 
-  $lightGray: #f3f3f3;
-  $lightBlue: #F3F6F9;
-  $transparent: transparent;
-  $button: #845adf;
+//success
+$success: #198754;
+$success-light: #d1e7dd;
 
+//blue
+$blue: #0d6efd;
+$blue-light: #cfe2ff;
+
+//red
+$danger: #dc3545;
+$danger-light: #f8d7da;
+
+//yellow
+$warning: #ffc107;
+$warning-light: #fff3cd;
+
+$themeAll: (
+  "prime": $prime,
+  "second": $second,
+  "third": $third,
+  "fourth": $fourth,
+  "body": $body,
+  "dark": $dark,
+  "darkGray": $darkGray,
+  "light": $light,
+  "gray": $gray,
+  "gray2": $gray2,
+  "lightGray": $lightGray,
+  "transparent": $transparent,
+  "success": $success,
+  "success-light": $success-light,
+  "blue": $blue,
+  "blue-light": $blue-light,
+  "danger": $danger,
+  "danger-light": $danger-light,
+  "warning": $warning,
+  "warning-light": $warning-light,
   // new
-  $mainBodyBg: rgb(240, 241, 247);
-  $darkGraySecond: #111c43;
-  $grayScroll: #8f8f8f;
-  $blueActiveBg: #141e60;
-  $textColorSidebar: #a3aed1;
-  $paginationActive: #42b883;
-  $textColorHeader: #333335;
-  $textTitle: #8c9097;
+  "mainBodyBg": $mainBodyBg,
+  "darkGraySecond": $darkGraySecond,
+  "grayScroll": $grayScroll,
+  "blueActiveBg": $blueActiveBg,
+  "textColorSidebar": $textColorSidebar,
+  "paginationActive": $paginationActive,
+  "textTitle": $textTitle,
+  "button": $button
+);
 
-  //success
-  $success: #198754;
-  $success-light: #D1E7DD;
+$angles: ("top", "right", "bottom", "left");
 
-  //blue
-  $blue: #0D6EFD;
-  $blue-light: #CFE2FF;
+$responsive: (
+  "xs": 300,
+  "xsm": 400,
+  "smm": 450,
+  "sm": 576,
+  "md": 768,
+  "lg": 992,
+  "xl": 1200,
+  "xxl": 1400
+);
 
-  //red
-  $danger: #DC3545;
-  $danger-light: #F8D7DA;
+$xs: 300px;
+$xsm: 400px;
+$smm: 450px;
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+$xxl: 1400px;
+$suns-font: "Source Sans 3", sans-serif;
 
-  //yellow
-  $warning: #FFC107;
-  $warning-light: #FFF3CD;
+$transition-3: 0.3s;
+$transition-2: 0.2s;
+$transition-4: 0.4s;
+$transition-5: 0.5s;
 
-  $themeAll : ("prime":$prime,
-    "second":$second,
-    "third":$third,
-    "fourth":$fourth,
-    "body":$body,
-    "dark":$dark,
-    "darkGray":$darkGray,
-    "light":$light,
-    "gray":$gray,
-    "gray2":$gray2,
-    "lightGray":$lightGray,
-    "transparent":$transparent,
-    "success":$success,
-    "success-light":$success-light,
-    "blue":$blue,
-    "blue-light":$blue-light,
-    "danger":$danger,
-    "danger-light":$danger-light,
-    "warning":$warning,
-    "warning-light":$warning-light,
-    // new
-    "mainBodyBg":$mainBodyBg,
-    "darkGraySecond":$darkGraySecond,
-    "grayScroll":$grayScroll,
-    "blueActiveBg":$blueActiveBg,
-    "textColorSidebar":$textColorSidebar,
-    "paginationActive":$paginationActive,
-    "textTitle":$textTitle,
-    "button":$button,
-  );
+$prime-shadow: 0 0 12px #0f223a1f;
 
-  $angles : ("top",
-    "right",
-    "bottom",
-    "left",
-  );
+@mixin midels($display, $jContent, $align) {
+  display: $display;
+  justify-content: $jContent;
+  align-items: $align;
+}
 
-  $responsive : ("xsm":400,
-    "smm":450,
-    "sm":576,
-    "md":768,
-    "lg":992,
-    "xl":1200,
-    "xxl":1400,
-  );
-
-  $xsm: 400px;
-  $smm: 450px;
-  $sm: 576px;
-  $md: 768px;
-  $lg: 992px;
-  $xl: 1200px;
-  $xxl: 1400px;
-  $suns-font: 'Source Sans 3', sans-serif;
-
-  $transition-3 : .3s;
-  $transition-2 : .2s;
-  $transition-4 : .4s;
-  $transition-5 : .5s;
-
-  $prime-shadow : 0 0 12px #0f223a1f;
-
-  @mixin midels($display, $jContent, $align) {
-    display: $display;
-    justify-content: $jContent;
-    align-items: $align;
+@mixin maxMediaQuery($breakpoint) {
+  @media screen and (max-width: $breakpoint) {
+    @content;
   }
+}
 
-  @mixin maxMediaQuery($breakpoint) {
-    @media screen and (max-width: $breakpoint) {
-      @content;
-    }
+@mixin minMediaQuery($breakpoint) {
+  @media screen and (min-width: $breakpoint) {
+    @content;
   }
-
-  @mixin minMediaQuery($breakpoint) {
-    @media screen and (min-width: $breakpoint) {
-      @content;
-    }
-  }
+}

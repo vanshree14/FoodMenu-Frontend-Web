@@ -22,7 +22,7 @@ body {
 }
 .custombackgroud {
   position: relative;
-  overflow: hidden;
+  overflow: auto;
   background-color: $dark;
   height: 100vh;
   @include maxMediaQuery($lg) {

@@ -119,7 +119,7 @@ const Signup = () => {
               />
             </div>
           </form>
-          <div className="d-flex justify-content-center" style={{ flexDirection: 'column' }}>
+          <div className="d-flex justify-content-center flex-column" >
             <p className='text-light m-2 fs-sm-15 fs-11'>OR</p>
             <div className="social-media">
               <button className="google-login mb-3">Continue with google</button>

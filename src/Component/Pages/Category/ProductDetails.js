@@ -101,15 +101,12 @@ const ProductDetails = ({ product, closeDialog }) => {
         addOnIngridiantId: selectedAddOnIngridiants,
         customizeIngridiantId: selectedCustomizeIngridiants,
       };
-
       await dispatch(addItemToCart(payload));
-
       setSelectedAddOnIngridiants([]);
       setSelectedCustomizeIngridiants([]);
       setQuantity(1);
 
-      setToast("success", "Item added to cart successfully."); 
-
+      setToast("success", "Item added to cart successfully.");
     } catch (error) {
       console.error('Error adding item to cart:', error);
       setToast("error", "Failed to add item to cart.");
@@ -132,7 +129,16 @@ const ProductDetails = ({ product, closeDialog }) => {
           <div className="details text-center mt-4">
             <h1 className='title'>{product.title}</h1>
             <p className='descripanation d-flex justify-content-center'>{product.description}</p>
-            <span className='price pt-2'>₹{product.price}</span>
+            <div className="mainprice pb-2 d-flex">
+              {product.isCombo ? (
+                <>
+                  {product.newComboPrice > 0 && <p className='price pe-3 fs-18'>₹ {product.newComboPrice}</p>}
+                  {product.oldComboPrice > 0 && <p className=' old-price d-flex align-items-center text-decoration-line-through'>₹ {product.oldComboPrice}</p>}
+                </>
+              ) : (
+                <p className='price fs-24 pt-2'>₹ {product.price}</p>
+              )}
+            </div>
           </div>
 
           {/* Conditionally render size selection only if sizes are available */}
@@ -160,8 +166,8 @@ const ProductDetails = ({ product, closeDialog }) => {
                     <span>{ingredient.name}</span>
                     <div className="price d-flex align-items-center justify">
                       <span className='pe-2'>{ingredient.price}₹</span>
-                      <input 
-                        type="checkbox" 
+                      <input
+                        type="checkbox"
                         onChange={() => handleAddOnChange(ingredient._id)}
                         checked={selectedAddOnIngridiants.includes(ingredient._id)}
                       />
@@ -176,8 +182,8 @@ const ProductDetails = ({ product, closeDialog }) => {
                     <span>{ingredient.name}</span>
                     <div className="price d-flex align-items-center justify">
                       <span className='pe-2'>0₹</span>
-                      <input 
-                        type="checkbox" 
+                      <input
+                        type="checkbox"
                         onChange={() => handleCustomizeChange(ingredient._id)}
                         checked={selectedCustomizeIngridiants.includes(ingredient._id)}
                       />
@@ -200,7 +206,16 @@ const ProductDetails = ({ product, closeDialog }) => {
                 </div>
               </div>
               <div className="cart mt-4 mb-5 position-relative" onClick={handleAddToCart}>
-                <p>Add to cart - ₹{quantity * product.price}</p>
+                {
+                  product.isCombo ? (
+                    <>
+                     {product.newComboPrice > 0 && <p className='title pe-3 fs-18'>Add to cart - ₹ {quantity *product.newComboPrice}</p>}
+                    </>
+                  ) : (
+                    <p className='title fs-18'>Add to cart - ₹ {product.price}</p>
+                  )
+                }
+                {/* <p>Add to cart - ₹{quantity * product.price}</p> */}
               </div>
             </div>
           </div>

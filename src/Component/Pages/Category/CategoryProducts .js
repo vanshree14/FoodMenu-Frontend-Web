@@ -18,7 +18,7 @@ import { comboget } from '../../Redux/Slice/ComboSlice';
 const CategoryProducts = ({ productId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const totalCount = useSelector((state) => state.cart.totalCount);
+  const {totalCount} = useSelector((state) => state.cart.totalCount);
   const location = useLocation();
   const { categoryId } = location.state || {};
   const { product, category } = useSelector((state) => state.category);
@@ -176,7 +176,7 @@ const CategoryProducts = ({ productId }) => {
         <div className="container">
           <div className="row d-flex align-items-center mt-5 position-relative">
             {/* Category Name */}
-            <div className="col-6  d-flex align-items-center  order-4 order-xl-1 mb-lg-0  justify-content-md-center justify-content-xl-start justify-content-center justify-content-lg-start mt-lg-2">
+            <div className="col-6  d-flex align-items-center  order-4 order-xl-1 mb-lg-0  justify-content-md-center  justify-content-center justify-content-lg-start mt-lg-2">
               {currentCategory && (
                 <div className="categoryHeader">
                   <p className="text-light">{currentCategory.name}</p> 
@@ -192,7 +192,7 @@ const CategoryProducts = ({ productId }) => {
             </div>
 
             {/* Return Icon */}
-            <div className="col-6 order-lg-3 order-2  mb-3 mb-lg-0 d-flex align-items-center mt-lg-2 justify-content-md-center justify-content-xl-start ">
+            <div className="col-6 order-lg-3 order-2  mb-3 mb-lg-0 d-flex align-items-center justify-content-center mt-lg-2 justify-content-md-center justify-content-xl-start ">
               <div className="retrun-icon text-light position-relative" onClick={handlenavClick}>
                 <i className="fa-solid fa-arrow-left"></i>
               </div>
@@ -233,7 +233,7 @@ const CategoryProducts = ({ productId }) => {
 
           <div className="row mt-5 position-relative">
             {data?.map(pizza => (
-              <div className="col-xxl-3 col-xl-4 col-md-12 col-lg-6 col-sm-12 col-smm-12 mb-4 d-flex justify-content-center" key={pizza._id}>
+              <div className="  col mb-4 d-flex  justify-content-xl-start justify-content-md-center justify-content-sm-center justify-content-smm-center  " key={pizza._id}>
                 <div className="MainPizzaBox position-relative d-flex">
                   <div className="PizzaImg">
                     <img src={baseURL ? baseURL + pizza.images?.[0] : pizzaImg} alt='img' />
@@ -297,7 +297,7 @@ const CategoryProducts = ({ productId }) => {
             <div className="show mt-3 show-1 ">
               <div className="row position-relative" style={{ backgroundColor: '#A57F40', margin: '0px -64px' }}>
                 <div className="col" style={{ backgroundColor: '#323232' }}>
-                  <div className="menu-item">
+                  <div className="menu-item " onClick={() => dispatch(productsByCategoryGet({ categoryId, page: 0, limit: 10 }))}>
                     <img src={pizzaicon} alt="Pizza Icon" className="icon" />
                     {currentCategory && (
                       <span className='text-uppercase'>{currentCategory.name}</span>
@@ -305,7 +305,7 @@ const CategoryProducts = ({ productId }) => {
                   </div>
                 </div>
                 <div className="col">
-                  <div className="menu-item">
+                  <div className="menu-item" onClick={handleComboClick}>
                     <img src={comboicon} alt="Combo Icon" className="icon" />
                     <span>COMBO</span>
                   </div>
@@ -314,7 +314,7 @@ const CategoryProducts = ({ productId }) => {
             </div>
           </div>
 
-        </div>
+        </div>    
       </div>
 
      {/* Cart Side Menu */}
@@ -327,3 +327,6 @@ const CategoryProducts = ({ productId }) => {
 };
 
 export default CategoryProducts;
+
+
+

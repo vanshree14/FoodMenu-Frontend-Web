@@ -1,5 +1,10 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@keyframes rd360 {
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .social-media {
   position: relative;
 }
@@ -159,13 +164,20 @@
 }
 @media screen and (max-width: 992px) {
   .MainCategory .categoryHeader p {
-    font-size: 21px;
+    font-size: 30px !important;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+}
+@media screen and (max-width: 576px) {
+  .MainCategory .categoryHeader p {
+    font-size: 21px !important;
     white-space: nowrap;
     text-transform: uppercase;
   }
 }
 .MainCategory .retrun-icon {
-  border: 3px solid #9B7A41;
+  border: 3px solid #9b7a41;
   width: 48px;
   height: 48px;
   border-radius: 11px;
@@ -186,7 +198,7 @@
   transform: translate(-50%);
 }
 .MainCategory .retrun-icon-2 {
-  border: 3px solid #9B7A41;
+  border: 3px solid #9b7a41;
   cursor: pointer;
   width: 48px;
   height: 48px;
@@ -290,7 +302,7 @@
   height: 59px;
   font-size: 16px;
   width: 100%;
-  background-color: #9B7A41;
+  background-color: #9b7a41;
   text-transform: uppercase;
   padding-top: 6px;
   color: #ffffff;
@@ -319,8 +331,8 @@
 }
 .MainPizzaSection .MainPizzaBox {
   background-color: #ffffff;
-  width: 450px;
-  border-radius: 5px;
+  width: 415px;
+  border-radius: 10px;
 }
 @media screen and (min-width: 280px) and (max-width: 387px) {
   .MainPizzaSection .MainPizzaBox {
@@ -410,14 +422,9 @@
 }
 .MainPizzaSection .MainPizzaBox .pizzadetails .title {
   font-size: 16px;
-  color: #9B7A41;
+  color: #9b7a41;
   font-weight: 900;
   text-transform: capitalize;
-}
-@media screen and (min-width: 1200px) and (max-width: 1700px) {
-  .MainPizzaSection .MainPizzaBox .pizzadetails .title {
-    font-size: 12px;
-  }
 }
 .MainPizzaSection .MainPizzaBox .pizzadetails .descripnation {
   color: #636363;
@@ -432,27 +439,22 @@
   width: 60px;
   height: 23px;
   border-radius: 3px;
-  background-color: #9B7A41;
+  background-color: #9b7a41;
   color: #ffffff;
   text-transform: uppercase;
   font-size: 12px;
-  border: 1px solid #9B7A41;
+  border: 1px solid #9b7a41;
   margin-right: 5px;
 }
 .MainPizzaSection .MainPizzaBox .pizzadetails .show-details {
   width: 80px;
   height: 23px;
   border-radius: 3px;
-  background-color: #9B7A41;
+  background-color: #9b7a41;
   color: #ffffff;
   text-transform: uppercase;
   font-size: 12px;
-  border: 1px solid #9B7A41;
-}
-@media screen and (min-width: 1200px) and (max-width: 1700px) {
-  .MainPizzaSection .MainPizzaBox .pizzadetails .show-details {
-    margin-right: 28px !important;
-  }
+  border: 1px solid #9b7a41;
 }
 .MainPizzaSection .MainPizzaBox .counter {
   display: flex;
@@ -488,10 +490,10 @@
   font-size: 16px;
   font-weight: 700;
   margin-right: 5px;
-  color: #9B7A41;
+  color: #9b7a41;
 }
 .MainPizzaSection .cart-view {
-  background-color: #9B7A41;
+  background-color: #9b7a41;
   width: 1037px;
   height: 61px;
   color: white;
@@ -554,6 +556,8 @@
 @media screen and (max-width: 991px) {
   .MainPizzaSection .show-1 {
     display: block !important;
+    position: fixed;
+    top: 88.4%;
   }
 }
 
@@ -624,7 +628,7 @@
   width: 34px;
   height: 34px;
   border-radius: 8px;
-  background-color: #9B7A41;
+  background-color: #9b7a41;
   border: none;
   color: #ffffff;
 }
@@ -656,7 +660,7 @@
 }
 .menuToggleBtn .menuToggleWrap .details .price {
   font-weight: 900;
-  color: #9B7A41;
+  color: #9b7a41;
   font-size: 28px;
   position: relative;
 }
@@ -668,7 +672,7 @@
   font-size: 14px;
   font-weight: 900;
   margin-bottom: 10px;
-  color: #1B1B1B;
+  color: #1b1b1b;
   position: relative;
 }
 @media screen and (max-width: 992px) {
@@ -678,7 +682,7 @@
 }
 .menuToggleBtn .menuToggleWrap .order-container .customize-order-box .extra-add,
 .menuToggleBtn .menuToggleWrap .order-container .customize-order-box .remove-ingredients {
-  border: 1px solid #6C6C6C;
+  border: 1px solid #6c6c6c;
   border-radius: 20px;
   width: 352px;
   height: 158px;
@@ -746,13 +750,13 @@
   -moz-appearance: none;
   width: 20px;
   height: 20px;
-  border: 2px solid #9B7A41;
+  border: 2px solid #9b7a41;
   border-radius: 4px;
   cursor: pointer;
   outline: none;
 }
 .menuToggleBtn .menuToggleWrap .order-container .customize-order-box input[type=checkbox]:checked {
-  background-color: #9B7A41;
+  background-color: #9b7a41;
   border: none;
 }
 .menuToggleBtn .menuToggleWrap .order-container .customize-order-box input[type=checkbox]:checked::before {
@@ -764,7 +768,7 @@
   line-height: 20px;
 }
 .menuToggleBtn .menuToggleWrap .cart {
-  background-color: #9B7A41;
+  background-color: #9b7a41;
   height: 53px;
   color: #ffffff;
   display: flex;
@@ -786,7 +790,7 @@
   background-color: #ffffff;
   line-height: 16px;
   color: #000000;
-  border: 1px solid #6C6C6C;
+  border: 1px solid #6c6c6c;
   font-weight: 900;
   white-space: nowrap;
   background-image: url("../../Icon/pizza (1).png");
@@ -804,29 +808,47 @@
   }
 }
 
+.border-responsive {
+  border: 1px solid #9b7a41;
+}
+
+@media screen and (max-width: 768px) {
+  .border-responsive {
+    border: none !important;
+  }
+}
 .CartDetails h1 {
   font-weight: 900;
   font-size: 50px;
+  white-space: nowrap;
   line-height: 60.51px;
   text-transform: uppercase;
 }
+@media screen and (max-width: 768px) {
+  .CartDetails h1 {
+    font-size: 30px !important;
+  }
+}
 .CartDetails .retrun-icon {
-  border: 3px solid #9B7A41;
+  border: 3px solid #9b7a41;
   width: 48px;
   height: 48px;
   border-radius: 11px;
   background-color: #352e23;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
 }
-.CartDetails .retrun-icon i {
-  position: absolute;
-  top: 34%;
-  left: 50%;
-  transform: translate(-50%);
+@media screen and (max-width: 768px) {
+  .CartDetails .retrun-icon {
+    width: 36px;
+    height: 36px;
+  }
 }
 .CartDetails .card {
-  border: 1px solid #9B7A41;
+  border: 1px solid #9b7a41;
   border-radius: 10px;
   background: transparent;
 }
@@ -835,6 +857,10 @@
   font-size: 16px;
   font-weight: 600;
   text-transform: capitalize;
+}
+.CartDetails .card .Delte-button {
+  padding: 0px 9px;
+  border-radius: 4px;
 }
 .CartDetails .card .edit-details {
   font-size: 30px;
@@ -847,7 +873,7 @@
   height: 28px;
   border-radius: 3px;
   color: #ffffff;
-  background-color: #9B7A41;
+  background-color: #9b7a41;
   border: none;
   font-size: 14px;
   font-weight: 600;
@@ -863,8 +889,10 @@
 .CartDetails .card .order {
   width: 350px;
   height: 40px;
-  background-color: #9B7A41;
+  background-color: #9b7a41;
+  white-space: nowrap;
   border: none;
+  border-radius: 8px;
   font-size: 16px;
 }
 @media screen and (max-width: 992px) {
@@ -887,10 +915,11 @@
     font-size: 25px;
     font-weight: 900;
     line-height: 21px;
+    padding-left: 47px;
     padding-top: 15px;
   }
 }
-.CartDetails .order-1 {
+.CartDetails .order {
   display: none;
   width: 350px;
   height: 40px;
@@ -899,7 +928,7 @@
   font-size: 16px;
 }
 @media screen and (max-width: 992px) {
-  .CartDetails .order-1 {
+  .CartDetails .order {
     display: block !important;
   }
 }
@@ -911,4 +940,115 @@
 }
 .CartDetails img {
   border-radius: 10px;
+}
+
+.tigger-arrow {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  z-index: 999;
+  transform: translateY(-50%);
+  background-color: #9b7a41;
+  border-radius: 5px 0px 0px 5px;
+}
+.tigger-arrow .gear-icon {
+  width: 46px;
+  padding: 10px;
+}
+.tigger-arrow .gear-icon i {
+  animation: rd360 3s linear infinite;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+@keyframes rd360 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.profile {
+  background-color: #1c1c1c;
+  color: white;
+  padding: 20px;
+  z-index: 999;
+  width: 400px;
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  position: fixed;
+  right: -400px;
+  top: 0;
+  height: 100%;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+.profile.visible {
+  animation-name: slideIn;
+}
+@keyframes slideIn {
+  from {
+    right: -400px;
+  }
+  to {
+    right: 0;
+  }
+}
+.profile .hidden {
+  animation-name: slideOut;
+}
+@keyframes slideOut {
+  from {
+    right: 0;
+  }
+  to {
+    right: -400px;
+  }
+}
+.profile .back-button {
+  position: relative;
+  font-size: 18px;
+  cursor: pointer;
+  border: 1px solid #9b7a41;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: #352e23;
+  text-align: center;
+  transition: 0.3s all ease-in;
+}
+.profile .back-button i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 15px;
+  transform: translate(-50%, -50%);
+}
+.profile .user-info {
+  margin: 20px 0;
+  border-bottom: 1px dashed #ffffff;
+}
+.profile .action-button {
+  background-color: rgba(255, 255, 255, 0.0392156863);
+  border: 1px solid #ffffff;
+  border-radius: 16px;
+  padding: 19px;
+  color: white;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.profile .action-button img {
+  padding: 0px 17px 0px 10px;
+}
+.profile .action-button i {
+  padding: 0px 17px 0px 10px;
+  color: #ccc;
 }/*# sourceMappingURL=style.css.map */
