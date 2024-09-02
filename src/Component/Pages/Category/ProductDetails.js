@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import pizzaImg from '../../../Asstes/Images/pizza-img.png';
 import { baseURL } from '../../Utils/Config';
 import { ProductByCodeGet } from '../../Redux/Slice/ProductSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addItemToCart } from '../../Redux/Slice/CartSlice';
 import { setToast } from '../../Extra/Toast';

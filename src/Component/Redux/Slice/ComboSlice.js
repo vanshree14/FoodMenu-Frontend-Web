@@ -14,11 +14,6 @@ export const comboget = createAsyncThunk("product/showCombo", async (payload) =>
   return apiInstance.get(`product/showCombo?page=${payload.page}&limit=${payload.limit}&search=${payload.search}`);
 });
 
-
-
-
-
-
 const comboSlice = createSlice({
   name: "comboSlice",
   initialState,

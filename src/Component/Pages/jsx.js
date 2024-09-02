@@ -360,7 +360,6 @@ const Profile = () => {
 export default Profile;
 
 
-
 .profile-container {
   background-color: #1c1c1c;
   color: white;

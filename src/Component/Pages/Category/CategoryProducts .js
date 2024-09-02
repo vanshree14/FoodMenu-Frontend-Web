@@ -19,7 +19,6 @@ import { comboget } from '../../Redux/Slice/ComboSlice';
 const CategoryProducts = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const {totalCount`} = useSelector((state) => state.cart.totalCount);
   const location = useLocation();
   const { categoryId } = location.state || {};
   const { product, category } = useSelector((state) => state.category);
@@ -28,12 +27,13 @@ const CategoryProducts = () => {
   const [rowPerPage, setRowPerPage] = useState(10);
   const [search, setSearch] = useState("");
   const [isProductVisible, setIsProductVisible] = useState(false);
-  const { auth,isLoading } = useSelector((state) => state.auth);
+  const { auth, isLoading } = useSelector((state) => state.auth);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedAddOnIngridiants, setSelectedAddOnIngridiants] = useState([]);
   const [selectedCustomizeIngridiants, setSelectedCustomizeIngridiants] = useState([]);
   const [productCount, setProductCount] = useState(1);
   const { combo } = useSelector((state) => state.combo);
+  const totalCount = useSelector((state) => state.cart.totalCount);
 
 
   const payload = {
@@ -60,7 +60,7 @@ const CategoryProducts = () => {
       dispatch(productsByCategoryGet({ page: 0, limit: 10, categoryId }));
     }
   }, [categoryId, dispatch]);
-
+ 
   useEffect(() => {
     dispatch(productget({ ...payload, command: false }));
   }, [page, rowPerPage, search]);
@@ -73,7 +73,6 @@ const CategoryProducts = () => {
     setData(product);
   }, [product]);
 
-  const currentCategory = category.find(cat => cat._id === categoryId);
 
   const handleAddToCart = (selectedProductId) => {
     const token = sessionStorage.getItem("token");
@@ -121,7 +120,7 @@ const CategoryProducts = () => {
       prevData.map(pizza =>
         pizza._id === selectedProductId
           ? { ...pizza, count: (parseInt(pizza.count) || 0) + 1 } : pizza
-          
+
       )
     );
     dispatch(CartQuntity({ userId, productId: selectedProductId, action: true }));
@@ -170,6 +169,8 @@ const CategoryProducts = () => {
     dispatch(comboget(payload));
     setData(combo);
   };
+  const currentCategory = category.find(cat => cat._id === categoryId);
+
   return (
     <div>
       <div className="MainPizzaSection MainCategory">
@@ -179,7 +180,7 @@ const CategoryProducts = () => {
             <div className="col-6  d-flex align-items-center  order-4 order-xl-1 mb-lg-0  justify-content-md-center  justify-content-center justify-content-lg-start mt-lg-2">
               {currentCategory && (
                 <div className="categoryHeader">
-                  <p className="text-light">{currentCategory.name}</p> 
+                  <p className="text-light">{currentCategory.name}</p>
                 </div>
               )}
             </div>
@@ -233,7 +234,7 @@ const CategoryProducts = () => {
 
           <div className="row mt-5 position-relative">
             {data?.map(pizza => (
-              <div className="  col mb-4 d-flex  justify-content-xl-start justify-content-md-center justify-content-sm-center justify-content-smm-center  " key={pizza._id}>
+              <div className=" col-xl-4 col-lg-6 col-md-6 mb-4 d-flex  justify-content-md-center justify-content-sm-center justify-content-smm-center  " key={pizza._id}>
                 <div className="MainPizzaBox position-relative d-flex">
                   <div className="PizzaImg">
                     <img src={baseURL ? baseURL + pizza.images?.[0] : pizzaImg} alt='img' />
@@ -280,7 +281,7 @@ const CategoryProducts = () => {
                       <button className='show-details cartToggle' onClick={() => handleShowImage(pizza)}>
                         SHOW
                       </button>
-                      <i className="fa-regular fa-heart ps-5" style={{ color: '#9B7A41' }}></i>
+                      <i className="fa-regular fa-heart p65-left" style={{ color: '#9B7A41' }}></i>
                     </div>
                   </div>
                 </div>
@@ -289,7 +290,7 @@ const CategoryProducts = () => {
             <div className="col-lg-12 d-flex justify-content-center">
 
               <div className="cart-view">
-                <p className='ps-5'>items</p>
+                <p className='ps-5'>{totalCount} items</p>
                 <p className='pe-5' onClick={handleCart}>View cart</p>
               </div>
 
@@ -314,15 +315,16 @@ const CategoryProducts = () => {
             </div>
           </div>
 
-        </div>    
+        </div>
       </div>
 
-     {/* Cart Side Menu */}
+      {/* Cart Side Menu */}
+      {isProductVisible && selectedProduct && (
+        <ProductDetails product={selectedProduct} closeDialog={closeProduct} />
+      )}
+      {isLoading && <Loader />}
 
-     {isProductVisible && selectedProduct && (
-            <ProductDetails product={selectedProduct}  closeDialog={closeProduct} />
-          )}
-          {isLoading && <Loader />}
+
     </div>
   );
 };

@@ -12,6 +12,7 @@ const initialState = {
 export const addItemToCart = createAsyncThunk("cart/add", async (payload) => {
   return apiInstance.post(`cart/add?productId=${payload.productId}&userId=${payload.userId}&productCount=${payload.productCount}&addOnIngridiantId=${payload.addOnIngridiantId}&customizeIngridiantId=${payload.customizeIngridiantId}`, payload);
 });
+
 export const CartEdit = createAsyncThunk("cart/updateDetails", async (payload) => {
   return apiInstance.patch(`cart/updateDetails?cartId=${payload.cartId}&addOnIngridiantId=${payload.addOnIngridiantId}&customizeIngridiantId=${payload.customizeIngridiantId}`, payload);
 });
@@ -46,13 +47,14 @@ const CartSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    
     // get cart
     builder.addCase(ItemToCartGet.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(ItemToCartGet.fulfilled, (state, action) => {
       state.cart = action.payload?.cart;
-      state.totalCount = action.payload?.cart?.totalCount;
+      state.totalCount = action.payload?.totalCount;
       state.isLoading = false;
     });
     builder.addCase(ItemToCartGet.rejected, (state) => {
@@ -85,8 +87,7 @@ const CartSlice = createSlice({
 
     // add to cart
     builder.addCase(addItemToCart.pending, (state) => {
-      state.loading = true;
-      state.error = null;
+      state.isLoading = true;
     });
     builder.addCase(addItemToCart.fulfilled, (state, action) => {
       const cart = action.payload?.cart;
@@ -108,9 +109,10 @@ const CartSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
+
     // update cart details
     builder.addCase(CartEdit.pending, (state) => {
-      state.cartLoader = true;
+      state.isLoading = true;
     });
     builder.addCase(CartEdit.fulfilled, (state, action) => {
       const cart = action.payload?.cart;
@@ -125,6 +127,7 @@ const CartSlice = createSlice({
     builder.addCase(CartEdit.rejected, (state) => {
       state.cartLoader = false;
     });
+
     // update cart quantity
     builder.addCase(CartQuntity.pending, (state) => {
       state.loading = true;

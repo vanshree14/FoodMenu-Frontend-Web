@@ -16,8 +16,8 @@ const CartDetails = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [search, setSearch] = useState("");
-  const [isDialogOpen, setIsDialogOpen] = useState(false); 
-  const [selectedProduct, setSelectedProduct] = useState(null); 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const { cart } = useSelector(state => state.cart);
   const { auth } = useSelector(state => state.auth);
@@ -57,15 +57,7 @@ const CartDetails = () => {
     dispatch(DeleteFromCart(cartId));
   };
 
-  const handleEditClick = (product) => {
-    setSelectedProduct(product); 
-    setIsDialogOpen(true);
-  };
 
-  const handleCloseDialog = () => {
-    setIsDialogOpen(false); 
-    setSelectedProduct(null); 
-  };
 
   return (
     <div>
@@ -89,10 +81,10 @@ const CartDetails = () => {
           </div>
 
           <div className="row g-3 mt-4">
-            <div className="col-lg-8 col-sm-12 col-xs-12 position-relative rounded-5  border-responsive p35-top p20-bottom p25-x">
+            <div className="col-lg-8 col-sm-12 col-xs-12 position-relative rounded-5  border-responsive p35-top p20-bottom p25-x d-flex align-items-center flex-column justify-content-center">
               {cart.length > 0 ? (
                 cart.map(item => (
-                  <div className="card bg-light text-white mb-3" key={item._id}>
+                  <div className="card bg-light text-white mb-4" key={item._id}>
                     <div className="row g-0">
                       <div className="col-md-2 col-sm-3 col-xs-12 col-smm-3 text-center">
                         <div className="cart-img m-3 w-100">
@@ -137,7 +129,7 @@ const CartDetails = () => {
                       <div className="col-md-12 col-sm-12 text-center pb-3">
                         <div className="d-flex justify-content-between align-items-center">
                           <div className="cart-edit d-flex ms-3">
-                            <button className='edit-details ms-3 me-3' onClick={() => handleEditClick(item.product)}>Edit</button>
+                            <button className='edit-details ms-3 me-3'>Edit</button>
                             <div className="Delte-button bg-prime" >
                               <img src={Delete} alt="Delete" onClick={() => handleRemoveFromCart(item._id)} />
                             </div>
@@ -188,14 +180,7 @@ const CartDetails = () => {
         </div>
       </div>
 
-      {/* Product Details Dialog */}
-      {isDialogOpen && (
-        <CartDetailsEdit
-          product={selectedProduct}
-          onClose={handleCloseDialog}
-          
-        />
-      )}
+
     </div>
   );
 };

@@ -2,17 +2,19 @@ import React, { useState, useEffect } from 'react';
 import pizzaImg from '../../../Asstes/Images/pizza-img.png';
 import { baseURL } from '../../Utils/Config';
 import { ProductByCodeGet } from '../../Redux/Slice/ProductSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setToast } from '../../Extra/Toast';
 import { CartEdit } from '../../Redux/Slice/CartSlice';
 
-const CartDetailsEdit = ({ product, onClose }) => {
+const CartDetailsEdit = ({  onClose }) => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState('');
   const navigate = useNavigate();
   const [selectedAddOnIngridiants, setSelectedAddOnIngridiants] = useState([]);
+  const { product } = useSelector(state => state.product);
+
   const [selectedCustomizeIngridiants, setSelectedCustomizeIngridiants] = useState([]);
 
   useEffect(() => {
@@ -23,7 +25,6 @@ const CartDetailsEdit = ({ product, onClose }) => {
       } else {
         setSelectedSize('');
       }
-     
       setSelectedAddOnIngridiants(product.addOnIngridiances?.map(item => item._id) || []);
       setSelectedCustomizeIngridiants(product.customizeIngridiances?.map(item => item._id) || []);
     }
@@ -78,13 +79,13 @@ const CartDetailsEdit = ({ product, onClose }) => {
   }
 
   const handleEditCart = () => {
-    const updatedCartItem = {
+    const payload = {
       cartId: product.cartId,
       addOnIngridiantId: selectedAddOnIngridiants,
       customizeIngridiantId: selectedCustomizeIngridiants,
     };
 
-    dispatch(CartEdit(updatedCartItem))
+    dispatch(CartEdit(payload))
       .then(() => {
         setToast('Cart updated successfully!', 'success');
         onClose();
