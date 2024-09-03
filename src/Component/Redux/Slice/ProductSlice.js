@@ -43,7 +43,7 @@ const productSlice = createSlice({
         state.isLoading = true;
       });
       builder.addCase(ProductByCodeGet.fulfilled, (state, action) => {
-        state.product = action.payload?.product || null;
+        state.product = action.payload.product ;
         state.isLoading = false;
       });
       builder.addCase(ProductByCodeGet.rejected, (state, action) => {

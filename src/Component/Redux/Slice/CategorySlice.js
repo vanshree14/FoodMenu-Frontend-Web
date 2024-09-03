@@ -31,7 +31,7 @@ const categorySlice = createSlice({
       state.isSkeleton = action.meta.arg.command;
     });
     builder.addCase(categoryGet.fulfilled, (state, action) => {
-      state.category = action.payload.category;
+      state.category = action.payload?.category;
       state.categoryTotal = action.payload.categoryTotal;
       state.isSkeleton = false;
     });

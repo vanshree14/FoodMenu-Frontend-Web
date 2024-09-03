@@ -14,7 +14,7 @@ import { categoryGet, productsByCategoryGet } from '../../Redux/Slice/CategorySl
 import { addItemToCart, CartQuntity, removeFromCart } from '../../Redux/Slice/CartSlice';
 import Loader from '../../Utils/Loader';
 import ProductDetails from './ProductDetails';
-import { comboget } from '../../Redux/Slice/ComboSlice';
+import { comboCategoryGet } from '../../Redux/Slice/ComboSlice';
 
 const CategoryProducts = () => {
   const navigate = useNavigate();
@@ -33,6 +33,7 @@ const CategoryProducts = () => {
   const [selectedCustomizeIngridiants, setSelectedCustomizeIngridiants] = useState([]);
   const [productCount, setProductCount] = useState(1);
   const { combo } = useSelector((state) => state.combo);
+  const { cart } = useSelector((state) => state.cart);
   const totalCount = useSelector((state) => state.cart.totalCount);
 
 
@@ -55,11 +56,9 @@ const CategoryProducts = () => {
     navigate('/booking/cart');
   };
 
-  useEffect(() => {
-    if (categoryId) {
-      dispatch(productsByCategoryGet({ page: 0, limit: 10, categoryId }));
-    }
-  }, [categoryId, dispatch]);
+
+  
+
  
   useEffect(() => {
     dispatch(productget({ ...payload, command: false }));
@@ -70,8 +69,30 @@ const CategoryProducts = () => {
   }, [page, rowPerPage, search]);
 
   useEffect(() => {
+    const categoryId = location.state?.categoryId || null;
+  
+    if (!categoryId) {
+      console.warn("Category ID is undefined. Ensure it is correctly passed.");
+      return;
+    }
+  
+    const payload = {
+      categoryId,
+      page: page || 0,
+      limit: rowPerPage || 10,
+      search: search || '', 
+      command: false,
+    };
+  
+    dispatch(productsByCategoryGet(payload));
+  }, [page, rowPerPage, search, location.state?.categoryId]);
+  
+
+  useEffect(() => {
     setData(product);
   }, [product]);
+
+
 
 
   const handleAddToCart = (selectedProductId) => {
@@ -165,10 +186,29 @@ const CategoryProducts = () => {
   const closeProduct = () => {
     setIsProductVisible(false);
   };
-  const handleComboClick = () => {
-    dispatch(comboget(payload));
-    setData(combo);
+  const handleComboClick = async () => {
+    const categoryId = location.state?.categoryId || null;
+  
+    if (!categoryId) {
+      console.warn("Category ID is undefined. Ensure it is correctly passed.");
+      return;
+    }
+  
+    const payload = {
+      categoryId,
+      page: 0,
+      limit: 10,
+    };
+  
+    try {
+      await dispatch(comboCategoryGet(payload));
+
+      setData(combo);
+    } catch (error) {
+      console.error("Error fetching combo category data:", error);
+    }
   };
+  
   const currentCategory = category.find(cat => cat._id === categoryId);
 
   return (
@@ -234,7 +274,7 @@ const CategoryProducts = () => {
 
           <div className="row mt-5 position-relative">
             {data?.map(pizza => (
-              <div className=" col-xl-4 col-lg-6 col-md-6 mb-4 d-flex  justify-content-md-center justify-content-sm-center justify-content-smm-center  " key={pizza._id}>
+              <div className=" col mb-4 d-flex  justify-content-md-center justify-content-sm-center justify-content-smm-center  " key={pizza._id}>
                 <div className="MainPizzaBox position-relative d-flex">
                   <div className="PizzaImg">
                     <img src={baseURL ? baseURL + pizza.images?.[0] : pizzaImg} alt='img' />
@@ -320,9 +360,8 @@ const CategoryProducts = () => {
 
       {/* Cart Side Menu */}
       {isProductVisible && selectedProduct && (
-        <ProductDetails product={selectedProduct} closeDialog={closeProduct} />
+        <ProductDetails product={selectedProduct} onClose={closeProduct} />
       )}
-      {isLoading && <Loader />}
 
 
     </div>

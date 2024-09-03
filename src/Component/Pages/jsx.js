@@ -1,33 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
+import BannerbackgroundImg from '../../../Asstes/Images/fa3ea1263d103c3a22d1096792fafc70.png';
 import logobar from '../../../Asstes/Images/loginLogo.png';
 import Searching from '../../Extra/Searching';
 import pizzaImg from '../../../Asstes/Images/pizza-img.png';
 import Delete from '../../../Asstes/Icon/delete.png';
 import pizzaicon from '../../../Asstes/Images/pizza-icon.png';
 import comboicon from '../../../Asstes/Images/combo.png';
-import { productsByCategoryGet, categoryGet } from '../../Redux/Slice/CategorySlice';
-import { comboget } from '../../Redux/Slice/ComboSlice';
-import { addItemToCart, CartQuntity, removeFromCart } from '../../Redux/Slice/CartSlice';
-import ProductDetails from './ProductDetails';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { productget } from '../../Redux/Slice/ProductSlice';
 import { baseURL } from '../../Utils/Config';
+import { categoryGet, productsByCategoryGet } from '../../Redux/Slice/CategorySlice';
+import { addItemToCart, CartQuntity, removeFromCart } from '../../Redux/Slice/CartSlice';
+import Loader from '../../Utils/Loader';
+import ProductDetails from './ProductDetails';
+import { comboCategoryGet, comboget } from '../../Redux/Slice/ComboSlice';
 
-const CategoryProducts = ({ productId }) => {
+const CategoryProducts = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const { categoryId } = location.state || {};
   const { product, category } = useSelector((state) => state.category);
-  const { combo } = useSelector((state) => state.combo);
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
   const [rowPerPage, setRowPerPage] = useState(10);
   const [search, setSearch] = useState("");
   const [isProductVisible, setIsProductVisible] = useState(false);
-  const { auth } = useSelector((state) => state.auth);
+  const { auth, isLoading } = useSelector((state) => state.auth);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedAddOnIngridiants, setSelectedAddOnIngridiants] = useState([]);
+  const [selectedCustomizeIngridiants, setSelectedCustomizeIngridiants] = useState([]);
   const [productCount, setProductCount] = useState(1);
+  const { combo } = useSelector((state) => state.combo);
+  const { cart } = useSelector((state) => state.cart);
+  const totalCount = useSelector((state) => state.cart.totalCount);
+
 
   const payload = {
     page,
@@ -48,21 +56,44 @@ const CategoryProducts = ({ productId }) => {
     navigate('/booking/cart');
   };
 
+
+  
+
+ 
   useEffect(() => {
-    if (categoryId) {
-      dispatch(productsByCategoryGet({ page: 0, limit: 10, categoryId }));
-    }
-  }, [categoryId, dispatch]);
+    dispatch(productget({ ...payload, command: false }));
+  }, [page, rowPerPage, search]);
 
   useEffect(() => {
     dispatch(categoryGet({ ...payload, command: false }));
   }, [page, rowPerPage, search]);
 
   useEffect(() => {
+    const categoryId = location.state?.categoryId || null;
+  
+    if (!categoryId) {
+      console.warn("Category ID is undefined. Ensure it is correctly passed.");
+      return;
+    }
+  
+    const payload = {
+      categoryId,
+      page: page || 0,
+      limit: rowPerPage || 10,
+      search: search || '', 
+      command: false,
+    };
+  
+    dispatch(productsByCategoryGet(payload));
+  }, [page, rowPerPage, search, location.state?.categoryId]);
+  
+
+  useEffect(() => {
     setData(product);
   }, [product]);
 
-  const currentCategory = category.find(cat => cat._id === categoryId);
+
+
 
   const handleAddToCart = (selectedProductId) => {
     const token = sessionStorage.getItem("token");
@@ -72,7 +103,6 @@ const CategoryProducts = ({ productId }) => {
       navigate("/login");
       return;
     }
-
     const decodedToken = JSON.parse(token);
     const userId = decodedToken._id;
     const validProductCount = Number(productCount);
@@ -81,11 +111,12 @@ const CategoryProducts = ({ productId }) => {
       console.error('Invalid product count:', productCount);
       return;
     }
-
     const payload = {
       productId: selectedProductId,
       userId: userId,
       productCount: validProductCount,
+      addOnIngridiantId: selectedAddOnIngridiants,
+      customizeIngridiantId: selectedCustomizeIngridiants,
     };
 
     dispatch(addItemToCart(payload));
@@ -97,6 +128,8 @@ const CategoryProducts = ({ productId }) => {
           : pizza
       )
     );
+    setSelectedAddOnIngridiants([]);
+    setSelectedCustomizeIngridiants([]);
     setProductCount(1);
   };
 
@@ -104,11 +137,11 @@ const CategoryProducts = ({ productId }) => {
     const token = sessionStorage.getItem("token");
     const decodedToken = JSON.parse(token);
     const userId = decodedToken._id;
-
     setData(prevData =>
       prevData.map(pizza =>
         pizza._id === selectedProductId
           ? { ...pizza, count: (parseInt(pizza.count) || 0) + 1 } : pizza
+
       )
     );
     dispatch(CartQuntity({ userId, productId: selectedProductId, action: true }));
@@ -118,7 +151,6 @@ const CategoryProducts = ({ productId }) => {
     const token = sessionStorage.getItem("token");
     const decodedToken = JSON.parse(token);
     const userId = decodedToken._id;
-
     setData(prevData =>
       prevData.map(pizza =>
         pizza._id === selectedProductId
@@ -130,7 +162,6 @@ const CategoryProducts = ({ productId }) => {
     const token = sessionStorage.getItem("token");
     const decodedToken = JSON.parse(token);
     const userId = decodedToken._id;
-
     setData(prevData =>
       prevData.map(pizza =>
         pizza._id === selectedProductId
@@ -147,7 +178,6 @@ const CategoryProducts = ({ productId }) => {
   const handlenavClick = () => {
     navigate('/booking/categories');
   };
-
   const handleShowImage = (pizza) => {
     setSelectedProduct(pizza);
     setIsProductVisible(true);
@@ -156,36 +186,63 @@ const CategoryProducts = ({ productId }) => {
   const closeProduct = () => {
     setIsProductVisible(false);
   };
-
-  const handleComboClick = () => {
-    dispatch(comboget(payload));
-    setData(combo);
+  const handleComboClick = async () => {
+    const categoryId = location.state?.categoryId || null;
+  
+    if (!categoryId) {
+      console.warn("Category ID is undefined. Ensure it is correctly passed.");
+      return;
+    }
+  
+    const payload = {
+      categoryId,
+      page: 0,
+      limit: 10,
+    };
+  
+    try {
+      // Dispatch the action to fetch the combo category
+      await dispatch(comboCategoryGet(payload));
+  
+      // Assuming `combo` is derived from your Redux state, ensure it is updated after fetching data
+      setData(combo);
+    } catch (error) {
+      console.error("Error fetching combo category data:", error);
+    }
   };
+  
+  const currentCategory = category.find(cat => cat._id === categoryId);
 
   return (
     <div>
       <div className="MainPizzaSection MainCategory">
         <div className="container">
-          {/* Header and Logo Section */}
           <div className="row d-flex align-items-center mt-5 position-relative">
-            <div className="col-6 d-flex align-items-center order-4 order-xl-1 mb-lg-0 justify-content-md-center justify-content-xl-start justify-content-center justify-content-lg-start mt-lg-2">
+            {/* Category Name */}
+            <div className="col-6  d-flex align-items-center  order-4 order-xl-1 mb-lg-0  justify-content-md-center  justify-content-center justify-content-lg-start mt-lg-2">
               {currentCategory && (
                 <div className="categoryHeader">
                   <p className="text-light">{currentCategory.name}</p>
                 </div>
               )}
             </div>
-            <div className="col-xl-6 col-md-12 order-xl-2 mb-lg-3 mb-md-3 d-flex justify-content-xl-end justify-content-md-center justify-content-sm-center justify-content-center">
+
+            {/* Logo Bar */}
+            <div className="col-xl-6 col-md-12 order-xl-2  mb-lg-3 mb-md-3 d-flex justify-content-xl-end justify-content-md-center justify-content-sm-center justify-content-center">
               <div className="logobar text-center">
                 <img src={logobar} alt="logo" className="img" />
               </div>
             </div>
-            <div className="col-6 order-lg-3 order-2 mb-3 mb-lg-0 d-flex align-items-center mt-lg-2 justify-content-md-center justify-content-xl-start">
+
+            {/* Return Icon */}
+            <div className="col-6 order-lg-3 order-2  mb-3 mb-lg-0 d-flex align-items-center justify-content-center mt-lg-2 justify-content-md-center justify-content-xl-start ">
               <div className="retrun-icon text-light position-relative" onClick={handlenavClick}>
                 <i className="fa-solid fa-arrow-left"></i>
               </div>
             </div>
-            <div className="col-xl-6 col-md-12 order-xl-4 mt-4 d-flex justify-content-xl-end justify-content-md-center justify-content-center">
+
+            {/* Search Bar */}
+            <div className="col-xl-6 col-md-12 order-xl-4  mt-4 d-flex   justify-content-xl-end justify-content-md-center justify-content-center">
               <div className="search-Bar">
                 <Searching
                   type="server"
@@ -198,28 +255,28 @@ const CategoryProducts = ({ productId }) => {
             </div>
           </div>
 
-          {/* Menu Items Section */}
           <div className="show mt-3">
             <div className="row position-relative" style={{ backgroundColor: '#A57F40' }}>
               <div className="col-lg-6" style={{ backgroundColor: '#323232' }}>
                 <div className="menu-item" onClick={() => dispatch(productsByCategoryGet({ categoryId, page: 0, limit: 10 }))}>
                   <img src={pizzaicon} alt="Pizza Icon" className="icon" />
-                  <span className='text-uppercase'>{currentCategory?.name || "Pizza"}</span>
+                  {currentCategory && (
+                    <span className='text-uppercase'>{currentCategory.name}</span>
+                  )}
                 </div>
               </div>
               <div className="col-lg-6">
-                <div className="menu-item" onClick={handleComboClick}>
+                <div className="menu-item" onClick={() => dispatch(comboCategoryGet({ categoryId, page: 0, limit: 10 }))}>
                   <img src={comboicon} alt="Combo Icon" className="icon" />
-                  <span>COMBO</span>
+                  <span >COMBO</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Products Display Section */}
           <div className="row mt-5 position-relative">
             {data?.map(pizza => (
-              <div className="col-xxl-3 col-xl-4 col-md-12 col-lg-6 col-sm-12 col-smm-12 mb-4 d-flex justify-content-center" key={pizza._id}>
+              <div className=" col-xl-4 col-lg-6 col-md-6 mb-4 d-flex  justify-content-md-center justify-content-sm-center justify-content-smm-center  " key={pizza._id}>
                 <div className="MainPizzaBox position-relative d-flex">
                   <div className="PizzaImg">
                     <img src={baseURL ? baseURL + pizza.images?.[0] : pizzaImg} alt='img' />
@@ -235,11 +292,17 @@ const CategoryProducts = ({ productId }) => {
                   <div className="pizzadetails pt-3  p10-smm-x">
                     <h1 className='title pb-1'>{pizza.title}</h1>
                     <p className='descripnation pb-2'>{pizza.description}</p>
-                    <div className="price pb-2">
-                      {pizza.price && <p className='title'>₹ {pizza.price}</p>}
-                      {pizza.oldComboPrice && <p className='title'>₹ {pizza.oldComboPrice}</p>}
-                      {pizza.newComboPrice && <p className='title'>₹ {pizza.newComboPrice}</p>}
+                    <div className="mainprice pb-2 d-flex">
+                      {pizza.isCombo ? (
+                        <>
+                          {pizza.newComboPrice > 0 && <p className='title pe-3 fs-18'>₹ {pizza.newComboPrice}</p>}
+                          {pizza.oldComboPrice > 0 && <p className=' old-price d-flex align-items-center'>₹ {pizza.oldComboPrice}</p>}
+                        </>
+                      ) : (
+                        <p className='title fs-18'>₹ {pizza.price}</p>
+                      )}
                     </div>
+
 
                     <div className='button-container d-flex align-items-center' style={{ gap: '10px' }}>
                       {!pizza.showCounter ? (
@@ -260,23 +323,24 @@ const CategoryProducts = ({ productId }) => {
                       <button className='show-details cartToggle' onClick={() => handleShowImage(pizza)}>
                         SHOW
                       </button>
-                      <i className="fa-regular fa-heart ps-5" style={{ color: '#9B7A41' }}></i>
+                      <i className="fa-regular fa-heart p65-left" style={{ color: '#9B7A41' }}></i>
                     </div>
                   </div>
                 </div>
               </div>
             ))}
-
             <div className="col-lg-12 d-flex justify-content-center">
+
               <div className="cart-view">
-                <p className='ps-5'>3 items</p>
+                <p className='ps-5'>{totalCount} items</p>
                 <p className='pe-5' onClick={handleCart}>View cart</p>
               </div>
+
             </div>
             <div className="show mt-3 show-1 ">
               <div className="row position-relative" style={{ backgroundColor: '#A57F40', margin: '0px -64px' }}>
                 <div className="col" style={{ backgroundColor: '#323232' }}>
-                  <div className="menu-item">
+                  <div className="menu-item " onClick={() => dispatch(productsByCategoryGet({ categoryId, page: 0, limit: 10 }))}>
                     <img src={pizzaicon} alt="Pizza Icon" className="icon" />
                     {currentCategory && (
                       <span className='text-uppercase'>{currentCategory.name}</span>
@@ -284,7 +348,7 @@ const CategoryProducts = ({ productId }) => {
                   </div>
                 </div>
                 <div className="col">
-                  <div className="menu-item">
+                  <div className="menu-item" onClick={handleComboClick}>
                     <img src={comboicon} alt="Combo Icon" className="icon" />
                     <span>COMBO</span>
                   </div>
@@ -293,147 +357,20 @@ const CategoryProducts = ({ productId }) => {
             </div>
           </div>
 
-          {/* Cart Side Menu */}
-
-          {isProductVisible && selectedProduct && (
-            <ProductDetails product={selectedProduct} closeDialog={closeProduct} />
-          )}
         </div>
       </div>
+
+      {/* Cart Side Menu */}
+      {isProductVisible && selectedProduct && (
+        <ProductDetails product={selectedProduct} onClose={closeProduct} />
+      )}
+
+
     </div>
   );
 };
 
 export default CategoryProducts;
 
-
-import React from 'react';
-import './Profile.css'; // Importing the CSS file for styling
-
-const Profile = () => {
-  return (
-    <div className="profile-container">
-      <div className="header">
-        <div className="back-button">
-          <i className="fa-solid fa-arrow-left"></i>
-        </div>
-        <div className="logo">FOOD LOGO</div>
-        <div className="tagline">Your Tagline</div>
-      </div>
-
-      <div className="profile-details">
-        <h1>PROFILE</h1>
-        <p>Male</p>
-        <div className="user-info">
-          <div className="user-detail">
-            <i className="fa-solid fa-user"></i>
-            <span>Jorden Sorai</span>
-          </div>
-          <div className="user-detail">
-            <i className="fa-solid fa-envelope"></i>
-            <span>jordensi@gmail.com</span>
-          </div>
-        </div>
-        <hr />
-        <div className="action-list">
-          <button className="action-button">
-            <i className="fa-solid fa-box"></i> My Orders
-          </button>
-          <button className="action-button">
-            <i className="fa-solid fa-shopping-cart"></i> My Cart
-          </button>
-          <button className="action-button">
-            <i className="fa-solid fa-phone"></i> Call Outlet
-          </button>
-          <button className="action-button">
-            <i className="fa-brands fa-facebook"></i> Facebook
-          </button>
-          <button className="action-button">
-            <i className="fa-brands fa-instagram"></i> Instagram
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Profile;
-
-
-.profile-container {
-  background-color: #1c1c1c;
-  color: white;
-  padding: 20px;
-  max-width: 400px;
-  margin: 0 auto;
-  font-family: 'Arial', sans-serif;
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.back-button {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  color: #c5a35f;
-}
-
-.tagline {
-  font-size: 12px;
-  color: #c5a35f;
-}
-
-.profile-details {
-  text-align: center;
-}
-
-.user-info {
-  margin: 20px 0;
-}
-
-.user-detail {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.user-detail i {
-  margin-right: 10px;
-}
-
-.action-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.action-button {
-  background-color: transparent;
-  border: 1px solid #c5a35f;
-  border-radius: 5px;
-  padding: 10px;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.action-button i {
-  margin-right: 10px;
-}
 
 

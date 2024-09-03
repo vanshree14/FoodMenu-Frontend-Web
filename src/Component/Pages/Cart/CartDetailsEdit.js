@@ -2,92 +2,86 @@ import React, { useState, useEffect } from 'react';
 import pizzaImg from '../../../Asstes/Images/pizza-img.png';
 import { baseURL } from '../../Utils/Config';
 import { ProductByCodeGet } from '../../Redux/Slice/ProductSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { setToast } from '../../Extra/Toast';
 import { CartEdit } from '../../Redux/Slice/CartSlice';
 
-const CartDetailsEdit = ({  onClose }) => {
+const CartDetailsEdit = ({ cart, onClose }) => {
   const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState(1);
-  const [selectedSize, setSelectedSize] = useState('');
-  const navigate = useNavigate();
-  const [selectedAddOnIngridiants, setSelectedAddOnIngridiants] = useState([]);
-  const { product } = useSelector(state => state.product);
-
-  const [selectedCustomizeIngridiants, setSelectedCustomizeIngridiants] = useState([]);
+  
+  const [cartItem, setCartItem] = useState({
+    ...cart,
+    selectedAddOnIngridiants: cart.selectedAddOnIngridiants || [],
+    selectedCustomizeIngridiants: cart.selectedCustomizeIngridiants || []
+  });
 
   useEffect(() => {
-    if (product) {
-      const sizeData = product.size;
-      if (sizeData && sizeData !== '-') {
-        setSelectedSize(sizeData);
-      } else {
-        setSelectedSize('');
-      }
-      setSelectedAddOnIngridiants(product.addOnIngridiances?.map(item => item._id) || []);
-      setSelectedCustomizeIngridiants(product.customizeIngridiances?.map(item => item._id) || []);
-    }
-  }, [product]);
+    setCartItem({
+      ...cart,
+      selectedAddOnIngridiants: cart.selectedAddOnIngridiants || [],
+      selectedCustomizeIngridiants: cart.selectedCustomizeIngridiants || []
+    });
+  }, [cart]);
 
-  const handleSizeChange = (size, page = 1, limit = 10, search = '') => {
-    setSelectedSize(size);
+  const handleSizeChange = (size) => {
+    setCartItem(prevItem => ({
+      ...prevItem,
+      selectedSize: size
+    }));
 
     const payload = {
-      productCode: product.productCode,
+      productCode: cart.product.productCode,
       size,
-      page,
-      limit,
-      search
+      page: 1,
+      limit: 10,
+      search: ''
     };
 
     dispatch(ProductByCodeGet(payload));
   };
 
   const handleIncrementQuantity = () => {
-    setQuantity(prevQuantity => prevQuantity + 1);
+    setCartItem(prevItem => ({
+      ...prevItem,
+      quantity: prevItem.quantity + 1
+    }));
   };
 
   const handleDecrementQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(prevQuantity => prevQuantity - 1);
-    }
+    setCartItem(prevItem => ({
+      ...prevItem,
+      quantity: prevItem.quantity > 1 ? prevItem.quantity - 1 : 1
+    }));
   };
 
   const handleAddOnChange = (ingredientId) => {
-    setSelectedAddOnIngridiants(prevSelected => {
-      if (prevSelected.includes(ingredientId)) {
-        return prevSelected.filter(id => id !== ingredientId);
-      } else {
-        return [...prevSelected, ingredientId];
-      }
-    });
+    setCartItem(prevItem => ({
+      ...prevItem,
+      selectedAddOnIngridiants: prevItem.selectedAddOnIngridiants.includes(ingredientId)
+        ? prevItem.selectedAddOnIngridiants.filter(id => id !== ingredientId)
+        : [...prevItem.selectedAddOnIngridiants, ingredientId]
+    }));
   };
 
   const handleCustomizeChange = (ingredientId) => {
-    setSelectedCustomizeIngridiants(prevSelected => {
-      if (prevSelected.includes(ingredientId)) {
-        return prevSelected.filter(id => id !== ingredientId);
-      } else {
-        return [...prevSelected, ingredientId];
-      }
-    });
+    setCartItem(prevItem => ({
+      ...prevItem,
+      selectedCustomizeIngridiants: prevItem.selectedCustomizeIngridiants.includes(ingredientId)
+        ? prevItem.selectedCustomizeIngridiants.filter(id => id !== ingredientId)
+        : [...prevItem.selectedCustomizeIngridiants, ingredientId]
+    }));
   };
-
-  if (!product) {
-    return <div>No product data available</div>;
-  }
 
   const handleEditCart = () => {
     const payload = {
-      cartId: product.cartId,
-      addOnIngridiantId: selectedAddOnIngridiants,
-      customizeIngridiantId: selectedCustomizeIngridiants,
+      cartId: cartItem._id,
+      addOnIngridiantId: cartItem.selectedAddOnIngridiants,
+      customizeIngridiantId: cartItem.selectedCustomizeIngridiants
     };
 
     dispatch(CartEdit(payload))
       .then(() => {
-        setToast('Cart updated successfully!', 'success');
+        setToast('Cart updated successfully!', 'Cart item updated successfully');
         onClose();
       })
       .catch((error) => {
@@ -95,37 +89,39 @@ const CartDetailsEdit = ({  onClose }) => {
         console.error(error);
       });
   };
-
-  const sizeData = product.size;
-  const availableSizes = sizeData && sizeData !== '-' ? [sizeData] : [];
-
+  const [isClosing, setIsClosing] = useState(false);
+  const closeMenu = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 300); 
+  };
+  
   return (
     <div>
-      <div className="menuToggleBtn">
-        <div className="menuToggleWrap">
+      
+      <div className={`menuToggleBtn ${isClosing ? 'closing' : ''}`}>
+        <div className={`menuToggleWrap ${isClosing ? 'closing' : ''}`}>
           <div className="DetailsPic ms-4 me-4">
-            <img src={baseURL ? baseURL + product.images?.[0] : pizzaImg} alt='img' />
-            <button className="close-btn" onClick={onClose}>
-              <i className="fa-solid fa-arrow-left"></i>
-            </button>
+            <img src={baseURL ? baseURL + cartItem.product.images?.[0] : pizzaImg} alt='img' />
+              <button className="close-btn" onClick={closeMenu}>
+                <i className="fa-solid fa-arrow-left"></i>
+              </button>
           </div>
           <div className="details text-center mt-4">
-            <h1 className='title'>{product.title}</h1>
-            <p className='descripanation d-flex justify-content-center'>{product.description}</p>
-            <span className='price pt-2'>₹{product.price}</span>
+            <h1 className='title'>{cartItem.product.title}</h1>
+            <p className='descripanation d-flex justify-content-center'>{cartItem.product.description}</p>
+            <span className='price pt-2'>₹{cartItem.product.price}</span>
           </div>
 
-          {availableSizes.length > 0 && (
+          {cartItem.product.size && (
             <div className="size mt-3 position-relative">
-              {availableSizes.map((size) => (
-                <button
-                  key={size}
-                  className={`size-media ${selectedSize === size ? 'selected' : ''}`}
-                  onClick={() => handleSizeChange(size)}
-                >
-                  <p className="ps-4">{size}</p>
-                </button>
-              ))}
+              <button
+                className={`size-media ${cartItem.selectedSize === cartItem.product.size ? 'selected' : ''}`}
+                onClick={() => handleSizeChange(cartItem.product.size)}
+              >
+                <p className="ps-4">{cartItem.product.size}</p>
+              </button>
             </div>
           )}
 
@@ -134,7 +130,7 @@ const CartDetailsEdit = ({  onClose }) => {
               <p className="section-title" style={{ fontSize: '17px' }}>Customize my order</p>
               <div className="extra-add">
                 <p className="section-title">Extra Add Ingredients</p>
-                {product.addOnIngridiances?.map((ingredient, index) => (
+                {cartItem.product.addOnIngridiances?.map((ingredient, index) => (
                   <div className="ingredient-option" key={index}>
                     <span>{ingredient.name}</span>
                     <div className="price d-flex align-items-center justify">
@@ -142,7 +138,7 @@ const CartDetailsEdit = ({  onClose }) => {
                       <input
                         type="checkbox"
                         onChange={() => handleAddOnChange(ingredient._id)}
-                        checked={selectedAddOnIngridiants.includes(ingredient._id)}
+                        checked={cartItem.selectedAddOnIngridiants.includes(ingredient._id)}
                       />
                     </div>
                   </div>
@@ -150,7 +146,7 @@ const CartDetailsEdit = ({  onClose }) => {
               </div>
               <div className="remove-ingredients">
                 <p className="section-title">Remove Ingredients</p>
-                {product.customizeIngridiances?.map((ingredient, index) => (
+                {cartItem.product.customizeIngridiances?.map((ingredient, index) => (
                   <div className="ingredient-option" key={index}>
                     <span>{ingredient.name}</span>
                     <div className="price d-flex align-items-center justify">
@@ -158,7 +154,7 @@ const CartDetailsEdit = ({  onClose }) => {
                       <input
                         type="checkbox"
                         onChange={() => handleCustomizeChange(ingredient._id)}
-                        checked={selectedCustomizeIngridiants.includes(ingredient._id)}
+                        checked={cartItem.selectedCustomizeIngridiants.includes(ingredient._id)}
                       />
                     </div>
                   </div>
@@ -170,7 +166,7 @@ const CartDetailsEdit = ({  onClose }) => {
                   <button className="quantity-btn" onClick={handleDecrementQuantity}>-</button>
                   <input
                     type="number"
-                    value={quantity}
+                    value={cartItem.quantity}
                     min="1"
                     className="quantity-input"
                     readOnly
@@ -186,7 +182,7 @@ const CartDetailsEdit = ({  onClose }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default CartDetailsEdit;

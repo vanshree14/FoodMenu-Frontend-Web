@@ -7,13 +7,15 @@ import { useNavigate } from 'react-router-dom';
 import { addItemToCart } from '../../Redux/Slice/CartSlice';
 import { setToast } from '../../Extra/Toast';
 
-const ProductDetails = ({ product, closeDialog }) => {
+const ProductDetails = ({ product, onClose }) => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState('');
   const navigate = useNavigate();
   const [selectedAddOnIngridiants, setSelectedAddOnIngridiants] = useState([]);
   const [selectedCustomizeIngridiants, setSelectedCustomizeIngridiants] = useState([]);
+  const [isClosing, setIsClosing] = useState(false);
+
 
   useEffect(() => {
     if (product) {
@@ -115,14 +117,19 @@ const ProductDetails = ({ product, closeDialog }) => {
 
   const sizeData = product.size;
   const availableSizes = sizeData && sizeData !== '-' ? [sizeData] : [];
-
+  const closeMenu = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 300); 
+  };
   return (
     <div>
-      <div className="menuToggleBtn">
-        <div className="menuToggleWrap">
+     <div className={`menuToggleBtn ${isClosing ? 'closing' : ''}`}>
+     <div className={`menuToggleWrap ${isClosing ? 'closing' : ''}`}>
           <div className="DetailsPic ms-4 me-4">
             <img src={baseURL ? baseURL + product.images?.[0] : pizzaImg} alt='img' />
-            <button className="close-btn" onClick={closeDialog}>
+            <button className="close-btn" onClick={closeMenu}>
               <i className="fa-solid fa-arrow-left"></i>
             </button>
           </div>
@@ -205,6 +212,8 @@ const ProductDetails = ({ product, closeDialog }) => {
                   <button className="quantity-btn" onClick={handleIncrementQuantity}>+</button>
                 </div>
               </div>
+            </div>
+          </div>
               <div className="cart mt-4 mb-5 position-relative" onClick={handleAddToCart}>
                 {
                   product.isCombo ? (
@@ -215,10 +224,7 @@ const ProductDetails = ({ product, closeDialog }) => {
                     <p className='title fs-18'>Add to cart - ₹ {product.price}</p>
                   )
                 }
-                {/* <p>Add to cart - ₹{quantity * product.price}</p> */}
               </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

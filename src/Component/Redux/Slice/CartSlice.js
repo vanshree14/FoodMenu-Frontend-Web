@@ -5,7 +5,7 @@ const initialState = {
   cart: [],
   totalCount: 0,
   isLoading: false,
-  cartLoader: false,
+  // cartLoader: false,
 };
 
 // Thunks
@@ -53,8 +53,8 @@ const CartSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(ItemToCartGet.fulfilled, (state, action) => {
-      state.cart = action.payload?.cart;
-      state.totalCount = action.payload?.totalCount;
+      state.cart = action.payload.cart;
+      state.totalCount = action.payload.totalCount;
       state.isLoading = false;
     });
     builder.addCase(ItemToCartGet.rejected, (state) => {
@@ -103,7 +103,7 @@ const CartSlice = createSlice({
           state.totalCount += 1;
         }
       }
-      state.cartLoader = false;
+      state.isLoading = false;
     });
     builder.addCase(addItemToCart.rejected, (state, action) => {
       state.loading = false;
@@ -122,10 +122,10 @@ const CartSlice = createSlice({
           state.cart[itemIndex] = { ...state.cart[itemIndex], ...cart };
         }
       }
-      state.cartLoader = false;
+      state.isLoading = false;
     });
     builder.addCase(CartEdit.rejected, (state) => {
-      state.cartLoader = false;
+      state.isLoading = false;
     });
 
     // update cart quantity
@@ -142,12 +142,12 @@ const CartSlice = createSlice({
       }
     });
     builder.addCase(CartQuntity.rejected, (state) => {
-      state.loading = false;
+      state.isLoading = false;
     });
 
     // update cart quantity by ID
     builder.addCase(CartQuntityUpdate.pending, (state) => {
-      state.loading = true;
+      state.isLoading = true;
     });
     builder.addCase(CartQuntityUpdate.fulfilled, (state, action) => {
       const cart = action.payload?.cart;
@@ -159,7 +159,7 @@ const CartSlice = createSlice({
       }
     });
     builder.addCase(CartQuntityUpdate.rejected, (state) => {
-      state.loading = false;
+      state.isLoading = false;
     });
 
     // fetch product by code

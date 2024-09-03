@@ -592,7 +592,10 @@
   z-index: 999;
   transition: right 0.3s ease-in-out;
   background: rgba(0, 0, 0, 0.6);
-
+  animation: fadeIn 0.5s ease-in-out forwards;
+  &.closing {
+    animation: fadeOut 0.5s ease-in-out forwards;
+  }
   & .menuToggleWrap {
     transition: 1s ease-in-out;
     position: absolute;
@@ -604,6 +607,11 @@
     transition: 0.5s ease;
     right: 0;
     box-shadow: 7px 10px 40px rgba(13, 52, 79, 0.1);
+    animation: slideIn 0.5s ease-in-out forwards;
+    &.closing {
+      animation: slideOut 0.5s ease-in-out forwards;
+    }
+    
     @include maxMediaQuery($lg) {
       overflow: hidden;
       background-size: 220px 220px;
@@ -643,6 +651,8 @@
         background-color: $prime;
         border: none;
         color: $light;
+        animation: slideIn 0.5s ease-in-out forwards;
+
       }
     }
     & .details {
@@ -678,6 +688,8 @@
     & .order-container {
       display: flex;
       justify-content: center;
+      flex-direction: column;
+      align-items: center;
 
       & .customize-order-box {
         & .section-title {
@@ -795,6 +807,41 @@
     }
   }
 }
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
 .size {
   display: flex;
   justify-content: space-around;
@@ -861,7 +908,6 @@
       width: 36px;
       height: 36px;
     }
-    
   }
   .card {
     border: 1px solid $prime;
@@ -902,59 +948,47 @@
       color: $light;
       text-transform: capitalize;
     }
-    & .order {
+    & .order-btn {
       width: 350px;
       height: 40px;
       background-color: $prime;
       white-space: nowrap;
       border: none;
+      color: $light;
       border-radius: 8px;
       font-size: 16px;
-      @include maxMediaQuery($lg) {
-        display: none !important;
-        height: 235px !important;
-      }
-    }
-    & .cart-img {
-      @media screen and (min-width: 280px) and (max-width: 449px) {
-        width: 79% !important;
-      }
     }
   }
-  .order-name {
-    display: none !important;
-    @include maxMediaQuery($lg) {
-      display: block !important;
-      font-size: 25px;
-      font-weight: 900;
-      line-height: 21px;
-      padding-left: 47px;
-      padding-top: 15px;
+  & .cart-img {
+    @media screen and (min-width: 280px) and (max-width: 449px) {
+      width: 79% !important;
     }
-  }
-  & .order {
-    display: none;
-    @include maxMediaQuery($lg) {
-      display: block !important;
-    }
-    width: 350px;
-    height: 40px;
-    background-color: #9b7a41;
-    border: none;
-    font-size: 16px;
-  }
-  .card-title {
-    margin-bottom: 10px;
-  }
-
-  .card-body ul {
-    margin: 0;
-  }
-
-  img {
-    border-radius: 10px;
   }
 }
+.order-name {
+  display: none !important;
+  @include maxMediaQuery($lg) {
+    display: block !important;
+    font-size: 25px;
+    font-weight: 900;
+    line-height: 21px;
+    padding-left: 47px;
+    padding-top: 15px;
+  }
+}
+
+.card-title {
+  margin-bottom: 10px;
+}
+
+.card-body ul {
+  margin: 0;
+}
+
+img {
+  border-radius: 10px;
+}
+
 // ============== CartDetails end =================================
 
 // ============== profile css start =======================
@@ -1140,8 +1174,3 @@
     }
   }
 }
-
-
-
-
-
