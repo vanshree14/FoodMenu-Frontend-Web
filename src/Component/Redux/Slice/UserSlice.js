@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiInstance } from "../../../Api/AxiosApi";
 
 const initialState = {
-    users: [], 
+    user: [], 
     totalCount: 0,
     isLoading: false,
     isSkeleton: false,
@@ -22,7 +22,7 @@ const UserSlice = createSlice({
             state.isSkeleton = action.meta.arg.command;
           });
           builder.addCase(userGet.fulfilled, (state, action) => {
-            state.users = action.payload?.users;
+            state.user = action.payload?.user;
             state.totalCount = action.payload?.totalCount;
             state.isSkeleton = false;
           });

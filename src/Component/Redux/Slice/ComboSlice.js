@@ -27,6 +27,7 @@ const comboSlice = createSlice({
   extraReducers: (builder) => {
 
     // // comboget
+    
     // builder.addCase(comboget.pending, (state, action) => {
     //   state.isSkeleton = action.meta.arg.command;
     // });
@@ -40,6 +41,7 @@ const comboSlice = createSlice({
     // });
 
     // productsByCategoryGet
+
     builder.addCase(comboCategoryGet.pending, (state) => {
       state.isSkeleton = true;
     })

@@ -7,6 +7,7 @@ import ProductSlice from "./Slice/ProductSlice";
 import CartSlice from "./Slice/CartSlice";
 import ComboSlice from "./Slice/ComboSlice";
 import UserSlice from "./Slice/UserSlice";
+import WishListSlice from "./Slice/WishListSlice";
 
 const Store = configureStore({
     reducer: {
@@ -19,6 +20,7 @@ const Store = configureStore({
         cart: CartSlice,
         combo:ComboSlice,
         users:UserSlice,
+        wishlist:WishListSlice,
        
     },
 });

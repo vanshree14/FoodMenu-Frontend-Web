@@ -15,6 +15,8 @@ import { addItemToCart, CartQuntity, removeFromCart } from '../../Redux/Slice/Ca
 import Loader from '../../Utils/Loader';
 import ProductDetails from './ProductDetails';
 import { comboCategoryGet } from '../../Redux/Slice/ComboSlice';
+import { WishListCreate } from '../../Redux/Slice/WishListSlice';
+import { setToast } from '../../Extra/Toast';
 
 const CategoryProducts = () => {
   const navigate = useNavigate();
@@ -34,6 +36,7 @@ const CategoryProducts = () => {
   const [productCount, setProductCount] = useState(1);
   const { combo } = useSelector((state) => state.combo);
   const { cart } = useSelector((state) => state.cart);
+  const { wishlist } = useSelector((state) => state.wishlist);
   const totalCount = useSelector((state) => state.cart.totalCount);
 
 
@@ -57,9 +60,9 @@ const CategoryProducts = () => {
   };
 
 
-  
 
- 
+
+
   useEffect(() => {
     dispatch(productget({ ...payload, command: false }));
   }, [page, rowPerPage, search]);
@@ -70,23 +73,23 @@ const CategoryProducts = () => {
 
   useEffect(() => {
     const categoryId = location.state?.categoryId || null;
-  
+
     if (!categoryId) {
       console.warn("Category ID is undefined. Ensure it is correctly passed.");
       return;
     }
-  
+
     const payload = {
       categoryId,
       page: page || 0,
       limit: rowPerPage || 10,
-      search: search || '', 
+      search: search || '',
       command: false,
     };
-  
+
     dispatch(productsByCategoryGet(payload));
   }, [page, rowPerPage, search, location.state?.categoryId]);
-  
+
 
   useEffect(() => {
     setData(product);
@@ -188,18 +191,18 @@ const CategoryProducts = () => {
   };
   const handleComboClick = async () => {
     const categoryId = location.state?.categoryId || null;
-  
+
     if (!categoryId) {
       console.warn("Category ID is undefined. Ensure it is correctly passed.");
       return;
     }
-  
+
     const payload = {
       categoryId,
       page: 0,
       limit: 10,
     };
-  
+
     try {
       await dispatch(comboCategoryGet(payload));
 
@@ -208,8 +211,27 @@ const CategoryProducts = () => {
       console.error("Error fetching combo category data:", error);
     }
   };
-  
+
   const currentCategory = category.find(cat => cat._id === categoryId);
+
+  const handleWishList = async (selectedProductId) => {
+    const token = sessionStorage.getItem("token");
+    const decodedToken = JSON.parse(token);
+    const userId = decodedToken._id;
+
+    const payload = {
+      productId: selectedProductId,
+      userId: userId,
+    };
+    dispatch(WishListCreate(payload))
+      .then(() => {
+        setToast('sucees', 'Wishlist created successfully');
+      })
+      .catch((error) => {
+        setToast('Failed to update cart. Please try again.', 'error');
+        console.error(error);
+      });
+  }
 
   return (
     <div>
@@ -274,7 +296,7 @@ const CategoryProducts = () => {
 
           <div className="row mt-5 position-relative">
             {data?.map(pizza => (
-              <div className=" col mb-4 d-flex  justify-content-md-center justify-content-sm-center justify-content-smm-center  " key={pizza._id}>
+              <div className=" col mb-4 d-flex  justify-content-sm-center justify-content-center justify-content-xl-start  " key={pizza._id}>
                 <div className="MainPizzaBox position-relative d-flex">
                   <div className="PizzaImg">
                     <img src={baseURL ? baseURL + pizza.images?.[0] : pizzaImg} alt='img' />
@@ -321,7 +343,7 @@ const CategoryProducts = () => {
                       <button className='show-details cartToggle' onClick={() => handleShowImage(pizza)}>
                         SHOW
                       </button>
-                      <i className="fa-regular fa-heart p65-left" style={{ color: '#9B7A41' }}></i>
+                      <i className="fa-regular fa-heart p65-left" style={{ color: '#9B7A41' }}  onClick={() => handleWishList(pizza._id)}></i>
                     </div>
                   </div>
                 </div>

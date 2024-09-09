@@ -20,6 +20,7 @@ import AuthRoute from './Component/Utils/AuthRoute';
 import OtpRouter from './Component/Utils/OtpRouter';
 import settingicon from './Asstes/Images/gear.webp';
 import ProfileBar from './Component/Pages/Profile/ProfileBar';
+import WishList from './Component/Pages/WishList/WishList';
 
 function App() {
   const dispatch = useDispatch();
@@ -44,7 +45,10 @@ function App() {
           <i class="fa-solid fa-gear"></i>
         </div>
       </div>
+
       {isProfileBarVisible && <ProfileBar toggleProfileBar={toggleProfileBar} isProfileBarVisible={isProfileBarVisible} />}
+
+
       <Routes>
         <Route path='/login' element={<SignIn />} />
         <Route path='/' element={<SignIn />} />
@@ -55,7 +59,7 @@ function App() {
         <Route element={<AuthRoute />}>
           <Route path='/booking/*' element={<Admin />} />
         </Route>
-
+       
 
       </Routes>
     </div>

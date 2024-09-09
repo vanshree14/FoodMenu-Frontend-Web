@@ -338,6 +338,7 @@
   .MainPizzaSection .MainPizzaBox {
     display: unset !important;
     height: unset !important;
+    width: unset !important;
   }
 }
 .MainPizzaSection .MainPizzaBox .old-price {
@@ -860,6 +861,41 @@
     border: none !important;
   }
 }
+.CartDetails .priceshow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(214, 242, 214);
+  border-radius: 7px;
+  font-size: 16px;
+  color: green;
+  font-weight: 700;
+  width: 95px;
+  height: 30px;
+}
+.CartDetails .Delete-wish {
+  padding: 7px 11px;
+  border-radius: 3px;
+}
+.CartDetails .addcart {
+  font-size: 30px;
+  text-align: center;
+  display: flex;
+  white-space: nowrap;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 65px;
+  height: 40px;
+  border-radius: 3px;
+  color: #ffffff;
+  background-color: #9b7a41;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: capitalize;
+  line-height: 16px;
+}
 .CartDetails h1 {
   font-weight: 900;
   font-size: 50px;
@@ -909,6 +945,7 @@
   font-size: 30px;
   text-align: center;
   display: flex;
+  white-space: nowrap;
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -969,6 +1006,181 @@
 
 img {
   border-radius: 10px;
+}
+
+.OrderSection .retrun-icon {
+  border: 3px solid #9b7a41;
+  width: 48px;
+  height: 48px;
+  border-radius: 11px;
+  background-color: #352e23;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+  .OrderSection .retrun-icon {
+    width: 36px;
+    height: 36px;
+  }
+}
+.OrderSection h1 {
+  font-weight: 900;
+  font-size: 50px;
+  white-space: nowrap;
+  line-height: 60.51px;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 768px) {
+  .OrderSection h1 {
+    font-size: 30px !important;
+  }
+}
+
+/* Additional card styling */
+.card {
+  background-color: #fff;
+  border-radius: 11px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 450px;
+  padding-top: 25px;
+}
+.card .checked i {
+  border: 1px solid #1f614a;
+  border-radius: 45px;
+  color: #1f614a;
+  width: 23px;
+  height: 23px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card .card-header {
+  background-color: rgba(155, 122, 65, 0.2196078431);
+  border-radius: unset !important;
+  border-bottom: unset !important;
+}
+.card .card-body {
+  border-bottom: 1px dashed #636363;
+}
+.card .card-body p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #6c6c6c;
+}
+.card .card-body .price {
+  color: #1b1b1b;
+  font-size: 18px;
+  font-weight: 700;
+}
+.card .logo {
+  font-weight: 700;
+  font-size: 12px;
+  background-color: #ffffff;
+  color: #9b7a41;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card .order-id {
+  font-size: 18px;
+  color: #9b7a41;
+  font-weight: 900;
+  padding-left: 14px;
+}
+.card .status {
+  font-size: 12px;
+  font-weight: bold;
+}
+.card .delivered {
+  color: #1f614a;
+  font-size: 16px;
+  font-weight: 900;
+}
+.card .orderview {
+  padding: 15px 0px;
+  color: #6c6c6c;
+  font-weight: 700;
+  font-size: 16px;
+}
+.card button {
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.OrderDetails {
+  /* styles.css */
+  /* Card styling */
+  /* Logo styling */
+  /* Order Meta styling */
+  /* Order Status styling */
+  /* Totals styling */
+  /* Floating totals */
+}
+.OrderDetails .retrun-icon {
+  border: 3px solid #9b7a41;
+  width: 48px;
+  height: 48px;
+  border-radius: 11px;
+  background-color: #352e23;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+  .OrderDetails .retrun-icon {
+    width: 36px;
+    height: 36px;
+  }
+}
+.OrderDetails h1 {
+  font-weight: 900;
+  font-size: 50px;
+  white-space: nowrap;
+  line-height: 60.51px;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 768px) {
+  .OrderDetails h1 {
+    font-size: 30px !important;
+  }
+}
+.OrderDetails .card {
+  background-color: #333;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
+.OrderDetails .logo {
+  font-weight: bold;
+  font-size: 18px;
+}
+.OrderDetails .order-meta {
+  font-size: 14px;
+}
+.OrderDetails .order-status .status-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.OrderDetails .order-status .status-item i {
+  margin-right: 10px;
+  font-size: 1.5rem;
+}
+.OrderDetails .totals p {
+  font-size: 16px;
+  font-weight: bold;
+}
+.OrderDetails .float-end {
+  float: right;
 }
 
 .tigger-arrow {

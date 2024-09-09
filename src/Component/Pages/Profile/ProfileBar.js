@@ -8,18 +8,32 @@ import order from '../../../Asstes/Icon/order.png';
 import cart from '../../../Asstes/Icon/cart.png';
 import call from '../../../Asstes/Icon/call.png';
 import facebook from '../../../Asstes/Icon/facebook.png';
+import heart from '../../../Asstes/Icon/heart.png';
+import instrgram from '../../../Asstes/Icon/instagram.png';
+import { useNavigate } from 'react-router-dom';
 
-const ProfileBar = ({ toggleProfileBar,isProfileBarVisible  }) => {
-  const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
-  
-  const userId = JSON.parse(sessionStorage.getItem('token'))?._id;
+const ProfileBar = ({ toggleProfileBar, isProfileBarVisible }) => {
+    const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.user);
+    const navigate = useNavigate();
 
-  useEffect(() => {
-      if (userId) {
-          dispatch(userGet({ page: 1, limit: 10, search: '', userId }));
-      }
-  }, [dispatch, userId]);
+    const userId = JSON.parse(sessionStorage.getItem('token'))?._id;
+
+    useEffect(() => {
+        if (userId) {
+            dispatch(userGet({ page: 1, limit: 10, search: '', userId }));
+        }
+    }, [dispatch, userId]);
+
+    const handleWishlistClick = () => {
+        navigate("booking/wishlist"); 
+    };
+    const haadlecartclick = () => {
+        navigate("booking/cart"); 
+    };
+    const handleOrderClick = () => {
+        navigate("/booking/orders")
+    }
 
     return (
         <div>
@@ -46,11 +60,14 @@ const ProfileBar = ({ toggleProfileBar,isProfileBarVisible  }) => {
                             </button>
                         </div>
                         <div className="action-list mt-5 d-flex flex-column ">
-                            <button className="action-button">
+                            <button className="action-button" onClick={handleOrderClick}>
                                 <img src={order} alt='img' /> My Orders
                             </button>
-                            <button className="action-button">
+                            <button className="action-button" onClick={haadlecartclick}>
                                 <img src={cart} alt='img' /> My Cart
+                            </button>
+                            <button className="action-button" onClick={handleWishlistClick}>
+                                <img src={heart} alt='img' className='width-46' /> Wishlist
                             </button>
                             <button className="action-button">
                                 <img src={call} alt='img' /> Call Outlet
@@ -59,7 +76,7 @@ const ProfileBar = ({ toggleProfileBar,isProfileBarVisible  }) => {
                                 <img src={facebook} alt='img' /> Facebook
                             </button>
                             <button className="action-button">
-                                <i className="fa-brands fa-instagram fs-20"></i> Instagram
+                                <img src={instrgram} alt='img' className='width-46' /> Instagram
                             </button>
                         </div>
                     </div>
